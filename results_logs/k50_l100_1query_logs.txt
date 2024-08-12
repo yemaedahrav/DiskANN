@@ -1,0 +1,54 @@
+Reading (with alignment) bin file ../../queries.fbin ...Metadata: #pts = 13265, #dims = 384, aligned_dim = 384... allocating aligned memory of 20375040 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: ../../prec1M_gt100.bin, size: 10612008, cache_size: 10612008
+Reading truthset file ../../prec1M_gt100.bin ...
+Metadata: #pts = 13265, #dims = 100... 
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0410606s
+From graph header, expected_file_size: 187881532, _max_observed_degree: 64, _start: 121334, file_frozen_pts: 0
+Loading vamana graph ../../prec1M_test_index_a12...done. Index has 1010812 nodes and 45959565 out-edges, _start is set to 121334
+Num frozen points:0 _nd: 1010812 _start: 121334 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 1010812
+Index loaded
+Using 1 threads to search
+  Ls         QPS     Avg dist cmps  Mean Latency (mus)   99.9 Latency    Recall@5
+=================================================================================
+query_num: 0
+SEARCH distances 0
+ITERATE aligned_query-2.00
+ITERATE init_ids 1
+ITERATE id 121334
+ITERATE distances 29602.00
+ITERATE distance in while loop 29602.00
+ITERATE id_scratch size 57
+ITERATE distance in while loop 26397.00
+ITERATE id_scratch size 64
+ITERATE distance in while loop 22271.00
+ITERATE id_scratch size 22
+ITERATE distance in while loop 17617.00
+ITERATE id_scratch size 48
+ITERATE distance in while loop 18121.00
+ITERATE id_scratch size 27
+ITERATE distance in while loop 18640.00
+ITERATE id_scratch size 60
+ITERATE distance in while loop 16085.00
+ITERATE id_scratch size 63
+ITERATE distance in while loop 16378.00
+ITERATE id_scratch size 62
+ITERATE distance in while loop 16772.00
+ITERATE id_scratch size 53
+ITERATE distance in while loop 15223.00
+ITERATE id_scratch size 59
+ITERATE distance in while loop 13813.00
+ITERATE id_scratch size 56
+ITERATE distance in while loop 15486.00
+ITERATE id_scratch size 59
+ITERATE cmps 630
+SEARCH retval.first 0
+SEARCH retval.second 630
+   5   503916.93              0.05                1.98           0.00        0.01
+Done searching. Now saving results 
+Writing bin: /tmp/res_5_idx_uint32.bin
+bin: #pts = 13265, #dims = 5, size = 265308B
+Finished writing bin.
+Writing bin: /tmp/res_5_dists_float.bin
+bin: #pts = 13265, #dims = 5, size = 265308B
+Finished writing bin.
