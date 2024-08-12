@@ -131,7 +131,7 @@ template <typename T, typename TagT = uint32_t, typename LabelT = uint32_t> clas
     // Added search overload that takes L as parameter, so that we
     // can customize L on a per-query basis without tampering with "Parameters"
     template <typename IDType>
-    DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> search(const T *query, const size_t K, const uint32_t L,
+    DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> search(std::ofstream &distFile, const T *query, const size_t K, const uint32_t L,
                                                            IDType *indices, float *distances = nullptr);
 
     // Initialize space for res_vectors before calling.
@@ -204,7 +204,7 @@ template <typename T, typename TagT = uint32_t, typename LabelT = uint32_t> clas
     // overload of abstract index virtual methods
     virtual void _build(const DataType &data, const size_t num_points_to_load, TagVector &tags) override;
 
-    virtual std::pair<uint32_t, uint32_t> _search(const DataType &query, const size_t K, const uint32_t L,
+    virtual std::pair<uint32_t, uint32_t> _search(std::ofstream &distFile, const DataType &query, const size_t K, const uint32_t L,
                                                   std::any &indices, float *distances = nullptr) override;
     virtual std::pair<uint32_t, uint32_t> _search_with_filters(const DataType &query,
                                                                const std::string &filter_label_raw, const size_t K,
@@ -256,7 +256,7 @@ template <typename T, typename TagT = uint32_t, typename LabelT = uint32_t> clas
     std::vector<uint32_t> get_init_ids();
 
     // The query to use is placed in scratch->aligned_query
-    std::pair<uint32_t, uint32_t> iterate_to_fixed_point(InMemQueryScratch<T> *scratch, const uint32_t Lindex,
+    std::pair<uint32_t, uint32_t> iterate_to_fixed_point(std::ofstream &distFile, InMemQueryScratch<T> *scratch, const uint32_t Lindex,
                                                          const std::vector<uint32_t> &init_ids, bool use_filter,
                                                          const std::vector<LabelT> &filters, bool search_invocation);
 

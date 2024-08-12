@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 #include <cstring>
+#include <fstream>
 #include <iomanip>
 #include <algorithm>
 #include <numeric>
@@ -146,6 +147,14 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
 
     for (uint32_t test_id = 0; test_id < Lvec.size(); test_id++)
     {
+        // diskann::cout<<"L: "<<test_id<<std::endl;
+        std::string filename = "K_" + std::to_string(recall_at) +  "L_" + std::to_string(test_id) +".txt";
+        std::ofstream distFile(filename);
+         if (!distFile) {
+            std::cerr << "Error opening file!" << std::endl;
+            return 1;
+        }
+
         uint32_t L = Lvec[test_id];
         if (L < recall_at)
         {
@@ -162,6 +171,9 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
 #pragma omp parallel for schedule(dynamic, 1)
         for (int64_t i = 0; i < (int64_t)query_num; i++)
         {
+            // std::cout<<"query_num: "<<i<<std::endl;
+            // if (i>0) 
+            //     break;
             auto qs = std::chrono::high_resolution_clock::now();
             if (filtered_search && !tags)
             {
@@ -199,10 +211,12 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
             }
             else
             {
+                std::cout<<"query_num: "<<i<<std::endl;
                 cmp_stats[i] = index
-                                   ->search(query + i * query_aligned_dim, recall_at, L,
+                                   ->search(distFile, query + i * query_aligned_dim, recall_at, L,
                                             query_result_ids[test_id].data() + i * recall_at)
                                    .second;
+                distFile.close();
             }
             auto qe = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> diff = qe - qs;
