@@ -1344,7 +1344,17 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
         {
             LockGuard guard(_locks[node]);
 
-            _graph_store->set_neighbours(node, pruned_list);
+            std::vector<uint32_t> reduced_pruned_list = pruned_list;
+            bool reduce_prune = true;
+            if (reduce_prune){
+                //diskann::cout << "Reducing pruned list for node " << std::endl;
+                float KK = 3;
+                uint32_t reduced_pruned_list_size = (uint32_t)(_indexingRange/KK*(1+(KK-1)*(node_ctr/(visit_order.size()))));
+                reduced_pruned_list_size = std::min(reduced_pruned_list_size, (uint32_t)reduced_pruned_list.size());
+                reduced_pruned_list.resize(reduced_pruned_list_size);
+            }
+
+            _graph_store->set_neighbours(node, reduced_pruned_list);
             assert(_graph_store->get_neighbours((location_t)node).size() <= _indexingRange);
         }
 
@@ -1352,7 +1362,8 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
 
         if (node_ctr % 100000 == 0)
         {
-            diskann::cout << "\r" << (100.0 * node_ctr) / (visit_order.size()) << "% of index build completed. Distance to mediod: " << (float)(distances_to_mediod[node_ctr].first) << std::flush;
+            diskann::cout << "\r" << (100.0 * node_ctr) / (visit_order.size()) << "% of index build completed. Distance to mediod: " << 
+            (float)(distances_to_mediod[node_ctr].first)<<" "<< (uint32_t)(distances_to_mediod[node_ctr].first)<< std::flush;
         }
     }
 
