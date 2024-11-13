@@ -3,18 +3,18 @@ Opened: /nvmessd1/fbv4/gt100_prec40M, size: 10612008, cache_size: 10612008
 Reading truthset file /nvmessd1/fbv4/gt100_prec40M ...
 Metadata: #pts = 13265, #dims = 100... 
 Using AVX2 distance computation DistanceL2Int8.
-Resizing took: 1.35959s
+Resizing took: 1.39361s
 From graph header, expected_file_size: 18732710752, _max_observed_degree: 150, _start: 11890341, file_frozen_pts: 0
 Loading vamana graph /nvmessd1/fbv4/avarhade/prec40M_memory_index_r150_l300.......done. Index has 40469609 nodes and 4642708073 out-edges, _start is set to 11890341
 Num frozen points:0 _nd: 40469609 _start: 11890341 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 40469609
 Index loaded
 Using 48 threads to search
-  Ls         QPS     Avg dist cmps          Avg hops  Mean Latency (mus)   99.9 Latency  Recall@150
-===================================================================================================
- 150    35089.13           1256.54             10.53             1345.06        9769.55       12.69
- 200    34984.63           1277.33             10.71             1361.62        4685.14       12.92
- 250    33379.33           1291.93             10.83             1426.55        5542.06       13.07
- 300    31831.42           1305.90             10.94             1495.68        5633.97       13.24
+  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency  Recall@150
+=============================================================================================
+ 150     1653.80          19477.48      158.08            28946.04       48363.16       58.83
+ 200     1265.67          25174.82      207.77            37852.98       64355.68       60.61
+ 250     1067.40          30768.75      257.52            44870.68       66963.07       61.75
+ 300      921.70          36281.84      307.35            51970.10       72145.30       62.55
 Done searching. Now saving results 
 Writing bin: /home/rakri/avarhade/Dump/tmp_150_idx_uint32.bin
 bin: #pts = 13265, #dims = 150, size = 7959008B

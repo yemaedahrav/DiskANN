@@ -3,33 +3,19 @@ Opened: /nvmessd1/fbv4/gt100_prec40M, size: 10612008, cache_size: 10612008
 Reading truthset file /nvmessd1/fbv4/gt100_prec40M ...
 Metadata: #pts = 13265, #dims = 100... 
 Using AVX2 distance computation DistanceL2Int8.
-Resizing took: 1.36914s
+Resizing took: 1.35403s
 From graph header, expected_file_size: 18732710752, _max_observed_degree: 150, _start: 11890341, file_frozen_pts: 0
 Loading vamana graph /nvmessd1/fbv4/avarhade/prec40M_memory_index_r150_l300.......done. Index has 40469609 nodes and 4642708073 out-edges, _start is set to 11890341
 Num frozen points:0 _nd: 40469609 _start: 11890341 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 40469609
 Index loaded
 Using 48 threads to search
-  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency  Recall@200
+  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency   Recall@50
 =============================================================================================
- 200     1271.34          25174.82      207.77            37658.07       57815.46       45.46
- 250     1013.57          30768.75      257.52            47242.83       71251.78       46.31
- 300      854.99          36281.84      307.35            56038.70       88273.81       46.91
+ 300      851.26          36281.84      307.35            56262.08       85291.09       96.09
 Done searching. Now saving results 
-Writing bin: /home/rakri/avarhade/Dump/tmp_200_idx_uint32.bin
-bin: #pts = 13265, #dims = 200, size = 10612008B
-Finished writing bin.
-Writing bin: /home/rakri/avarhade/Dump/tmp_200_dists_float.bin
-bin: #pts = 13265, #dims = 200, size = 10612008B
-Finished writing bin.
-Writing bin: /home/rakri/avarhade/Dump/tmp_250_idx_uint32.bin
-bin: #pts = 13265, #dims = 200, size = 10612008B
-Finished writing bin.
-Writing bin: /home/rakri/avarhade/Dump/tmp_250_dists_float.bin
-bin: #pts = 13265, #dims = 200, size = 10612008B
-Finished writing bin.
 Writing bin: /home/rakri/avarhade/Dump/tmp_300_idx_uint32.bin
-bin: #pts = 13265, #dims = 200, size = 10612008B
+bin: #pts = 13265, #dims = 50, size = 2653008B
 Finished writing bin.
 Writing bin: /home/rakri/avarhade/Dump/tmp_300_dists_float.bin
-bin: #pts = 13265, #dims = 200, size = 10612008B
+bin: #pts = 13265, #dims = 50, size = 2653008B
 Finished writing bin.

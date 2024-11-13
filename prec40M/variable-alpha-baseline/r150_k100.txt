@@ -3,19 +3,19 @@ Opened: /nvmessd1/fbv4/gt100_prec40M, size: 10612008, cache_size: 10612008
 Reading truthset file /nvmessd1/fbv4/gt100_prec40M ...
 Metadata: #pts = 13265, #dims = 100... 
 Using AVX2 distance computation DistanceL2Int8.
-Resizing took: 1.38057s
+Resizing took: 1.33408s
 From graph header, expected_file_size: 18732710752, _max_observed_degree: 150, _start: 11890341, file_frozen_pts: 0
 Loading vamana graph /nvmessd1/fbv4/avarhade/prec40M_memory_index_r150_l300.......done. Index has 40469609 nodes and 4642708073 out-edges, _start is set to 11890341
 Num frozen points:0 _nd: 40469609 _start: 11890341 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 40469609
 Index loaded
 Using 48 threads to search
-  Ls         QPS     Avg dist cmps          Avg hops  Mean Latency (mus)   99.9 Latency  Recall@100
-===================================================================================================
- 100    35771.82           1256.54             10.53             1325.67        8120.58       19.04
- 150    36094.59           1256.54             10.53             1319.23        4858.69       19.04
- 200    31239.07           1277.33             10.71             1524.39        5830.19       19.37
- 250    29881.35           1291.93             10.83             1596.11        6876.37       19.60
- 300    32488.92           1305.90             10.94             1466.63        5442.98       19.86
+  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency  Recall@100
+=============================================================================================
+ 100     2440.02          13663.56      108.56            19614.39       33564.39       83.69
+ 150     1641.14          19477.48      158.08            29188.52       50192.83       88.24
+ 200     1303.41          25174.82      207.77            36755.93       58230.03       90.90
+ 250     1087.50          30768.75      257.52            44060.14       61748.87       92.62
+ 300      917.14          36281.84      307.35            52225.02       75002.85       93.81
 Done searching. Now saving results 
 Writing bin: /home/rakri/avarhade/Dump/tmp_100_idx_uint32.bin
 bin: #pts = 13265, #dims = 100, size = 5306008B
