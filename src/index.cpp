@@ -884,6 +884,7 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
     {
         auto nbr = best_L_nodes.closest_unexpanded();
         auto n = nbr.id;
+        hops++;
 
         // Add node to expanded nodes to create pool for prune later
         if (!search_invocation)
