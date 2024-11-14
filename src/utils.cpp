@@ -159,7 +159,7 @@ double calculate_recall(uint32_t num_queries, uint32_t *gold_std, float *gs_dist
                 cur_recall++;
             }
         }
-        recall_file << cur_recall << std::endl;
+        recall_file << (int)(100*cur_recall/recall_at) << std::endl;
         total_recall += cur_recall;
     }
     recall_file.close();
