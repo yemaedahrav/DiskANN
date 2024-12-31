@@ -907,47 +907,50 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
         // Find which of the nodes in des have not been visited before
         id_scratch.clear();
         dist_scratch.clear();
-        if (_dynamic_index)
+        std::unordered_set<uint32_t> two_level_neighbors;
+        
+        _locks[n].lock();
+        auto nbrs = _graph_store->get_neighbours(n);
+        _locks[n].unlock();
+        for (auto id : nbrs)
         {
-            LockGuard guard(_locks[n]);
-            for (auto id : _graph_store->get_neighbours(n))
+            assert(id < _max_points + _num_frozen_pts);
+
+            if (use_filter)
             {
-                assert(id < _max_points + _num_frozen_pts);
-
-                if (use_filter)
-                {
-                    // NOTE: NEED TO CHECK IF THIS CORRECT WITH NEW LOCKS.
-                    if (!detect_common_filters(id, search_invocation, filter_labels))
-                        continue;
-                }
-
-                if (is_not_visited(id))
-                {
-                    id_scratch.push_back(id);
-                }
+                // NOTE: NEED TO CHECK IF THIS CORRECT WITH NEW LOCKS.
+                if (!detect_common_filters(id, search_invocation, filter_labels))
+                    continue;
             }
+
+            if (is_not_visited(id) && std::find(id_scratch.begin(), id_scratch.end(), id) == id_scratch.end())
+            {
+                id_scratch.push_back(id);
+                two_level_neighbors.insert(id);
+            }
+            
         }
-        else
+
+        for (auto immediate_neighbor : two_level_neighbors)
         {
-            _locks[n].lock();
-            auto nbrs = _graph_store->get_neighbours(n);
-            _locks[n].unlock();
-            for (auto id : nbrs)
-            {
-                assert(id < _max_points + _num_frozen_pts);
-
-                if (use_filter)
+                _locks[immediate_neighbor].lock();
+                auto nbrs = _graph_store->get_neighbours(immediate_neighbor);
+                _locks[immediate_neighbor].unlock();
+                for (auto id : nbrs)
                 {
-                    // NOTE: NEED TO CHECK IF THIS CORRECT WITH NEW LOCKS.
-                    if (!detect_common_filters(id, search_invocation, filter_labels))
-                        continue;
-                }
+                    assert(id < _max_points + _num_frozen_pts);
 
-                if (is_not_visited(id))
-                {
-                    id_scratch.push_back(id);
+                    if (use_filter)
+                    {
+                        if (!detect_common_filters(id, search_invocation, filter_labels))
+                            continue;
+                    }
+
+                    if (is_not_visited(id) && std::find(id_scratch.begin(), id_scratch.end(), id) == id_scratch.end())
+                    {   
+                        id_scratch.push_back(id);
+                    }
                 }
-            }
         }
 
         // Mark nodes visited
@@ -986,9 +989,10 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
     const std::vector<LabelT> unused_filter_label;
 
     if (!use_filter)
-    {
+    {   // std::cout<<"before iterate_to_fixed_point"<<std::endl;
         _data_store->get_vector(location, scratch->aligned_query());
         iterate_to_fixed_point(scratch, Lindex, init_ids, false, unused_filter_label, false);
+        // std::cout<<"after iterate_to_fixed_point"<<std::endl;
     }
     else
     {
