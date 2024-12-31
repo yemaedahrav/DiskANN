@@ -907,6 +907,7 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
         // Find which of the nodes in des have not been visited before
         id_scratch.clear();
         dist_scratch.clear();
+        std::unordered_set<uint32_t> two_level_neighbors;
         if (_dynamic_index)
         {
             LockGuard guard(_locks[n]);
@@ -925,6 +926,7 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
                 {
                     id_scratch.push_back(id);
                 }
+                two_level_neighbors.insert(id);
             }
         }
         else
@@ -946,6 +948,51 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
                 if (is_not_visited(id))
                 {
                     id_scratch.push_back(id);
+                }
+                two_level_neighbors.insert(id);
+            }
+        }
+
+        for (auto immediate_neighbor : two_level_neighbors)
+        {
+            if (_dynamic_index)
+            {
+                LockGuard guard(_locks[immediate_neighbor]);
+                for (auto id : _graph_store->get_neighbours(immediate_neighbor))
+                {
+                    assert(id < _max_points + _num_frozen_pts);
+
+                    if (use_filter)
+                    {
+                        if (!detect_common_filters(id, search_invocation, filter_labels))
+                            continue;
+                    }
+
+                    if (is_not_visited(id))
+                    {
+                        id_scratch.push_back(id);
+                    }
+                }
+            }
+            else
+            {
+                _locks[immediate_neighbor].lock();
+                auto nbrs = _graph_store->get_neighbours(immediate_neighbor);
+                _locks[immediate_neighbor].unlock();
+                for (auto id : nbrs)
+                {
+                    assert(id < _max_points + _num_frozen_pts);
+
+                    if (use_filter)
+                    {
+                        if (!detect_common_filters(id, search_invocation, filter_labels))
+                            continue;
+                    }
+
+                    if (is_not_visited(id))
+                    {
+                        id_scratch.push_back(id);
+                    }
                 }
             }
         }
