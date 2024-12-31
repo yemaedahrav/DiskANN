@@ -907,7 +907,7 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
         // Find which of the nodes in des have not been visited before
         id_scratch.clear();
         dist_scratch.clear();
-        std::unordered_set<uint32_t> two_level_neighbors;
+        std::unordered_set<unsigned> two_level_neighbors;
         if (_dynamic_index)
         {
             LockGuard guard(_locks[n]);
