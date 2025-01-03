@@ -879,9 +879,18 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
 
     uint32_t hops = 0;
     uint32_t cmps = 0;
+    std::unordered_set<uint32_t> two_level_neighbors;
+    bool flag = false;
 
-    while (best_L_nodes.has_unexpanded_node())
-    {
+    while (true)
+    {   
+        // if (!best_L_nodes.has_unexpanded_node() && flag == true){
+        //     break;
+        // }
+        if (!best_L_nodes.has_unexpanded_node() && flag == false){
+            flag = true;
+        }
+        
         auto nbr = best_L_nodes.closest_unexpanded();
         auto n = nbr.id;
         hops++;
@@ -907,7 +916,7 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
         // Find which of the nodes in des have not been visited before
         id_scratch.clear();
         dist_scratch.clear();
-        std::unordered_set<uint32_t> two_level_neighbors;
+        two_level_neighbors.clear();
         
         _locks[n].lock();
         auto nbrs = _graph_store->get_neighbours(n);
@@ -926,13 +935,15 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
             if (is_not_visited(id) && std::find(id_scratch.begin(), id_scratch.end(), id) == id_scratch.end())
             {
                 id_scratch.push_back(id);
-                two_level_neighbors.insert(id);
+                if (flag){
+                    two_level_neighbors.insert(id);
+                }
             }
             
         }
 
-        for (auto immediate_neighbor : two_level_neighbors)
-        {
+        if(flag){
+            for (auto immediate_neighbor : two_level_neighbors){
                 _locks[immediate_neighbor].lock();
                 auto nbrs = _graph_store->get_neighbours(immediate_neighbor);
                 _locks[immediate_neighbor].unlock();
@@ -951,6 +962,7 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
                         id_scratch.push_back(id);
                     }
                 }
+            }
         }
 
         // Mark nodes visited
@@ -974,6 +986,9 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
         for (size_t m = 0; m < id_scratch.size(); ++m)
         {
             best_L_nodes.insert(Neighbor(id_scratch[m], dist_scratch[m]));
+        }
+        if(flag){
+            break;
         }
     }
     return std::make_pair(hops, cmps);
