@@ -884,9 +884,9 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
 
     while (true)
     {   
-        // if (!best_L_nodes.has_unexpanded_node() && flag == true){
-        //     break;
-        // }
+        if (!best_L_nodes.has_unexpanded_node() && flag == true){
+            break;
+        }
         if (!best_L_nodes.has_unexpanded_node() && flag == false){
             flag = true;
         }
@@ -987,9 +987,9 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
         {
             best_L_nodes.insert(Neighbor(id_scratch[m], dist_scratch[m]));
         }
-        if(flag){
-            break;
-        }
+        // if(flag){
+        //     break;
+        // }
     }
     return std::make_pair(hops, cmps);
 }
