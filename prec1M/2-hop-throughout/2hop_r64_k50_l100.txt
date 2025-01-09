@@ -1,3 +1,5 @@
+2-HOP SEARCH + BUILD
+
 Starting index build with R: 64  Lbuild: 100  alpha: 1.2  #threads: 48
 L2: Using AVX2 distance computation DistanceL2Float
 Using only first 1010812 from file.. 

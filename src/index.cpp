@@ -880,16 +880,16 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
     uint32_t hops = 0;
     uint32_t cmps = 0;
     std::unordered_set<uint32_t> two_level_neighbors;
-    bool flag = false;
+    // bool flag = false;
 
-    while (true)
+    while (best_L_nodes.has_unexpanded_node())
     {   
-        if (!best_L_nodes.has_unexpanded_node() && flag == true){
-            break;
-        }
-        if (!best_L_nodes.has_unexpanded_node() && flag == false){
-            flag = true;
-        }
+        // if (!best_L_nodes.has_unexpanded_node() && flag == true){
+        //     break;
+        // }
+        // if (!best_L_nodes.has_unexpanded_node() && flag == false){
+        //     flag = true;
+        // }
         
         auto nbr = best_L_nodes.closest_unexpanded();
         auto n = nbr.id;
@@ -935,35 +935,34 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
             if (is_not_visited(id) && std::find(id_scratch.begin(), id_scratch.end(), id) == id_scratch.end())
             {
                 id_scratch.push_back(id);
-                if (flag){
+                if(!search_invocation){
                     two_level_neighbors.insert(id);
                 }
             }
-            
         }
 
-        if(flag){
-            for (auto immediate_neighbor : two_level_neighbors){
-                _locks[immediate_neighbor].lock();
-                auto nbrs = _graph_store->get_neighbours(immediate_neighbor);
-                _locks[immediate_neighbor].unlock();
-                for (auto id : nbrs)
-                {
-                    assert(id < _max_points + _num_frozen_pts);
+        // if(flag){
+        //     for (auto immediate_neighbor : two_level_neighbors){
+        //         _locks[immediate_neighbor].lock();
+        //         auto nbrs = _graph_store->get_neighbours(immediate_neighbor);
+        //         _locks[immediate_neighbor].unlock();
+        //         for (auto id : nbrs)
+        //         {
+        //             assert(id < _max_points + _num_frozen_pts);
 
-                    if (use_filter)
-                    {
-                        if (!detect_common_filters(id, search_invocation, filter_labels))
-                            continue;
-                    }
+        //             if (use_filter)
+        //             {
+        //                 if (!detect_common_filters(id, search_invocation, filter_labels))
+        //                     continue;
+        //             }
 
-                    if (is_not_visited(id) && std::find(id_scratch.begin(), id_scratch.end(), id) == id_scratch.end())
-                    {   
-                        id_scratch.push_back(id);
-                    }
-                }
-            }
-        }
+        //             if (is_not_visited(id) && std::find(id_scratch.begin(), id_scratch.end(), id) == id_scratch.end())
+        //             {   
+        //                 id_scratch.push_back(id);
+        //             }
+        //         }
+        //     }
+        // }
 
         // Mark nodes visited
         for (auto id : id_scratch)
@@ -983,10 +982,53 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
         cmps += (uint32_t)id_scratch.size();
 
         // Insert <id, dist> pairs into the pool of candidates
+        int num_inserted = 0;
         for (size_t m = 0; m < id_scratch.size(); ++m)
         {
             best_L_nodes.insert(Neighbor(id_scratch[m], dist_scratch[m]));
+            if(!search_invocation){
+                num_inserted += best_L_nodes.check_inserted(Neighbor(id_scratch[m], dist_scratch[m]));
+            }
         }
+
+        if (num_inserted == 0 && search_invocation == false){
+            for (auto immediate_neighbor : two_level_neighbors){
+                _locks[immediate_neighbor].lock();
+                auto nbrs = _graph_store->get_neighbours(immediate_neighbor);
+                _locks[immediate_neighbor].unlock();
+                for (auto id : nbrs)
+                {
+                    assert(id < _max_points + _num_frozen_pts);
+
+                    if (is_not_visited(id) && std::find(id_scratch.begin(), id_scratch.end(), id) == id_scratch.end())
+                    {   
+                        id_scratch.push_back(id);
+                    }
+                }
+            }
+
+            for (auto id : id_scratch)
+            {
+                if (fast_iterate)
+                {
+                    inserted_into_pool_bs[id] = 1;
+                }
+                else
+                {
+                    inserted_into_pool_rs.insert(id);
+                }
+            }
+            
+            assert(dist_scratch.capacity() >= id_scratch.size());
+            compute_dists(id_scratch, dist_scratch);
+
+            // Insert <id, dist> pairs into the pool of candidates
+            for (size_t m = 0; m < id_scratch.size(); ++m)
+            {
+                best_L_nodes.insert(Neighbor(id_scratch[m], dist_scratch[m]));
+            }
+        }
+
         // if(flag){
         //     break;
         // }
