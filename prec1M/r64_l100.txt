@@ -1,5 +1,5 @@
 Reading (with alignment) bin file /nvmessd1/fbv4/queries.fbin ...Metadata: #pts = 13265, #dims = 384, aligned_dim = 384... allocating aligned memory of 20375040 bytes... done. Copying data to mem_aligned buffer... done.
-Opened: /nvmessd1/fbv4/prec1M_gt100.bin, size: 10612008, cache_size: 10612008
+Opened: /nvmessd1/fbv4/prec1M_gt100.bin, size: 10612008,az  cache_size: 10612008
 Reading truthset file /nvmessd1/fbv4/prec1M_gt100.bin ...
 Metadata: #pts = 13265, #dims = 100... 
 L2: Using AVX2 distance computation DistanceL2Float
