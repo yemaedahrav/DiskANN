@@ -1,30 +1,43 @@
+2-HOP BUILD + STANDARD SEARCH
+
 Starting index build with R: 60  Lbuild: 100  alpha: 1.2  #threads: 48
 L2: Using AVX2 distance computation DistanceL2Float
 Using only first 1010812 from file.. 
 Starting index build with 1010812 points... 
-0% of index build completed.9.89304% of index build completed.19.7861% of index build completed.29.6791% of index build completed.39.5721% of index build completed.49.4652% of index build completed.59.3582% of index build completed.69.2513% of index build completed.79.1443% of index build completed.89.0373% of index build completed.98.9304% of index build completed.Starting final cleanup..done. Link time: 1852.74s
-Index built with degree: max:60  avg:47.904  min:1  count(deg<2):24102
-Indexing time: 1853.35
+
+0% of index build completed.
+9.89304% of index build completed.
+19.7861% of index build completed.
+29.6791% of index build completed.
+39.5721% of index build completed.
+49.4652% of index build completed.
+59.3582% of index build completed.
+69.2513% of index build completed.
+79.1443% of index build completed.
+89.0373% of index build completed.
+98.9304% of index build completed.Starting final cleanup..done. Link time: 1878.67s
+Index built with degree: max:60  avg:47.894  min:1  count(deg<2):24315
+Indexing time: 1879.29
 Not saving tags as they are not enabled.
-Time taken for save: 2.12881s.
+Time taken for save: 2.08947s.
 Reading (with alignment) bin file /nvmessd1/fbv4/queries.fbin ...Metadata: #pts = 13265, #dims = 384, aligned_dim = 384... allocating aligned memory of 20375040 bytes... done. Copying data to mem_aligned buffer... done.
 Opened: /nvmessd1/fbv4/prec1M_gt100.bin, size: 10612008, cache_size: 10612008
 Reading truthset file /nvmessd1/fbv4/prec1M_gt100.bin ...
 Metadata: #pts = 13265, #dims = 100... 
 L2: Using AVX2 distance computation DistanceL2Float
-Resizing took: 0.0350914s
-From graph header, expected_file_size: 197731228, _max_observed_degree: 60, _start: 121334, file_frozen_pts: 0
-Loading vamana graph /nvmessd1/fbv4/avarhade/prec1M_memory_index_2hop_mid_r60_l100...done. Index has 1010812 nodes and 48421989 out-edges, _start is set to 121334
+Resizing took: 0.0350413s
+From graph header, expected_file_size: 197690740, _max_observed_degree: 60, _start: 121334, file_frozen_pts: 0
+Loading vamana graph /nvmessd1/fbv4/avarhade/prec1M_memory_index_2hop_mid_r60_l100...done. Index has 1010812 nodes and 48411867 out-edges, _start is set to 121334
 Num frozen points:0 _nd: 1010812 _start: 121334 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 1010812
 Index loaded
 Using 48 threads to search
   Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency   Recall@50
 =============================================================================================
-  50     4307.46           3164.87       60.61            11117.33       25273.93       64.33
-  75     4461.78           4344.01       84.71            10736.10       21838.30       71.80
- 100     3449.27           5502.01      108.97            13889.33       24632.28       76.69
- 150     2363.67           7783.98      158.14            20273.02       33502.80       82.97
- 300     1316.13          14350.38      306.93            36406.29       55938.34       91.15
+  50     4038.95           3152.08       60.38            11855.42       25827.67       64.31
+  75     3984.42           4331.33       84.48            12023.39       24942.79       71.77
+ 100     3700.44           5494.03      108.83            12942.72       25993.02       76.69
+ 150     2521.65           7773.73      157.96            18995.64       31773.03       82.92
+ 300     1368.51          14341.74      306.78            35014.71       56022.13       91.08
 Done searching. Now saving results 
 Writing bin: /home/rakri/avarhade/Dump/tmp_50_idx_uint32.bin
 bin: #pts = 13265, #dims = 50, size = 2653008B

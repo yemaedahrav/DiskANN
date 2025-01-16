@@ -1,6 +1,6 @@
 2-HOP BUILD + STANDARD SEARCH
 
-Starting index build with R: 64  Lbuild: 100  alpha: 1.2  #threads: 48
+Starting index build with R: 25  Lbuild: 100  alpha: 1.2  #threads: 48
 L2: Using AVX2 distance computation DistanceL2Float
 Using only first 1010812 from file.. 
 Starting index build with 1010812 points... 
@@ -15,29 +15,29 @@ Starting index build with 1010812 points...
 69.2513% of index build completed.
 79.1443% of index build completed.
 89.0373% of index build completed.
-98.9304% of index build completed.Starting final cleanup..done. Link time: 2042.68s
-Index built with degree: max:64  avg:50.7253  min:1  count(deg<2):24081
-Indexing time: 2043.35
+98.9304% of index build completed.Starting final cleanup..done. Link time: 420.264s
+Index built with degree: max:25  avg:21.212  min:1  count(deg<2):28879
+Indexing time: 420.877
 Not saving tags as they are not enabled.
-Time taken for save: 2.09355s.
+Time taken for save: 2.05067s.
 Reading (with alignment) bin file /nvmessd1/fbv4/queries.fbin ...Metadata: #pts = 13265, #dims = 384, aligned_dim = 384... allocating aligned memory of 20375040 bytes... done. Copying data to mem_aligned buffer... done.
 Opened: /nvmessd1/fbv4/prec1M_gt100.bin, size: 10612008, cache_size: 10612008
 Reading truthset file /nvmessd1/fbv4/prec1M_gt100.bin ...
 Metadata: #pts = 13265, #dims = 100... 
 L2: Using AVX2 distance computation DistanceL2Float
-Resizing took: 0.0340613s
-From graph header, expected_file_size: 209138084, _max_observed_degree: 64, _start: 121334, file_frozen_pts: 0
-Loading vamana graph /nvmessd1/fbv4/avarhade/prec1M_memory_index_2hop_mid_r64_l100...done. Index has 1010812 nodes and 51273703 out-edges, _start is set to 121334
+Resizing took: 0.0347574s
+From graph header, expected_file_size: 89808752, _max_observed_degree: 25, _start: 121334, file_frozen_pts: 0
+Loading vamana graph /nvmessd1/fbv4/avarhade/prec1M_memory_index_2hop_mid_r25_l100...done. Index has 1010812 nodes and 21441370 out-edges, _start is set to 121334
 Num frozen points:0 _nd: 1010812 _start: 121334 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 1010812
 Index loaded
 Using 48 threads to search
   Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency   Recall@50
 =============================================================================================
-  50     3847.35           3334.17       60.36            12444.99       29246.38       65.65
-  75     3816.23           4584.24       84.51            12550.61       26526.85       73.05
- 100     3437.77           5811.05      108.84            13935.71       24999.48       77.86
- 150     2325.57           8223.64      158.05            20601.35       40440.74       83.95
- 300     1232.02          15158.29      306.88            38892.63       58068.51       91.82
+  50     7883.65           1538.13       68.39             6067.23       20462.12       44.59
+  75     9161.40           2056.97       93.08             5224.45       12524.22       51.97
+ 100     7684.52           2555.96      117.39             6229.57       16011.25       57.17
+ 150     5252.84           3530.51      166.06             9117.13       16556.82       64.30
+ 300     2901.91           6356.54      313.29            16506.88       28692.40       75.11
 Done searching. Now saving results 
 Writing bin: /home/rakri/avarhade/Dump/tmp_50_idx_uint32.bin
 bin: #pts = 13265, #dims = 50, size = 2653008B
