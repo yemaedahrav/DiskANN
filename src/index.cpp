@@ -885,7 +885,7 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
         auto nbr = best_L_nodes.closest_unexpanded();
         auto n = nbr.id;
         hops++;
-
+        
         // Add node to expanded nodes to create pool for prune later
         if (!search_invocation)
         {
@@ -946,6 +946,74 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
                 if (is_not_visited(id))
                 {
                     id_scratch.push_back(id);
+                }
+            }
+        }
+
+        if (best_L_nodes.has_unexpanded_node())
+        {
+            auto nbr = best_L_nodes.closest_unexpanded();
+            auto n = nbr.id;
+
+            // Add node to expanded nodes to create pool for prune later
+            if (!search_invocation)
+            {
+                if (!use_filter)
+                {
+                    expanded_nodes.emplace_back(nbr);
+                }
+                else
+                { // in filter based indexing, the same point might invoke
+                    // multiple iterate_to_fixed_points, so need to be careful
+                    // not to add the same item to pool multiple times.
+                    if (std::find(expanded_nodes.begin(), expanded_nodes.end(), nbr) == expanded_nodes.end())
+                    {
+                    expanded_nodes.emplace_back(nbr);
+                    }
+                }
+            }
+
+            // Find which of the nodes in des have not been visited before
+            id_scratch.clear();
+            dist_scratch.clear();
+            if (_dynamic_index)
+            {
+                LockGuard guard(_locks[n]);
+                for (auto id : _graph_store->get_neighbours(n))
+                {
+                    assert(id < _max_points + _num_frozen_pts);
+
+                    if (use_filter)
+                    {
+                    if (!detect_common_filters(id, search_invocation, filter_labels))
+                        continue;
+                    }
+
+                    if (is_not_visited(id))
+                    {
+                    id_scratch.push_back(id);
+                    }
+                }
+            }
+            else
+            {
+                _locks[n].lock();
+                auto nbrs = _graph_store->get_neighbours(n);
+                _locks[n].unlock();
+                for (auto id : nbrs)
+                {
+                    assert(id < _max_points + _num_frozen_pts);
+
+                    if (use_filter)
+                    {
+                    if (!detect_common_filters(id, search_invocation, filter_labels))
+                        continue;
+                    }
+
+                    if (is_not_visited(id))
+                    {
+                    id_scratch.push_back(id);
+                    }
                 }
             }
         }
