@@ -13,6 +13,8 @@
 #include "tsl/robin_set.h"
 #include "windows_customizations.h"
 #include "tag_uint128.h"
+#include <map>
+#include <unordered_map>
 #if defined(DISKANN_RELEASE_UNUSED_TCMALLOC_MEMORY_AT_CHECKPOINTS) && defined(DISKANN_BUILD)
 #include "gperftools/malloc_extension.h"
 #endif
@@ -979,16 +981,32 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
 template <typename T, typename TagT, typename LabelT>
 void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t Lindex,
                                                         std::vector<uint32_t> &pruned_list,
-                                                        InMemQueryScratch<T> *scratch, bool use_filter,
+                                                        InMemQueryScratch<T> *scratch, std::vector<uint32_t> &cluster_status, size_t &cluster_id, bool use_filter,
                                                         uint32_t filteredLindex)
 {
     const std::vector<uint32_t> init_ids = get_init_ids();
     const std::vector<LabelT> unused_filter_label;
-
+    
+    float threshold = 15000;
     if (!use_filter)
     {
         _data_store->get_vector(location, scratch->aligned_query());
         iterate_to_fixed_point(scratch, Lindex, init_ids, false, unused_filter_label, false);
+        NeighborPriorityQueue &L_list = scratch->best_l_nodes();
+        // Write code to compare all the nodes in the L list with the node location and check clustering condition here
+        // Update all the if-else conditions to do clustering properly
+        for (size_t i = 0; i < L_list.size(); ++i){
+            uint32_t id = L_list[i].id;
+            if (L_list[i].distance < threshold){
+                if(cluster_status[id] == 0 && cluster_status[location] == 0){ 
+                    cluster_status[id] = cluster_id;
+                    cluster_status[location] = cluster_id;
+                    cluster_id++;
+                }else if(cluster_status[id] == 0 && cluster_status[location] != 0){
+                    cluster_status[id] = cluster_status[location];
+                }
+            }
+        }
     }
     else
     {
@@ -1298,6 +1316,8 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
         _start = calculate_entry_point();
 
     diskann::Timer link_timer;
+    std::vector<uint32_t> cluster_status(visit_order.size(),0);
+    size_t cluster_id = 1;
 
 #pragma omp parallel for schedule(dynamic, 2048)
     for (int64_t node_ctr = 0; node_ctr < (int64_t)(visit_order.size()); node_ctr++)
@@ -1310,11 +1330,11 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
         std::vector<uint32_t> pruned_list;
         if (_filtered_index)
         {
-            search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, true, _filterIndexingQueueSize);
+            //search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, true, _filterIndexingQueueSize);
         }
         else
         {
-            search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch);
+            search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, cluster_status, cluster_id);
         }
         assert(pruned_list.size() > 0);
 
@@ -1369,6 +1389,21 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
     if (_nd > 0)
     {
         diskann::cout << "done. Link time: " << ((double)link_timer.elapsed() / (double)1000000) << "s" << std::endl;
+    }
+
+    // Maintain a hash map of count of all the values in cluster_status vector
+    std::unordered_map<uint32_t, size_t> cluster_count;
+    for (const auto &val : cluster_status)
+    {
+        cluster_count[val]++;
+    }
+
+    // Print the count of all unique values along with the values
+    std::cout << "Cluster Sizes:" << std::endl;
+    std::cout << "Note: Cluster ID 0 means points which are not clustered i.e. not assigned to any cluster" << std::endl;
+    for (const auto &pair : cluster_count)
+    {
+        std::cout << "Cluster ID: " << pair.first << ", Size: " << pair.second << std::endl;
     }
 }
 
@@ -2972,11 +3007,11 @@ int Index<T, TagT, LabelT>::insert_point(const T *point, const TagT tag, const s
     if (_filtered_index)
     {
         // when filtered the best_candidates will share the same label ( label_present > distance)
-        search_for_point_and_prune(location, _indexingQueueSize, pruned_list, scratch, true, _filterIndexingQueueSize);
+        // search_for_point_and_prune(location, _indexingQueueSize, pruned_list, scratch, true, _filterIndexingQueueSize);
     }
     else
     {
-        search_for_point_and_prune(location, _indexingQueueSize, pruned_list, scratch);
+        // search_for_point_and_prune(location, _indexingQueueSize, pruned_list, scratch);
     }
     assert(pruned_list.size() > 0); // should find atleast one neighbour (i.e frozen point acting as medoid)
 
