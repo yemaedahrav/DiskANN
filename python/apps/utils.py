@@ -14,7 +14,7 @@ def get_bin_metadata(bin_file) -> Tuple[int, int]:
 
 def bin_to_numpy(dtype, bin_file) -> np.ndarray:
     npts, ndims = get_bin_metadata(bin_file)
-    return np.fromfile(file=bin_file, dtype=dtype, offset=8).reshape(npts, ndims)
+    return np.fromfile(file=bin_file, dtype=np.float32, offset=8).reshape(npts, ndims)
 
 
 class Timer:

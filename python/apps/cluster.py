@@ -15,7 +15,7 @@ if __name__ == "__main__":
     parser.add_argument("-k", "--num_clusters", type=int, required=True)
     args = parser.parse_args()
 
-    npts, ndims = get_bin_metadata(indexdata_file)
+    npts, ndims = utils.get_bin_metadata(args.indexdata_file)
 
     data = utils.bin_to_numpy(args.data_type, args.indexdata_file)
 

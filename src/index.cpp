@@ -26,6 +26,9 @@
 #include "index.h"
 
 #define MAX_POINTS_FOR_USING_BITSET 10000000
+#include <atomic>
+
+std::atomic<int> counter(0);
 
 namespace diskann
 {
@@ -995,16 +998,29 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
         NeighborPriorityQueue &L_list = scratch->best_l_nodes();
         // Write code to compare all the nodes in the L list with the node location and check clustering condition here
         // Update all the if-else conditions to do clustering properly
+        // diskann::cout<<"Searching for the point: "<<location<<std::endl;
         for (size_t i = 0; i < L_list.size(); ++i){
             uint32_t id = L_list[i].id;
-            if (L_list[i].distance < threshold){
-                if(cluster_status[id] == 0 && cluster_status[location] == 0){ 
-                    cluster_status[id] = cluster_id;
-                    cluster_status[location] = cluster_id;
-                    cluster_id++;
-                }else if(cluster_status[id] == 0 && cluster_status[location] != 0){
-                    cluster_status[id] = cluster_status[location];
-                }
+            auto dist = L_list[i].distance;
+            // if (counter < 10000){
+            //     std::cout << "id: " << id << " dist: " << dist << std::endl;
+            //     counter++;
+            // }
+            // if (dist < threshold){
+            //     if(cluster_status[id] == 0 && cluster_status[location] == 0){ 
+            //         cluster_status[id] = cluster_id;
+            //         cluster_status[location] = cluster_id;
+            //         cluster_id++;
+            //     }else if(cluster_status[location] != 0){
+            //         cluster_status[id] = cluster_status[location];
+            //     }
+            // }
+            if(cluster_status[id] == 0 && cluster_status[location] == 0){ 
+                cluster_status[id] = cluster_id;
+                cluster_status[location] = cluster_id;
+                cluster_id++;
+            }else if(cluster_status[location] != 0){
+                cluster_status[id] = cluster_status[location];
             }
         }
     }
@@ -1399,8 +1415,8 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
     }
 
     // Print the count of all unique values along with the values
+    std::cout << "Total number of clusters: " << cluster_count.size() << std::endl;
     std::cout << "Cluster Sizes:" << std::endl;
-    std::cout << "Note: Cluster ID 0 means points which are not clustered i.e. not assigned to any cluster" << std::endl;
     for (const auto &pair : cluster_count)
     {
         std::cout << "Cluster ID: " << pair.first << ", Size: " << pair.second << std::endl;
@@ -2022,6 +2038,12 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::search(const T *query, con
     auto retval = iterate_to_fixed_point(scratch, L, init_ids, false, unused_filter_label, true);
 
     NeighborPriorityQueue &best_L_nodes = scratch->best_l_nodes();
+    
+    // diskann::cout << "Best L nodes size: " << best_L_nodes.size() << std::endl;
+    // for (size_t i = 0; i < best_L_nodes.size(); ++i) {
+    //     std::cout << best_L_nodes[i].distance << std::endl;
+    // }
+    // std::cout << std::endl;
 
     size_t pos = 0;
     for (size_t i = 0; i < best_L_nodes.size(); ++i)
