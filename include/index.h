@@ -257,19 +257,19 @@ template <typename T, typename TagT = uint32_t, typename LabelT = uint32_t> clas
 
     // The query to use is placed in scratch->aligned_query
     std::pair<uint32_t, uint32_t> iterate_to_fixed_point(InMemQueryScratch<T> *scratch, const uint32_t Lindex,
-                                                         const std::vector<uint32_t> &init_ids, bool use_filter,
+                                                         const std::vector<uint32_t> &init_ids, bool use_filter, std::vector<bool> &cluster_status, std::vector<uint32_t> &node_to_cluster,
                                                          const std::vector<LabelT> &filters, bool search_invocation);
 
     void search_for_point_and_prune(int location, uint32_t Lindex, std::vector<uint32_t> &pruned_list,
-                                    InMemQueryScratch<T> *scratch, std::vector<uint32_t> &cluster_status, size_t &cluster_id, bool use_filter = false,
+                                    InMemQueryScratch<T> *scratch, std::vector<uint32_t> &node_to_cluster, std::unordered_map<uint32_t, std::vector<uint32_t>> &cluster_to_node, std::vector<bool> &cluster_status, bool use_filter = false,
                                     uint32_t filteredLindex = 0);
 
     void prune_neighbors(const uint32_t location, std::vector<Neighbor> &pool, std::vector<uint32_t> &pruned_list,
-                         InMemQueryScratch<T> *scratch);
+                         InMemQueryScratch<T> *scratch, std::vector<bool> &cluster_status);
 
     void prune_neighbors(const uint32_t location, std::vector<Neighbor> &pool, const uint32_t range,
                          const uint32_t max_candidate_size, const float alpha, std::vector<uint32_t> &pruned_list,
-                         InMemQueryScratch<T> *scratch);
+                         InMemQueryScratch<T> *scratch, std::vector<bool> &cluster_status);
 
     // Prunes candidates in @pool to a shorter list @result
     // @pool must be sorted before calling
@@ -279,9 +279,9 @@ template <typename T, typename TagT = uint32_t, typename LabelT = uint32_t> clas
 
     // add reverse links from all the visited nodes to node n.
     void inter_insert(uint32_t n, std::vector<uint32_t> &pruned_list, const uint32_t range,
-                      InMemQueryScratch<T> *scratch);
+                      InMemQueryScratch<T> *scratch, std::vector<bool> &cluster_status);
 
-    void inter_insert(uint32_t n, std::vector<uint32_t> &pruned_list, InMemQueryScratch<T> *scratch);
+    void inter_insert(uint32_t n, std::vector<uint32_t> &pruned_list, InMemQueryScratch<T> *scratch, std::vector<bool> &cluster_status);
 
     // Acquire exclusive _update_lock before calling
     void link();

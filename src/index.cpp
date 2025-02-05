@@ -15,6 +15,7 @@
 #include "tag_uint128.h"
 #include <map>
 #include <unordered_map>
+#include <atomic>
 #if defined(DISKANN_RELEASE_UNUSED_TCMALLOC_MEMORY_AT_CHECKPOINTS) && defined(DISKANN_BUILD)
 #include "gperftools/malloc_extension.h"
 #endif
@@ -26,7 +27,7 @@
 #include "index.h"
 
 #define MAX_POINTS_FOR_USING_BITSET 10000000
-#include <atomic>
+#define MAX_CLUSTER_SIZE 32
 
 std::atomic<int> counter(0);
 
@@ -795,7 +796,7 @@ bool Index<T, TagT, LabelT>::detect_common_filters(uint32_t point_id, bool searc
 
 template <typename T, typename TagT, typename LabelT>
 std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
-    InMemQueryScratch<T> *scratch, const uint32_t Lsize, const std::vector<uint32_t> &init_ids, bool use_filter,
+    InMemQueryScratch<T> *scratch, const uint32_t Lsize, const std::vector<uint32_t> &init_ids, bool use_filter, std::vector<bool> &cluster_status, std::vector<uint32_t> &node_to_cluster,
     const std::vector<LabelT> &filter_labels, bool search_invocation)
 {
     std::vector<Neighbor> &expanded_nodes = scratch->pool();
@@ -846,7 +847,13 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
 
     // Initialize the candidate pool with starting points
     for (auto id : init_ids)
-    {
+    {   
+        // if (cluster_status[id] == false)
+        // {
+        //     id = node_to_cluster[id];
+        // }
+        //diskann::cout<<"Search Start (medoid/cluster centre of medoid): "<<id<<std::endl;
+
         if (id >= _max_points + _num_frozen_pts)
         {
             diskann::cerr << "Out of range loc found as an edge : " << id << std::endl;
@@ -889,6 +896,10 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
     {
         auto nbr = best_L_nodes.closest_unexpanded();
         auto n = nbr.id;
+        // if (cluster_status[n] == false)
+        // {
+        //     continue;
+        // }
         hops++;
 
         // Add node to expanded nodes to create pool for prune later
@@ -974,54 +985,65 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
 
         // Insert <id, dist> pairs into the pool of candidates
         for (size_t m = 0; m < id_scratch.size(); ++m)
-        {
+        {   
             best_L_nodes.insert(Neighbor(id_scratch[m], dist_scratch[m]));
         }
     }
+    // diskann::cout<<"L list: ";
+    // for (size_t i = 0; i < best_L_nodes.size(); ++i)
+    // {
+    //     std::cout << best_L_nodes[i].id << " ";
+    // }
+    // std::cout << std::endl;
     return std::make_pair(hops, cmps);
 }
 
 template <typename T, typename TagT, typename LabelT>
 void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t Lindex,
                                                         std::vector<uint32_t> &pruned_list,
-                                                        InMemQueryScratch<T> *scratch, std::vector<uint32_t> &cluster_status, size_t &cluster_id, bool use_filter,
+                                                        InMemQueryScratch<T> *scratch, std::vector<uint32_t> &node_to_cluster, std::unordered_map<uint32_t, std::vector<uint32_t>> &cluster_to_node, std::vector<bool> &cluster_status, bool use_filter,
                                                         uint32_t filteredLindex)
 {
     const std::vector<uint32_t> init_ids = get_init_ids();
     const std::vector<LabelT> unused_filter_label;
+
+    // diskann::cout<<"init_ids (within search_for_point_and_prune): ";
+    // for (size_t i = 0; i < init_ids.size(); ++i)
+    // {
+    //     std::cout << init_ids[i] << " ";
+    // }
+    // std::cout << std::endl;
     
     float threshold = 15000;
+    bool create_new_cluster = true;
     if (!use_filter)
     {
         _data_store->get_vector(location, scratch->aligned_query());
-        iterate_to_fixed_point(scratch, Lindex, init_ids, false, unused_filter_label, false);
+        iterate_to_fixed_point(scratch, Lindex, init_ids, false, cluster_status, node_to_cluster, unused_filter_label, false);
         NeighborPriorityQueue &L_list = scratch->best_l_nodes();
         // Write code to compare all the nodes in the L list with the node location and check clustering condition here
-        // Update all the if-else conditions to do clustering properly
-        // diskann::cout<<"Searching for the point: "<<location<<std::endl;
-        for (size_t i = 0; i < L_list.size(); ++i){
+        for (size_t i = 0; i < L_list.size(); ++i)
+        {
             uint32_t id = L_list[i].id;
             auto dist = L_list[i].distance;
-            // if (counter < 10000){
-            //     std::cout << "id: " << id << " dist: " << dist << std::endl;
-            //     counter++;
-            // }
-            // if (dist < threshold){
-            //     if(cluster_status[id] == 0 && cluster_status[location] == 0){ 
-            //         cluster_status[id] = cluster_id;
-            //         cluster_status[location] = cluster_id;
-            //         cluster_id++;
-            //     }else if(cluster_status[location] != 0){
-            //         cluster_status[id] = cluster_status[location];
-            //     }
-            // }
-            if(cluster_status[id] == 0 && cluster_status[location] == 0){ 
-                cluster_status[id] = cluster_id;
-                cluster_status[location] = cluster_id;
-                cluster_id++;
-            }else if(cluster_status[location] != 0){
-                cluster_status[id] = cluster_status[location];
+            if (dist < threshold)
+            {
+                auto cur_cluster_size = cluster_to_node[id].size();
+                if(cur_cluster_size < MAX_CLUSTER_SIZE)
+                {
+                    node_to_cluster[location] = id;
+                    cluster_to_node[id].push_back(location);
+                    create_new_cluster = false;
+                    break;
+                }
             }
+        }
+        if(create_new_cluster)
+        {   
+            //diskann::cout<<"New Cluster (point id): "<<location<<std::endl;
+            node_to_cluster[location] = location;
+            cluster_to_node[location].push_back(location);
+            cluster_status[location] = true;
         }
     }
     else
@@ -1037,7 +1059,7 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
             tl.unlock();
 
         _data_store->get_vector(location, scratch->aligned_query());
-        iterate_to_fixed_point(scratch, filteredLindex, filter_specific_start_nodes, true,
+        iterate_to_fixed_point(scratch, filteredLindex, filter_specific_start_nodes, true, cluster_status, node_to_cluster,
                                _location_to_labels[location], false);
 
         // combine candidate pools obtained with filter and unfiltered criteria.
@@ -1051,7 +1073,7 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
         scratch->clear();
 
         _data_store->get_vector(location, scratch->aligned_query());
-        iterate_to_fixed_point(scratch, Lindex, init_ids, false, unused_filter_label, false);
+        iterate_to_fixed_point(scratch, Lindex, init_ids, false, cluster_status, node_to_cluster, unused_filter_label, false);
 
         for (auto unfiltered_neighbour : scratch->pool())
         {
@@ -1082,7 +1104,7 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
         throw diskann::ANNException("ERROR: non-empty pruned_list passed", -1, __FUNCSIG__, __FILE__, __LINE__);
     }
 
-    prune_neighbors(location, pool, pruned_list, scratch);
+    prune_neighbors(location, pool, pruned_list, scratch, cluster_status);
 
     assert(!pruned_list.empty());
     assert(_graph_store->get_total_points() == _max_points + _num_frozen_pts);
@@ -1186,15 +1208,15 @@ void Index<T, TagT, LabelT>::occlude_list(const uint32_t location, std::vector<N
 
 template <typename T, typename TagT, typename LabelT>
 void Index<T, TagT, LabelT>::prune_neighbors(const uint32_t location, std::vector<Neighbor> &pool,
-                                             std::vector<uint32_t> &pruned_list, InMemQueryScratch<T> *scratch)
+                                             std::vector<uint32_t> &pruned_list, InMemQueryScratch<T> *scratch, std::vector<bool> &cluster_status)
 {
-    prune_neighbors(location, pool, _indexingRange, _indexingMaxC, _indexingAlpha, pruned_list, scratch);
+    prune_neighbors(location, pool, _indexingRange, _indexingMaxC, _indexingAlpha, pruned_list, scratch, cluster_status);
 }
 
 template <typename T, typename TagT, typename LabelT>
 void Index<T, TagT, LabelT>::prune_neighbors(const uint32_t location, std::vector<Neighbor> &pool, const uint32_t range,
                                              const uint32_t max_candidate_size, const float alpha,
-                                             std::vector<uint32_t> &pruned_list, InMemQueryScratch<T> *scratch)
+                                             std::vector<uint32_t> &pruned_list, InMemQueryScratch<T> *scratch, std::vector<bool> &cluster_status)
 {
     if (pool.size() == 0)
     {
@@ -1213,6 +1235,16 @@ void Index<T, TagT, LabelT>::prune_neighbors(const uint32_t location, std::vecto
 
     // sort the pool based on distance to query and prune it with occlude_list
     std::sort(pool.begin(), pool.end());
+    std::vector<Neighbor> temp_pool;
+    for (const auto &neighbor : pool)
+    {
+        if (cluster_status[neighbor.id])
+        {
+            temp_pool.push_back(neighbor);
+        }
+    }
+    pool.swap(temp_pool);
+
     pruned_list.clear();
     pruned_list.reserve(range);
 
@@ -1230,11 +1262,21 @@ void Index<T, TagT, LabelT>::prune_neighbors(const uint32_t location, std::vecto
                 pruned_list.push_back(node.id);
         }
     }
+
+    std::vector<uint32_t> temp_pruned_list;
+    for (const auto &id : pruned_list)
+    {
+        if (cluster_status[id])
+        {
+            temp_pruned_list.push_back(id);
+        }
+    }
+    pruned_list.swap(temp_pruned_list);
 }
 
 template <typename T, typename TagT, typename LabelT>
 void Index<T, TagT, LabelT>::inter_insert(uint32_t n, std::vector<uint32_t> &pruned_list, const uint32_t range,
-                                          InMemQueryScratch<T> *scratch)
+                                          InMemQueryScratch<T> *scratch, std::vector<bool> &cluster_status)
 {
     const auto &src_pool = pruned_list;
 
@@ -1287,7 +1329,21 @@ void Index<T, TagT, LabelT>::inter_insert(uint32_t n, std::vector<uint32_t> &pru
                 }
             }
             std::vector<uint32_t> new_out_neighbors;
-            prune_neighbors(des, dummy_pool, new_out_neighbors, scratch);
+            prune_neighbors(des, dummy_pool, new_out_neighbors, scratch, cluster_status);
+
+            if (!new_out_neighbors.empty())
+            {
+                std::vector<uint32_t> temp_new_out_neighbors;
+                for (const auto &id : new_out_neighbors)
+                {
+                    if (cluster_status[id])
+                    {
+                        temp_new_out_neighbors.push_back(id);
+                    }
+                }
+                new_out_neighbors.swap(temp_new_out_neighbors);
+            }
+
             {
                 LockGuard guard(_locks[des]);
 
@@ -1298,9 +1354,9 @@ void Index<T, TagT, LabelT>::inter_insert(uint32_t n, std::vector<uint32_t> &pru
 }
 
 template <typename T, typename TagT, typename LabelT>
-void Index<T, TagT, LabelT>::inter_insert(uint32_t n, std::vector<uint32_t> &pruned_list, InMemQueryScratch<T> *scratch)
+void Index<T, TagT, LabelT>::inter_insert(uint32_t n, std::vector<uint32_t> &pruned_list, InMemQueryScratch<T> *scratch, std::vector<bool> &cluster_status)
 {
-    inter_insert(n, pruned_list, _indexingRange, scratch);
+    inter_insert(n, pruned_list, _indexingRange, scratch, cluster_status);
 }
 
 template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT>::link()
@@ -1330,15 +1386,23 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
         _start = (uint32_t)_max_points;
     else
         _start = calculate_entry_point();
+    diskann:: cout<<"Start (within link): "<<_start<<std::endl;
+
+    // TODO: Write code to calculate the start point for the search. It should be the medoid ideally.
+
 
     diskann::Timer link_timer;
-    std::vector<uint32_t> cluster_status(visit_order.size(),0);
-    size_t cluster_id = 1;
+    // Cluster status will store a boolean denoting whether the node is a cluster centre or not i.e it is part of the graph or not
+    std::vector<bool> cluster_status(visit_order.size(), false);
+    cluster_status[_start] = true;
+    std::vector<uint32_t> node_to_cluster = visit_order;
+    std::unordered_map<uint32_t, std::vector<uint32_t>> cluster_to_node;
 
 #pragma omp parallel for schedule(dynamic, 2048)
-    for (int64_t node_ctr = 0; node_ctr < (int64_t)(visit_order.size()); node_ctr++)
+    for (int64_t node_ctr = 0; node_ctr < (int64_t)visit_order.size(); node_ctr++)
     {
         auto node = visit_order[node_ctr];
+        // diskann::cout<<"Node: "<<node<<std::endl;
 
         // Find and add appropriate graph edges
         ScratchStoreManager<InMemQueryScratch<T>> manager(_query_scratch);
@@ -1346,22 +1410,44 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
         std::vector<uint32_t> pruned_list;
         if (_filtered_index)
         {
-            //search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, true, _filterIndexingQueueSize);
+            search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, node_to_cluster, cluster_to_node, cluster_status, true, _filterIndexingQueueSize);
         }
         else
         {
-            search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, cluster_status, cluster_id);
+            search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, node_to_cluster, cluster_to_node, cluster_status);
+        }
+        if (!cluster_status[node])
+        {
+            continue;
         }
         assert(pruned_list.size() > 0);
 
+        if (!pruned_list.empty())
+        {
+            std::vector<uint32_t> temp_pruned_list;
+            for (const auto &id : pruned_list)
+            {
+                if (cluster_status[id])
+                {
+                    temp_pruned_list.push_back(id);
+                }
+            }
+            pruned_list.swap(temp_pruned_list);
+        }
+
         {
             LockGuard guard(_locks[node]);
-
+            // diskann::cout<<"Setting Neighbours for node: "<<node<<" Neighbours: ";
+            // for (const auto &id : pruned_list)
+            // {
+            //     diskann::cout<<id<<" ";
+            // }
+            // diskann::cout<<std::endl<<std::endl;
             _graph_store->set_neighbours(node, pruned_list);
             assert(_graph_store->get_neighbours((location_t)node).size() <= _indexingRange);
         }
 
-        inter_insert(node, pruned_list, scratch);
+        inter_insert(node, pruned_list, scratch, cluster_status);
 
         if (node_ctr % 100000 == 0)
         {
@@ -1375,8 +1461,13 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
         diskann::cout << "Starting final cleanup.." << std::flush;
     }
 #pragma omp parallel for schedule(dynamic, 2048)
-    for (int64_t node_ctr = 0; node_ctr < (int64_t)(visit_order.size()); node_ctr++)
-    {
+    for (int64_t node_ctr = 0; node_ctr < (int64_t)visit_order.size(); node_ctr++)
+    {   
+        if (!cluster_status[node_ctr])
+        {
+            continue;
+        }
+
         auto node = visit_order[node_ctr];
         if (_graph_store->get_neighbours((location_t)node).size() > _indexingRange)
         {
@@ -1396,7 +1487,35 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
                     dummy_visited.insert(cur_nbr);
                 }
             }
-            prune_neighbors(node, dummy_pool, new_out_neighbors, scratch);
+            // Remove points from dummy_pool which have cluster_status as false i.e. they are not part of the graph
+            if (!dummy_pool.empty())
+            {
+                std::vector<Neighbor> temp_dummy_pool;
+                for (const auto &neighbor : dummy_pool)
+                {
+                    if (cluster_status[neighbor.id])
+                    {
+                        temp_dummy_pool.push_back(neighbor);
+                    }
+                }
+                dummy_pool.swap(temp_dummy_pool);
+            }
+
+            prune_neighbors(node, dummy_pool, new_out_neighbors, scratch, cluster_status);
+
+            // Remove points from new_out_neighbors which have cluster_status as false i.e. they are not part of the graph
+            if (!new_out_neighbors.empty())
+            {
+                std::vector<uint32_t> temp_new_out_neighbors;
+                for (const auto &id : new_out_neighbors)
+                {
+                    if (cluster_status[id])
+                    {
+                        temp_new_out_neighbors.push_back(id);
+                    }
+                }
+                new_out_neighbors.swap(temp_new_out_neighbors);
+            }
 
             _graph_store->clear_neighbours((location_t)node);
             _graph_store->set_neighbours((location_t)node, new_out_neighbors);
@@ -1407,20 +1526,22 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
         diskann::cout << "done. Link time: " << ((double)link_timer.elapsed() / (double)1000000) << "s" << std::endl;
     }
 
-    // Maintain a hash map of count of all the values in cluster_status vector
-    std::unordered_map<uint32_t, size_t> cluster_count;
-    for (const auto &val : cluster_status)
-    {
-        cluster_count[val]++;
-    }
-
-    // Print the count of all unique values along with the values
-    std::cout << "Total number of clusters: " << cluster_count.size() << std::endl;
+    //TODO: Write functions to save cluster_to_node mapping and node_to_cluster_mapping in files to be loaded during search. The saved files be used in running search only search
+    
+    std::cout << "Total number of clusters: " << cluster_to_node.size() << std::endl;
     std::cout << "Cluster Sizes:" << std::endl;
-    for (const auto &pair : cluster_count)
+    float cluster_size_sum = 0;
+    for (const auto &pair : cluster_to_node)
     {
-        std::cout << "Cluster ID: " << pair.first << ", Size: " << pair.second << std::endl;
+        std::cout << "Cluster ID: " << pair.first << ", Size: " << pair.second.size() << ", Nodes: ";
+        cluster_size_sum += pair.second.size();
+        for (const auto &node : pair.second)
+        {
+            std::cout << node << " ";
+        }
+        std::cout << std::endl;
     }
+    diskann::cout<<"Average Cluster Size: "<<(float)cluster_size_sum/(float)cluster_to_node.size()<<std::endl; 
 }
 
 template <typename T, typename TagT, typename LabelT>
@@ -1456,8 +1577,9 @@ void Index<T, TagT, LabelT>::prune_all_neighbors(const uint32_t max_degree, cons
                         dummy_visited.insert(cur_nbr);
                     }
                 }
-
-                prune_neighbors((uint32_t)node, dummy_pool, range, maxc, alpha, new_out_neighbors, scratch);
+                // Dummy Code just to match the signature.The cluster status doesn't hold anything meaningful
+                std::vector<bool> cluster_status;
+                prune_neighbors((uint32_t)node, dummy_pool, range, maxc, alpha, new_out_neighbors, scratch, cluster_status);
                 _graph_store->clear_neighbours((location_t)node);
                 _graph_store->set_neighbours((location_t)node, new_out_neighbors);
             }
@@ -2035,43 +2157,52 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::search(const T *query, con
 
     _data_store->preprocess_query(query, scratch);
 
-    auto retval = iterate_to_fixed_point(scratch, L, init_ids, false, unused_filter_label, true);
+    //TODO: Write functions to load clusters into _cluster_to_node mapping and _node_to_cluster_mapping use it here
+    //TODO: We need node to cluster mapping as well to find the correct starting point for the search
+
+    // Update the dummy variables, written now just to match the signature
+    std::vector<bool> cluster_status(_max_points + _num_frozen_pts, true); 
+    std::vector<uint32_t> node_to_cluster(_max_points + _num_frozen_pts, 0);
+    auto retval = iterate_to_fixed_point(scratch, L, init_ids, false, cluster_status, node_to_cluster, unused_filter_label, true);
 
     NeighborPriorityQueue &best_L_nodes = scratch->best_l_nodes();
     
-    // diskann::cout << "Best L nodes size: " << best_L_nodes.size() << std::endl;
-    // for (size_t i = 0; i < best_L_nodes.size(); ++i) {
-    //     std::cout << best_L_nodes[i].distance << std::endl;
-    // }
-    // std::cout << std::endl;
+    
 
-    size_t pos = 0;
-    for (size_t i = 0; i < best_L_nodes.size(); ++i)
-    {
-        if (best_L_nodes[i].id < _max_points)
-        {
-            // safe because Index uses uint32_t ids internally
-            // and IDType will be uint32_t or uint64_t
-            indices[pos] = (IdType)best_L_nodes[i].id;
-            if (distances != nullptr)
-            {
-#ifdef EXEC_ENV_OLS
-                // DLVS expects negative distances
-                distances[pos] = best_L_nodes[i].distance;
-#else
-                distances[pos] = _dist_metric == diskann::Metric::INNER_PRODUCT ? -1 * best_L_nodes[i].distance
-                                                                                : best_L_nodes[i].distance;
-#endif
-            }
-            pos++;
-        }
-        if (pos == K)
-            break;
-    }
-    if (pos < K)
-    {
-        diskann::cerr << "Found pos: " << pos << "fewer than K elements " << K << " for query" << std::endl;
-    }
+    // Lambda to batch compute query<-> node distances in PQ space
+    // auto compute_dists = [this, scratch, pq_dists](const std::vector<uint32_t> &ids, std::vector<float> &dists_out) {
+    //     _pq_data_store->get_distance(scratch->aligned_query(), ids, dists_out, scratch);
+    // };
+
+    // std::priority_queue<std::pair<float, uint32_t>> best_L_nodes_refined;
+    // for (size_t i = 0; i < best_L_nodes.size(); ++i)
+    // {   
+    //     std::vector<uint32_t> id_vec = _cluster_to_points[best_L_nodes[i].id];
+    //     std::vector<float> dist_vec(id_vec.size());
+    //     compute_dists(id_vec, dist_vec);
+    //     for (size_t j = 0; j < id_vec.size(); ++j)
+    //     {
+    //         best_L_nodes_refined.push(std::make_pair(-dist_vec[j], id_vec[j]));
+    //     }
+    // }
+
+    // size_t pos = 0;
+    // while (!best_L_nodes_refined.empty() && pos < K)
+    // {
+    //     auto node = best_L_nodes_refined.top();
+    //     best_L_nodes_refined.pop();
+    //     if (node.second < _max_points)
+    //     {
+    //         // safe because Index uses uint32_t ids internally
+    //         // and IDType will be uint32_t or uint64_t
+    //         indices[pos] = (IdType)node.second;
+    //         pos++;
+    //     }
+    // }
+    // if (pos < K)
+    // {
+    //     diskann::cerr << "Found pos: " << pos << "fewer than K elements " << K << " for query" << std::endl;
+    // }
 
     return retval;
 }
@@ -2145,7 +2276,10 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::search_with_filters(const 
     filter_vec.emplace_back(filter_label);
 
     _data_store->preprocess_query(query, scratch);
-    auto retval = iterate_to_fixed_point(scratch, L, init_ids, true, filter_vec, true);
+    // Won't be used in search time, passing just to match the signature.
+    std::vector<bool> cluster_status(_max_points + _num_frozen_pts, true); 
+    std::vector<uint32_t> node_to_cluster(_max_points + _num_frozen_pts, 0);
+    auto retval = iterate_to_fixed_point(scratch, L, init_ids, true, cluster_status, node_to_cluster, filter_vec, true);
 
     auto best_L_nodes = scratch->best_l_nodes();
 
@@ -2226,17 +2360,21 @@ size_t Index<T, TagT, LabelT>::search_with_tags(const T *query, const uint64_t K
     //_distance->preprocess_query(query, _data_store->get_dims(),
     // scratch->aligned_query());
     _data_store->preprocess_query(query, scratch);
+
+    // Dummy Code just to match the signature. Won't be used in search time, passing just to match the signature.
+    std::vector<bool> cluster_status(_max_points + _num_frozen_pts, true); 
+    std::vector<uint32_t> node_to_cluster(_max_points + _num_frozen_pts, 0);
     if (!use_filters)
     {
         const std::vector<LabelT> unused_filter_label;
-        iterate_to_fixed_point(scratch, L, init_ids, false, unused_filter_label, true);
+        iterate_to_fixed_point(scratch, L, init_ids, false, cluster_status, node_to_cluster, unused_filter_label, true);
     }
     else
     {
         std::vector<LabelT> filter_vec;
         auto converted_label = this->get_converted_label(filter_label);
         filter_vec.push_back(converted_label);
-        iterate_to_fixed_point(scratch, L, init_ids, true, filter_vec, true);
+        iterate_to_fixed_point(scratch, L, init_ids, true, cluster_status, node_to_cluster, filter_vec, true);
     }
 
     NeighborPriorityQueue &best_L_nodes = scratch->best_l_nodes();
@@ -3059,8 +3197,9 @@ int Index<T, TagT, LabelT>::insert_point(const T *point, const TagT tag, const s
         if (_conc_consolidate)
             tlock.unlock();
     }
-
-    inter_insert(location, pruned_list, scratch);
+    // Dummy Code just to match the signature.The cluster status doesn't hold anything meaningful
+    std::vector<bool> cluster_status;
+    inter_insert(location, pruned_list, scratch, cluster_status);
 
     return 0;
 }
