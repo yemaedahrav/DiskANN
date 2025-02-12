@@ -743,6 +743,7 @@ template <typename T, typename TagT, typename LabelT> uint32_t Index<T, TagT, La
     return _data_store->calculate_medoid();
 }
 
+// TODO: Make this cluster-point aware i.e not all points can be entry points 
 template <typename T, typename TagT, typename LabelT> std::vector<uint32_t> Index<T, TagT, LabelT>::get_init_ids()
 {
     std::vector<uint32_t> init_ids;
@@ -794,6 +795,7 @@ bool Index<T, TagT, LabelT>::detect_common_filters(uint32_t point_id, bool searc
     return (common_filters.size() > 0);
 }
 
+// The iterate_to_fixed_point function doesn't really use the cluster_to_node or cluster_status vectors. It is just a placeholder for future use. They might be required in other implementations
 template <typename T, typename TagT, typename LabelT>
 std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
     InMemQueryScratch<T> *scratch, const uint32_t Lsize, const std::vector<uint32_t> &init_ids, bool use_filter, std::vector<bool> &cluster_status, std::vector<uint32_t> &node_to_cluster,
@@ -1014,7 +1016,7 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
     // }
     // std::cout << std::endl;
     
-    float threshold = 15000;
+    float threshold = 20000;
     bool create_new_cluster = true;
     if (!use_filter)
     {
@@ -1022,10 +1024,12 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
         iterate_to_fixed_point(scratch, Lindex, init_ids, false, cluster_status, node_to_cluster, unused_filter_label, false);
         NeighborPriorityQueue &L_list = scratch->best_l_nodes();
         // Write code to compare all the nodes in the L list with the node location and check clustering condition here
+        //diskann::cout<<"Distance: "<<std::endl;
         for (size_t i = 0; i < L_list.size(); ++i)
         {
             uint32_t id = L_list[i].id;
             auto dist = L_list[i].distance;
+            //diskann::cout<<dist<<" ";
             if (dist < threshold)
             {
                 auto cur_cluster_size = cluster_to_node[id].size();
@@ -1038,6 +1042,7 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
                 }
             }
         }
+        //diskann::cout<<std::endl;
         if(create_new_cluster)
         {   
             //diskann::cout<<"New Cluster (point id): "<<location<<std::endl;
@@ -1526,8 +1531,27 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
         diskann::cout << "done. Link time: " << ((double)link_timer.elapsed() / (double)1000000) << "s" << std::endl;
     }
 
-    //TODO: Write functions to save cluster_to_node mapping and node_to_cluster_mapping in files to be loaded during search. The saved files be used in running search only search
+    // Save cluster_to_node mapping in file to be loaded during search. The saved file will be used in running search only search
+    std::ofstream out;
+    std::string filename = "/nvmessd1/fbv4/avarhade/cluster_to_node_mapping.bin";
+    out.open(filename, std::ios::binary | std::ios::in | std::ios::out);
     
+    size_t file_offset = 0;
+    size_t _max_cluster_size = MAX_CLUSTER_SIZE;
+    size_t _num_clusters = cluster_to_node.size();
+    out.seekp(file_offset, out.beg);
+    out.write((char *)&_num_clusters, sizeof(size_t));
+    out.write((char *)&_max_cluster_size, sizeof(size_t));
+
+    // Note: num_points = _nd + _num_frozen_points
+    for (uint32_t i = 0; i < _num_clusters; i++)
+    {
+        uint32_t cluster_size = (uint32_t)cluster_to_node[i].size();
+        out.write((char *)&cluster_size, sizeof(uint32_t));
+        out.write((char *)cluster_to_node[i].data(), cluster_size * sizeof(uint32_t));
+    }
+    out.close();
+
     std::cout << "Total number of clusters: " << cluster_to_node.size() << std::endl;
     std::cout << "Cluster Sizes:" << std::endl;
     float cluster_size_sum = 0;
@@ -2157,52 +2181,75 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::search(const T *query, con
 
     _data_store->preprocess_query(query, scratch);
 
-    //TODO: Write functions to load clusters into _cluster_to_node mapping and _node_to_cluster_mapping use it here
-    //TODO: We need node to cluster mapping as well to find the correct starting point for the search
+    //TODO: Write functions to load clusters into _cluster_to_node mapping which is used below in compiling final results.
+    //TODO: We need node to cluster mapping as well to find the correct starting point for the search. Is it really needed? not quite needed as the mediod of the entire dataset is always the start point.
+    //TODO: Factor in/count the additional distance comparisons in the final results computation and add to the return values.
 
-    // Update the dummy variables, written now just to match the signature
+    std::ofstream in;
+    std::string filename = "/nvmessd1/fbv4/avarhade/cluster_to_node_mapping.bin";
+    in.exceptions(std::ios::badbit | std::ios::failbit);
+    in.open(filename, std::ios::binary | std::ios::in | std::ios::out);
+
+    size_t file_offset = 0;
+    size_t _max_cluster_size, _num_clusters;
+    in.seekg(file_offset, in.beg);
+    in.read((char *)&_num_clusters, sizeof(size_t));
+    in.read((char *)&_max_cluster_size, sizeof(size_t));
+
+    std::unordered_map<uint32_t, std::vector<uint32_t>> _cluster_to_node;
+    for (uint32_t i = 0; i < _num_clusters; i++)
+    {
+        uint32_t cluster_size;
+        in.read((char *)&cluster_size, sizeof(uint32_t));
+        std::vector<uint32_t> nodes(cluster_size);
+        in.read((char *)nodes.data(), cluster_size * sizeof(uint32_t));
+        _cluster_to_node[i] = std::move(nodes);
+    }
+    in.close();
+
+    // Update the dummy variables, written now just to match the signature, the cluster_status and the node_to_cluster mapping are not used in the current implmentation of the iterate_to_fixed_point function.
     std::vector<bool> cluster_status(_max_points + _num_frozen_pts, true); 
     std::vector<uint32_t> node_to_cluster(_max_points + _num_frozen_pts, 0);
     auto retval = iterate_to_fixed_point(scratch, L, init_ids, false, cluster_status, node_to_cluster, unused_filter_label, true);
 
     NeighborPriorityQueue &best_L_nodes = scratch->best_l_nodes();
     
-    
+    // TODO: This is written code, uncomment it use it in the final implementation
 
-    // Lambda to batch compute query<-> node distances in PQ space
-    // auto compute_dists = [this, scratch, pq_dists](const std::vector<uint32_t> &ids, std::vector<float> &dists_out) {
-    //     _pq_data_store->get_distance(scratch->aligned_query(), ids, dists_out, scratch);
-    // };
+    // Lambda to batch compute query<->node distances in PQ space
+    auto compute_dists = [this, scratch, pq_dists](const std::vector<uint32_t> &ids, std::vector<float> &dists_out) {
+        _pq_data_store->get_distance(scratch->aligned_query(), ids, dists_out, scratch);
+    };
 
-    // std::priority_queue<std::pair<float, uint32_t>> best_L_nodes_refined;
-    // for (size_t i = 0; i < best_L_nodes.size(); ++i)
-    // {   
-    //     std::vector<uint32_t> id_vec = _cluster_to_points[best_L_nodes[i].id];
-    //     std::vector<float> dist_vec(id_vec.size());
-    //     compute_dists(id_vec, dist_vec);
-    //     for (size_t j = 0; j < id_vec.size(); ++j)
-    //     {
-    //         best_L_nodes_refined.push(std::make_pair(-dist_vec[j], id_vec[j]));
-    //     }
-    // }
+    std::priority_queue<std::pair<float, uint32_t>> best_L_nodes_refined;
+    for (size_t i = 0; i < best_L_nodes.size(); ++i)
+    {   
+        std::vector<uint32_t> cluster_list = _cluster_to_node[best_L_nodes[i].id];
+        std::vector<float> dist_vec(cluster_list.size());
+        compute_dists(cluster_list, dist_vec);
+        for (size_t j = 0; j < cluster_list.size(); ++j)
+        {
+            best_L_nodes_refined.push(std::make_pair(-dist_vec[j], cluster_list[j]));
+        }
+    }
 
-    // size_t pos = 0;
-    // while (!best_L_nodes_refined.empty() && pos < K)
-    // {
-    //     auto node = best_L_nodes_refined.top();
-    //     best_L_nodes_refined.pop();
-    //     if (node.second < _max_points)
-    //     {
-    //         // safe because Index uses uint32_t ids internally
-    //         // and IDType will be uint32_t or uint64_t
-    //         indices[pos] = (IdType)node.second;
-    //         pos++;
-    //     }
-    // }
-    // if (pos < K)
-    // {
-    //     diskann::cerr << "Found pos: " << pos << "fewer than K elements " << K << " for query" << std::endl;
-    // }
+    size_t pos = 0;
+    while (!best_L_nodes_refined.empty() && pos < K)
+    {
+        auto node = best_L_nodes_refined.top();
+        best_L_nodes_refined.pop();
+        if (node.second < _max_points)
+        {
+            // safe because Index uses uint32_t ids internally
+            // and IDType will be uint32_t or uint64_t
+            indices[pos] = (IdType)node.second;
+            pos++;
+        }
+    }
+    if (pos < K)
+    {
+        diskann::cerr << "Found pos: " << pos << "fewer than K elements " << K << " for query" << std::endl;
+    }
 
     return retval;
 }

@@ -1,3 +1,4 @@
 cd build
-#./apps/build_memory_index --data_path /nvmessd1/fbv4/prec40M.bin --data_type int8 --dist_fn l2 --index_path_prefix  /home/rakri/avarhade/Dump/prec40M_memory_index_r150_l300 -R 150 -L 300 -T 48 >  /home/rakri/avarhade/DiskANN/prec40M/variable-alpha-baseline/r150_l300.txt
-./apps/build_memory_index --data_path /nvmessd1/fbv4/prec1M.fbin --data_type float --dist_fn l2 --index_path_prefix  /nvmessd1/fbv4/avarhade/prec1M_memory_index_clustering_r64_l100 -R 32 -L 50 -T 1 >> /home/rakri/avarhade/DiskANN/prec1M/clustering/clustering_r64_l100.txt
+#./apps/build_memory_index --data_path /nvmessd1/fbv4/prec40M.bin --data_type int8 --dist_fn l2 --index_path_prefix /home/rakri/avarhade/Dump/prec40M_memory_index_r150_l300 -R 150 -L 300 -T 48 >  /home/rakri/avarhade/DiskANN/prec40M/variable-alpha-baseline/r150_l300.txt
+./apps/build_memory_index --data_path /nvmessd1/fbv4/prec1M.fbin --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/test2_prec1M_memory_index_clustering_r32_l50 -R 32 -L 50 -T 1 > /home/rakri/avarhade/DiskANN/prec1M/clustering/test2_clustering_r32_l50.txt
+rm -rf /nvmessd1/fbv4/avarhade/test2_prec1M_memory_index_clustering_r32_l50
