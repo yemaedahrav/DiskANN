@@ -166,15 +166,18 @@ std::tuple<uint32_t, uint32_t, size_t> InMemGraphStore::load_impl(const std::str
 
     size_t bytes_read = vamana_metadata_size;
     size_t cc = 0;
-    uint32_t nodes_read = 0;
+    uint32_t nodes_read = 0, graph_points = 0;
     while (bytes_read != expected_file_size)
     {
         uint32_t k;
         in.read((char *)&k, sizeof(uint32_t));
 
+        
         if (k == 0)
-        {
-            diskann::cerr << "ERROR: Point found with no out-neighbours, point#" << nodes_read << std::endl;
+        {   
+            graph_points++;
+            // Commenting this code for the clustering, because in clustering not all points will be in the graph, so many will have no out neighbors. This error is not actually an error
+            //diskann::cerr << "ERROR: Point found with no out-neighbours, point#" << nodes_read << std::endl;
         }
 
         cc += k;
@@ -192,8 +195,9 @@ std::tuple<uint32_t, uint32_t, size_t> InMemGraphStore::load_impl(const std::str
         }
     }
 
-    diskann::cout << "done. Index has " << nodes_read << " nodes and " << cc << " out-edges, _start is set to " << start
+    diskann::cout << "done. Index has " << graph_points << " nodes/clusters and " << cc << " out-edges, _start is set to " << start
                   << std::endl;
+    // Ideally the num of points is graph is different but we return nodes_read to maintain the checks run later on num of points
     return std::make_tuple(nodes_read, start, file_frozen_pts);
 }
 

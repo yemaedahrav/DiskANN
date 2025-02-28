@@ -163,7 +163,8 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
         omp_set_num_threads(num_threads);
 #pragma omp parallel for schedule(dynamic, 1)
         for (int64_t i = 0; i < (int64_t)query_num; i++)
-        {
+        {   
+            //diskann::cout<<"Query: "<<i<<std::endl;
             auto qs = std::chrono::high_resolution_clock::now();
             if (filtered_search && !tags)
             {
@@ -202,14 +203,10 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
             }
             else
             {
-                cmp_stats[i] = index
-                                   ->search(query + i * query_aligned_dim, recall_at, L,
-                                            query_result_ids[test_id].data() + i * recall_at)
-                                   .second;
-                hop_stats[i] = index
-                                   ->search(query + i * query_aligned_dim, recall_at, L,
-                                            query_result_ids[test_id].data() + i * recall_at)
-                                   .first;
+                auto search_result = index->search(query + i * query_aligned_dim, recall_at, L,
+                                     query_result_ids[test_id].data() + i * recall_at);
+                cmp_stats[i] = search_result.second;
+                hop_stats[i] = search_result.first;
             }
             auto qe = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> diff = qe - qs;
