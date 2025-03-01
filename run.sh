@@ -31,4 +31,4 @@ cd build
 # mv /nvmessd1/fbv4/avarhade/clustering/cluster_to_node_mapping.bin /nvmessd1/fbv4/avarhade/clustering/cluster_to_node_mapping_r64_l100_15k_32_20.bin
 
 
-./apps/utils/compute_groundtruth --data_type float --dist_fn mips --base_file /nvmessd2/bigann/wikipedia_cohere/wikipedia_base.bin.crop_nb_1000000 --query_file  /nvmessd2/bigann/wikipedia_cohere/wikipedia_query.bin --gt_file /nvmessd1/fbv4/avarhade/datasets/wikipedia_base_1M_gt --K 100
+./apps/utils/compute_groundtruth --data_type float --dist_fn l2 --base_file /nvmessd2/bigann/wikipedia_cohere/wikipedia_base.bin.crop_nb_1000000 --query_file  /nvmessd2/bigann/wikipedia_cohere/wikipedia_query.bin --gt_file /nvmessd1/fbv4/avarhade/datasets/wikipedia_base_1M_l2_gt --K 100
