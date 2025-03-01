@@ -1,0 +1,65 @@
+Starting index build with R: 32  Lbuild: 100  alpha: 1.2  #threads: 1
+Inner product: Using AVX2 implementation AVXDistanceInnerProductFloat
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+0% of index build completed.10% of index build completed.20% of index build completed.30% of index build completed.40% of index build completed.50% of index build completed.60% of index build completed.70% of index build completed.80% of index build completed.90% of index build completed.Starting final cleanup..done. Link time: 996.929s
+Index built with degree: max:32  avg:31.9996  min:25  count(deg<2):0
+Indexing time: 998.124
+Not saving tags as they are not enabled.
+Time taken for save: 2.79242s.
+Reading (with alignment) bin file /nvmessd2/bigann/wikipedia_cohere/wikipedia_query.bin ...Metadata: #pts = 5000, #dims = 768, aligned_dim = 768... allocating aligned memory of 15360000 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /nvmessd1/fbv4/avarhade/datasets/wikipedia_base_1M_gt.bin, size: 4000008, cache_size: 4000008
+Reading truthset file /nvmessd1/fbv4/avarhade/datasets/wikipedia_base_1M_gt.bin ...
+Metadata: #pts = 5000, #dims = 100... 
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0345176s
+From graph header, expected_file_size: 131998580, _max_observed_degree: 32, _start: 5490, file_frozen_pts: 0
+Loading vamana graph /nvmessd1/fbv4/avarhade/wiki_memory_index_r32_l100...done. Index has 1000000 nodes and 31999639 out-edges, _start is set to 5490
+Num frozen points:0 _nd: 1000000 _start: 5490 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 1000000
+Index loaded
+Using 1 threads to search
+  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency  Recall@100
+=============================================================================================
+ 100     1768.06           2465.73      116.43              565.52        4504.33        0.00
+ 150     1360.07           3112.84      156.97              735.21         949.67        0.00
+ 200     1043.57           3871.35      202.98              958.20        1217.70        0.00
+ 250      790.43           4704.36      252.45             1265.09        1535.72        0.00
+ 300      610.97           5578.82      302.79             1636.70        2001.93        0.00
+ 500      304.03           9097.67      502.77             3289.15        3723.01        0.00
+Done searching. Now saving results 
+Writing bin: /home/rakri/avarhade/Dump/tmp_100_idx_uint32.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_100_dists_float.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_150_idx_uint32.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_150_dists_float.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_200_idx_uint32.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_200_dists_float.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_250_idx_uint32.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_250_dists_float.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_300_idx_uint32.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_300_dists_float.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_500_idx_uint32.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_500_dists_float.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.

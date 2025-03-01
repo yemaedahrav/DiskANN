@@ -1,0 +1,14 @@
+Starting index build with R: 48  Lbuild: 100  alpha: 1.2  #threads: 1
+Inner product: Using AVX2 implementation AVXDistanceInnerProductFloat
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+0% of index build completed.10% of index build completed.20% of index build completed.30% of index build completed.40% of index build completed.50% of index build completed.60% of index build completed.70% of index build completed.80% of index build completed.90% of index build completed.Starting final cleanup..done. Link time: 1543.71s
+Index built with degree: max:48  avg:47.9996  min:34  count(deg<2):0
+Indexing time: 1544.9
+Not saving tags as they are not enabled.
+Time taken for save: 2.83107s.
+Reading (with alignment) bin file /nvmessd2/bigann/wikipedia_cohere/wikipedia_query.bin ...Metadata: #pts = 5000, #dims = 768, aligned_dim = 768... allocating aligned memory of 15360000 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /nvmessd1/fbv4/avarhade/datasets/wikipedia_base_1M_gt.bin, size: 4000008, cache_size: 4000008
+Reading truthset file /nvmessd1/fbv4/avarhade/datasets/wikipedia_base_1M_gt.bin ...
+Metadata: #pts = 5000, #dims = 100... 
+basic_ios::clear: iostream error

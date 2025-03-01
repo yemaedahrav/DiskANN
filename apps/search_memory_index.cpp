@@ -202,14 +202,9 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
             }
             else
             {
-                cmp_stats[i] = index
-                                   ->search(query + i * query_aligned_dim, recall_at, L,
-                                            query_result_ids[test_id].data() + i * recall_at)
-                                   .second;
-                hop_stats[i] = index
-                                   ->search(query + i * query_aligned_dim, recall_at, L,
-                                            query_result_ids[test_id].data() + i * recall_at)
-                                   .first;
+                auto search_result = index->search(query + i * query_aligned_dim, recall_at, L, query_result_ids[test_id].data() + i * recall_at);
+                cmp_stats[i] = search_result.second;
+                hop_stats[i] = search_result.first;
             }
             auto qe = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> diff = qe - qs;
