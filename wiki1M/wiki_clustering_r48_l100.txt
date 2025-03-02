@@ -1,14 +1,66 @@
-Starting index build with R: 48  Lbuild: 100  alpha: 1.2  #threads: 1
-Inner product: Using AVX2 implementation AVXDistanceInnerProductFloat
+
+Starting index build with R: 48  Lbuild: 100  alpha: 1.2  #threads: 48
+L2: Using AVX2 distance computation DistanceL2Float
 Using only first 1000000 from file.. 
 Starting index build with 1000000 points... 
-0% of index build completed.10% of index build completed.20% of index build completed.30% of index build completed.40% of index build completed.50% of index build completed.60% of index build completed.70% of index build completed.80% of index build completed.90% of index build completed.Starting final cleanup..done. Link time: 1543.71s
-Index built with degree: max:48  avg:47.9996  min:34  count(deg<2):0
-Indexing time: 1544.9
+0% of index build completed.10% of index build completed.20% of index build completed.30% of index build completed.40% of index build completed.50% of index build completed.60% of index build completed.70% of index build completed.80% of index build completed.90% of index build completed.Starting final cleanup..done. Link time: 116.025s
+Index built with degree: max:48  avg:24.286  min:1  count(deg<2):4148
+Indexing time: 117.218
 Not saving tags as they are not enabled.
-Time taken for save: 2.83107s.
+Time taken for save: 2.98981s.
 Reading (with alignment) bin file /nvmessd2/bigann/wikipedia_cohere/wikipedia_query.bin ...Metadata: #pts = 5000, #dims = 768, aligned_dim = 768... allocating aligned memory of 15360000 bytes... done. Copying data to mem_aligned buffer... done.
-Opened: /nvmessd1/fbv4/avarhade/datasets/wikipedia_base_1M_gt.bin, size: 4000008, cache_size: 4000008
-Reading truthset file /nvmessd1/fbv4/avarhade/datasets/wikipedia_base_1M_gt.bin ...
+Opened: /nvmessd1/fbv4/avarhade/datasets/wikipedia_base_1M_l2_gt, size: 4000008, cache_size: 4000008
+Reading truthset file /nvmessd1/fbv4/avarhade/datasets/wikipedia_base_1M_l2_gt ...
 Metadata: #pts = 5000, #dims = 100... 
-basic_ios::clear: iostream error
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0364222s
+From graph header, expected_file_size: 101144184, _max_observed_degree: 48, _start: 5490, file_frozen_pts: 0
+Loading vamana graph /nvmessd1/fbv4/avarhade/wiki_memory_index_r48_l100...done. Index has 1000000 nodes and 24286040 out-edges, _start is set to 5490
+Num frozen points:0 _nd: 1000000 _start: 5490 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 1000000
+Index loaded
+Using 48 threads to search
+  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency  Recall@100
+=============================================================================================
+ 100    21101.52           4039.30      100.27             2232.16       18587.91       88.85
+ 150    12128.75           5802.30      150.16             3930.13        6848.66       93.59
+ 200     6887.49           7494.95      200.19             6935.12       12358.19       96.47
+ 250     4665.46           9116.57      250.27            10242.47       17103.91       98.14
+ 300     3755.77          10669.24      300.23            12739.46       21298.60       99.00
+ 500     1950.22          16482.56      500.10            24531.92       36836.09       99.91
+Done searching. Now saving results 
+Writing bin: /home/rakri/avarhade/Dump/tmp_100_idx_uint32.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_100_dists_float.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_150_idx_uint32.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_150_dists_float.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_200_idx_uint32.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_200_dists_float.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_250_idx_uint32.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_250_dists_float.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_300_idx_uint32.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_300_dists_float.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_500_idx_uint32.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_500_dists_float.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
