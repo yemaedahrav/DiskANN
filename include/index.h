@@ -131,7 +131,7 @@ template <typename T, typename TagT = uint32_t, typename LabelT = uint32_t> clas
     // Added search overload that takes L as parameter, so that we
     // can customize L on a per-query basis without tampering with "Parameters"
     template <typename IDType>
-    DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> search(const T *query, const size_t K, const uint32_t L,
+    DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> search(const T *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node,
                                                            IDType *indices, float *distances = nullptr);
 
     // Initialize space for res_vectors before calling.
@@ -204,7 +204,7 @@ template <typename T, typename TagT = uint32_t, typename LabelT = uint32_t> clas
     // overload of abstract index virtual methods
     virtual void _build(const DataType &data, const size_t num_points_to_load, TagVector &tags) override;
 
-    virtual std::pair<uint32_t, uint32_t> _search(const DataType &query, const size_t K, const uint32_t L,
+    virtual std::pair<uint32_t, uint32_t> _search(const DataType &query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node,
                                                   std::any &indices, float *distances = nullptr) override;
     virtual std::pair<uint32_t, uint32_t> _search_with_filters(const DataType &query,
                                                                const std::string &filter_label_raw, const size_t K,
@@ -439,6 +439,8 @@ template <typename T, typename TagT = uint32_t, typename LabelT = uint32_t> clas
         _tag_lock;          // _location_to_tag, _empty_slots, _nd, _max_points, _label_to_start_id
     std::shared_timed_mutex // RW Lock on _delete_set and _data_compacted
         _delete_lock;       // variable
+    
+    std::shared_timed_mutex _cluster_lock;   // For clustering operations
 
     // Per node lock, cardinality=_max_points + _num_frozen_points
     std::vector<non_recursive_mutex> _locks;

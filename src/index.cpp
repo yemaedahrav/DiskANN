@@ -27,7 +27,10 @@
 #include "index.h"
 
 #define MAX_POINTS_FOR_USING_BITSET 10000000
-#define MAX_CLUSTER_SIZE 32
+
+#define THRESHOLD 0
+#define MAX_CLUSTER_SIZE 1
+#define POINT_MULTIPLICITY 1
 
 namespace diskann
 {
@@ -899,11 +902,13 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
         auto nbr = best_L_nodes.closest_unexpanded();
         auto n = nbr.id;
         //diskann::cout << "Expanded Node: "<<n<<std::endl;
-
-        if (cluster_status[n] == false)
-        {   
-            diskann::cout<<n<<" is not a cluster centre"<<std::endl;
-            break;
+        {
+            std::shared_lock<std::shared_timed_mutex> status_lock(_cluster_lock);
+            if (cluster_status[n] == false)
+            {   
+                diskann::cout<<n<<" is not a cluster centre"<<std::endl;
+                break;
+            }
         }
         hops++;
 
@@ -1019,57 +1024,59 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
     // }
     // std::cout << std::endl;
     
-    float threshold = 0.1;
-    size_t C = 10;
     bool create_new_cluster = true;
     if (!use_filter)
-    {
+    {   
         _data_store->get_vector(location, scratch->aligned_query());
         iterate_to_fixed_point(scratch, Lindex, init_ids, false, cluster_status, node_to_cluster, unused_filter_label, false);
         NeighborPriorityQueue &L_list = scratch->best_l_nodes();
         // Code to compare all the nodes in the L list with the node location and checking clustering condition/threshold here
         //diskann::cout<<"Distance: "<<std::endl;
         std::vector<std::pair<uint32_t, float>> cluster_candidates;
-        for (size_t i = 0; i < L_list.size(); ++i)
         {
-            uint32_t id = L_list[i].id;
-            auto dist = L_list[i].distance;
-            if (dist < threshold)
+            std::unique_lock<std::shared_timed_mutex> cluster_lock(_cluster_lock);
+            for (size_t i = 0; i < L_list.size(); ++i)
             {
+                uint32_t id = L_list[i].id;
+                auto dist = L_list[i].distance;
+                if (dist < THRESHOLD) 
+                {
                 auto cur_cluster_size = cluster_to_node[id].size();
                 if (cur_cluster_size < MAX_CLUSTER_SIZE)
                 {
                     cluster_candidates.emplace_back(id, MAX_CLUSTER_SIZE - cur_cluster_size);
                 }
+                }
             }
-        }
 
-        // Sort clusters by emptiness (descending order)
-        std::sort(cluster_candidates.begin(), cluster_candidates.end(), [](const std::pair<uint32_t, float> &a, const std::pair<uint32_t, float> &b) {
-            return a.second > b.second;
-        });
+            // Sort clusters by emptiness (descending order)
+            std::sort(cluster_candidates.begin(), cluster_candidates.end(), [](const std::pair<uint32_t, float> &a, const std::pair<uint32_t, float> &b) {
+                return a.second > b.second;
+            });
 
-        // Add point to top C most empty clusters
-        size_t clusters_to_add = std::min(cluster_candidates.size(), static_cast<size_t>(C));
-        for (size_t i = 0; i < clusters_to_add; ++i)
-        {
-            uint32_t cluster_id = cluster_candidates[i].first;
-            node_to_cluster[location] = cluster_id;
-            cluster_to_node[cluster_id].insert(location);
-            create_new_cluster = false;
-        }
-        //diskann::cout<<std::endl;
-        if(create_new_cluster)
-        {   
-            //diskann::cout<<"New Cluster (point id): "<<location<<std::endl;
-            node_to_cluster[location] = location;
-            cluster_to_node[location].insert(location);
-            cluster_status[location] = true;
+            // Add point to top POINT_MULTIPLICITY most empty clusters
+            size_t clusters_to_add = std::min(cluster_candidates.size(), static_cast<size_t>(POINT_MULTIPLICITY));
+            for (size_t i = 0; i < clusters_to_add; ++i)
+            {
+                uint32_t cluster_id = cluster_candidates[i].first;
+                node_to_cluster[location] = cluster_id;
+                cluster_to_node[cluster_id].insert(location);
+                create_new_cluster = false;
+            }
+            //diskann::cout<<std::endl;
+            if(create_new_cluster)
+            {   
+                //diskann::cout<<"New Cluster (point id): "<<location<<std::endl;
+                node_to_cluster[location] = location;
+                cluster_to_node[location].insert(location);
+                cluster_status[location] = true;
+            }
         }
     }
     else
-    {
+    {   
         std::shared_lock<std::shared_timed_mutex> tl(_tag_lock, std::defer_lock);
+        // std::unique_lock<std::shared_timed_mutex> cluster_lock(_cluster_lock);
         if (_dynamic_index)
             tl.lock();
         std::vector<uint32_t> filter_specific_start_nodes;
@@ -1081,7 +1088,7 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
 
         _data_store->get_vector(location, scratch->aligned_query());
         iterate_to_fixed_point(scratch, filteredLindex, filter_specific_start_nodes, true, cluster_status, node_to_cluster,
-                               _location_to_labels[location], false);
+                            _location_to_labels[location], false);
 
         // combine candidate pools obtained with filter and unfiltered criteria.
         std::set<Neighbor> best_candidate_pool;
@@ -1254,11 +1261,14 @@ void Index<T, TagT, LabelT>::prune_neighbors(const uint32_t location, std::vecto
             ngh.distance = _data_store->get_distance(ngh.id, location);
     }
 
+
+    
     // sort the pool based on distance to query and prune it with occlude_list
     std::sort(pool.begin(), pool.end());
     std::vector<Neighbor> temp_pool;
     for (const auto &neighbor : pool)
-    {
+    {   
+        std::shared_lock<std::shared_timed_mutex> status_lock(_cluster_lock);
         if (cluster_status[neighbor.id])
         {
             temp_pool.push_back(neighbor);
@@ -1288,7 +1298,8 @@ void Index<T, TagT, LabelT>::prune_neighbors(const uint32_t location, std::vecto
 
     std::vector<uint32_t> temp_pruned_list;
     for (const auto &id : pruned_list)
-    {
+    {   
+        std::shared_lock<std::shared_timed_mutex> status_lock(_cluster_lock);
         if (cluster_status[id])
         {
             temp_pruned_list.push_back(id);
@@ -1360,7 +1371,8 @@ void Index<T, TagT, LabelT>::inter_insert(uint32_t n, std::vector<uint32_t> &pru
             {
                 std::vector<uint32_t> temp_new_out_neighbors;
                 for (const auto &id : new_out_neighbors)
-                {
+                {   
+                    std::shared_lock<std::shared_timed_mutex> status_lock(_cluster_lock);
                     if (cluster_status[id])
                     {
                         temp_new_out_neighbors.push_back(id);
@@ -1412,6 +1424,17 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
     else
         _start = calculate_entry_point();
     //diskann:: cout<<"Start (within link): "<<_start<<std::endl;
+    
+    // Uncomment if needed for threading
+    // {
+    //     std::unique_lock<std::shared_timed_mutex> cluster_lock(_cluster_lock);
+    //     cluster_status.resize(visit_order.size(), false);
+    //     std::vector<uint32_t> node_to_cluster = visit_order;
+    //     // Set the start point to be a cluster center
+    //     cluster_status[_start] = true;
+    //     cluster_to_node[_start].insert(_start);
+    //     node_to_cluster[_start] = _start;
+    // }
 
     cluster_status.resize(visit_order.size(), false);
     std::vector<uint32_t> node_to_cluster = visit_order;
@@ -1446,17 +1469,20 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
         {
             search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, node_to_cluster, cluster_to_node, cluster_status);
         }
-        if (!cluster_status[node])
-        {
-            continue;
+        {   
+            std::shared_lock<std::shared_timed_mutex> status_lock(_cluster_lock);
+            if (!cluster_status[node])
+            {
+                continue;
+            }
         }
         assert(pruned_list.size() > 0);
-
         if (!pruned_list.empty())
         {
             std::vector<uint32_t> temp_pruned_list;
             for (const auto &id : pruned_list)
-            {
+            {   
+                std::shared_lock<std::shared_timed_mutex> status_lock(_cluster_lock);
                 if (cluster_status[id])
                 {
                     temp_pruned_list.push_back(id);
@@ -1490,6 +1516,7 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
     for (int64_t node_ctr = 0; node_ctr < (int64_t)visit_order.size(); node_ctr++)
     {   
         auto node = visit_order[node_ctr];
+        std::shared_lock<std::shared_timed_mutex> status_lock(_cluster_lock);
         if (!cluster_status[node])
         {
             continue;
@@ -1577,7 +1604,7 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
 
     // Save cluster_to_node mapping in file to be loaded during search. The saved file will be used in running search only search, that is not the search during build.
     std::ofstream out;
-    std::string filename = "/nvmessd1/fbv4/avarhade/clustering/cluster_to_node_mapping.bin";
+    std::string filename = "/nvmessd1/fbv4/avarhade/clustering/cluster_mapping_l" + std::to_string(_indexingQueueSize) + "_r" + std::to_string(_indexingRange) + "_mcs" + std::to_string(MAX_CLUSTER_SIZE) + "_pm" + std::to_string(POINT_MULTIPLICITY) + "_t" + std::to_string(THRESHOLD) + ".bin";
     out.open(filename, std::ios::binary | std::ios::out);
     
     size_t file_offset = 0;
@@ -1771,6 +1798,8 @@ void Index<T, TagT, LabelT>::build_with_data_populated(const std::vector<TagT> &
     }
 
     // Cluster status will store a boolean denoting whether the node is a cluster centre or not i.e it is part of the graph or not
+    // std::unique_lock<std::shared_timed_mutex> cluster_lock(_cluster_lock);
+
     std::vector<bool> cluster_status;
     std::unordered_map<uint32_t, std::set<uint32_t>> cluster_to_node;
     generate_frozen_point();
@@ -2171,7 +2200,7 @@ void Index<T, TagT, LabelT>::build_filtered_index(const char *filename, const st
 }
 
 template <typename T, typename TagT, typename LabelT>
-std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::_search(const DataType &query, const size_t K, const uint32_t L,
+std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::_search(const DataType &query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node,
                                                               std::any &indices, float *distances)
 {
     try
@@ -2180,12 +2209,12 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::_search(const DataType &qu
         if (typeid(uint32_t *) == indices.type())
         {
             auto u32_ptr = std::any_cast<uint32_t *>(indices);
-            return this->search(typed_query, K, L, u32_ptr, distances);
+            return this->search(typed_query, K, L, _cluster_to_node, u32_ptr, distances);
         }
         else if (typeid(uint64_t *) == indices.type())
         {
             auto u64_ptr = std::any_cast<uint64_t *>(indices);
-            return this->search(typed_query, K, L, u64_ptr, distances);
+            return this->search(typed_query, K, L, _cluster_to_node, u64_ptr, distances);
         }
         else
         {
@@ -2204,7 +2233,7 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::_search(const DataType &qu
 
 template <typename T, typename TagT, typename LabelT>
 template <typename IdType>
-std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::search(const T *query, const size_t K, const uint32_t L,
+std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::search(const T *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node,
                                                              IdType *indices, float *distances)
 {
     if (K > (uint64_t)L)
@@ -2227,40 +2256,13 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::search(const T *query, con
     const std::vector<uint32_t> init_ids = get_init_ids();
 
     std::shared_lock<std::shared_timed_mutex> lock(_update_lock);
-
     _data_store->preprocess_query(query, scratch);
 
-    //TODO: Write functions to load clusters into _cluster_to_node mapping which is used below in compiling final results.
-    //TODO: We need node to cluster mapping as well to find the correct starting point for the search. Is it really needed? not quite needed as the mediod of the entire dataset is always the start point.
-    //TODO: Factor in/count the additional distance comparisons in the final results computation and add to the return values.
-
-    std::ifstream in;
-    std::string filename = "/nvmessd1/fbv4/avarhade/clustering/cluster_to_node_mapping.bin";
-    in.exceptions(std::ios::badbit | std::ios::failbit);
-    in.open(filename, std::ios::binary | std::ios::in);
-
-    size_t file_offset = 0;
-    size_t _max_cluster_size, _num_clusters;
-    in.seekg(file_offset, in.beg);
-    in.read((char *)&_num_clusters, sizeof(size_t));
-    in.read((char *)&_max_cluster_size, sizeof(size_t));
-
-    std::unordered_map<uint32_t, std::vector<uint32_t>> _cluster_to_node;
-    for (uint32_t i = 0; i < _num_clusters; i++)
-    {
-        uint32_t cluster_size;
-        in.read((char *)&cluster_size, sizeof(uint32_t));
-        std::vector<uint32_t> nodes(cluster_size);
-        in.read((char *)nodes.data(), cluster_size * sizeof(uint32_t));
-        _cluster_to_node[i] = std::move(nodes);
-    }
-    in.close();
 
     // Update the dummy variables, written now just to match the signature, the cluster_status and the node_to_cluster mapping are not used in the current implmentation of the iterate_to_fixed_point function.
     std::vector<bool> cluster_status(_max_points + _num_frozen_pts, true); 
     std::vector<uint32_t> node_to_cluster(_max_points + _num_frozen_pts, 0);
     auto retval = iterate_to_fixed_point(scratch, L, init_ids, false, cluster_status, node_to_cluster, unused_filter_label, true);
-
     NeighborPriorityQueue &best_L_nodes = scratch->best_l_nodes();
 
     // Lambda to batch compute query<->node distances in PQ space
@@ -2268,10 +2270,42 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::search(const T *query, con
         _pq_data_store->get_distance(scratch->aligned_query(), ids, dists_out, scratch);
     };
 
+    //TODO: Factor in/count the additional distance comparisons in the final results computation and add to the return values.
+
+    // std::ifstream in;
+    // std::string filename = "/nvmessd1/fbv4/avarhade/clustering/cluster_to_node_mapping.bin";
+    // in.exceptions(std::ios::badbit | std::ios::failbit);
+    // in.open(filename, std::ios::binary | std::ios::in);
+
+    // size_t file_offset = 0;
+    // size_t _max_cluster_size, _num_clusters;
+    // in.seekg(file_offset, in.beg);
+    // in.read((char *)&_num_clusters, sizeof(size_t));
+    // in.read((char *)&_max_cluster_size, sizeof(size_t));
+
+    // std::unordered_map<uint32_t, std::vector<uint32_t>> _cluster_to_node;
+    // for (uint32_t i = 0; i < _num_clusters; i++)
+    // {
+    //     uint32_t cluster_size;
+    //     in.read((char *)&cluster_size, sizeof(uint32_t));
+    //     std::vector<uint32_t> nodes(cluster_size);
+    //     in.read((char *)nodes.data(), cluster_size * sizeof(uint32_t));
+    //     _cluster_to_node[i] = std::move(nodes);
+    // }
+    // in.close();
+
     uint32_t post_dist_comps = 0;
+    std::unordered_map<uint32_t, std::vector<uint32_t>> relevant_clusters;
+    {   
+        std::shared_lock<std::shared_timed_mutex> cluster_lock(_cluster_lock);
+        for (size_t i = 0; i < best_L_nodes.size(); ++i) {
+            relevant_clusters[best_L_nodes[i].id] = _cluster_to_node[best_L_nodes[i].id];
+        }
+    }
+    
     for (size_t i = 0; i < best_L_nodes.size(); ++i)
     {   
-        std::vector<uint32_t> cluster_list = _cluster_to_node[best_L_nodes[i].id];
+        std::vector<uint32_t> cluster_list = relevant_clusters[best_L_nodes[i].id];
         size_t cluster_size = cluster_list.size();
         std::vector<float> cluster_dist(cluster_size);
         compute_dists(cluster_list, cluster_dist);
@@ -2362,6 +2396,7 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::search_with_filters(const 
 
     std::shared_lock<std::shared_timed_mutex> lock(_update_lock);
     std::shared_lock<std::shared_timed_mutex> tl(_tag_lock, std::defer_lock);
+    std::unique_lock<std::shared_timed_mutex> cluster_lock(_cluster_lock);
     if (_dynamic_index)
         tl.lock();
 
@@ -2459,6 +2494,7 @@ size_t Index<T, TagT, LabelT>::search_with_tags(const T *query, const uint64_t K
     }
 
     std::shared_lock<std::shared_timed_mutex> ul(_update_lock);
+    std::unique_lock<std::shared_timed_mutex> cluster_lock(_cluster_lock);
 
     const std::vector<uint32_t> init_ids = get_init_ids();
 
@@ -3657,30 +3693,30 @@ template DISKANN_DLLEXPORT class Index<int8_t, tag_uint128, uint16_t>;
 template DISKANN_DLLEXPORT class Index<uint8_t, tag_uint128, uint16_t>;
 
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<float, uint64_t, uint32_t>::search<uint64_t>(
-    const float *query, const size_t K, const uint32_t L, uint64_t *indices, float *distances);
+    const float *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint64_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<float, uint64_t, uint32_t>::search<uint32_t>(
-    const float *query, const size_t K, const uint32_t L, uint32_t *indices, float *distances);
+    const float *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint32_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<uint8_t, uint64_t, uint32_t>::search<uint64_t>(
-    const uint8_t *query, const size_t K, const uint32_t L, uint64_t *indices, float *distances);
+    const uint8_t *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint64_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<uint8_t, uint64_t, uint32_t>::search<uint32_t>(
-    const uint8_t *query, const size_t K, const uint32_t L, uint32_t *indices, float *distances);
+    const uint8_t *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint32_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<int8_t, uint64_t, uint32_t>::search<uint64_t>(
-    const int8_t *query, const size_t K, const uint32_t L, uint64_t *indices, float *distances);
+    const int8_t *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint64_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<int8_t, uint64_t, uint32_t>::search<uint32_t>(
-    const int8_t *query, const size_t K, const uint32_t L, uint32_t *indices, float *distances);
+    const int8_t *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint32_t *indices, float *distances);
 // TagT==uint32_t
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<float, uint32_t, uint32_t>::search<uint64_t>(
-    const float *query, const size_t K, const uint32_t L, uint64_t *indices, float *distances);
+    const float *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint64_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<float, uint32_t, uint32_t>::search<uint32_t>(
-    const float *query, const size_t K, const uint32_t L, uint32_t *indices, float *distances);
+    const float *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint32_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<uint8_t, uint32_t, uint32_t>::search<uint64_t>(
-    const uint8_t *query, const size_t K, const uint32_t L, uint64_t *indices, float *distances);
+    const uint8_t *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint64_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<uint8_t, uint32_t, uint32_t>::search<uint32_t>(
-    const uint8_t *query, const size_t K, const uint32_t L, uint32_t *indices, float *distances);
+    const uint8_t *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint32_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<int8_t, uint32_t, uint32_t>::search<uint64_t>(
-    const int8_t *query, const size_t K, const uint32_t L, uint64_t *indices, float *distances);
+    const int8_t *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint64_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<int8_t, uint32_t, uint32_t>::search<uint32_t>(
-    const int8_t *query, const size_t K, const uint32_t L, uint32_t *indices, float *distances);
+    const int8_t *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint32_t *indices, float *distances);
 
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<float, uint64_t, uint32_t>::search_with_filters<
     uint64_t>(const float *query, const uint32_t &filter_label, const size_t K, const uint32_t L, uint64_t *indices,
@@ -3721,30 +3757,30 @@ template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<int8_t, uint32_t,
               float *distances);
 
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<float, uint64_t, uint16_t>::search<uint64_t>(
-    const float *query, const size_t K, const uint32_t L, uint64_t *indices, float *distances);
+    const float *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint64_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<float, uint64_t, uint16_t>::search<uint32_t>(
-    const float *query, const size_t K, const uint32_t L, uint32_t *indices, float *distances);
+    const float *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint32_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<uint8_t, uint64_t, uint16_t>::search<uint64_t>(
-    const uint8_t *query, const size_t K, const uint32_t L, uint64_t *indices, float *distances);
+    const uint8_t *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint64_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<uint8_t, uint64_t, uint16_t>::search<uint32_t>(
-    const uint8_t *query, const size_t K, const uint32_t L, uint32_t *indices, float *distances);
+    const uint8_t *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint32_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<int8_t, uint64_t, uint16_t>::search<uint64_t>(
-    const int8_t *query, const size_t K, const uint32_t L, uint64_t *indices, float *distances);
+    const int8_t *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint64_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<int8_t, uint64_t, uint16_t>::search<uint32_t>(
-    const int8_t *query, const size_t K, const uint32_t L, uint32_t *indices, float *distances);
+    const int8_t *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint32_t *indices, float *distances);
 // TagT==uint32_t
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<float, uint32_t, uint16_t>::search<uint64_t>(
-    const float *query, const size_t K, const uint32_t L, uint64_t *indices, float *distances);
+    const float *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint64_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<float, uint32_t, uint16_t>::search<uint32_t>(
-    const float *query, const size_t K, const uint32_t L, uint32_t *indices, float *distances);
+    const float *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint32_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<uint8_t, uint32_t, uint16_t>::search<uint64_t>(
-    const uint8_t *query, const size_t K, const uint32_t L, uint64_t *indices, float *distances);
+    const uint8_t *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint64_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<uint8_t, uint32_t, uint16_t>::search<uint32_t>(
-    const uint8_t *query, const size_t K, const uint32_t L, uint32_t *indices, float *distances);
+    const uint8_t *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint32_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<int8_t, uint32_t, uint16_t>::search<uint64_t>(
-    const int8_t *query, const size_t K, const uint32_t L, uint64_t *indices, float *distances);
+    const int8_t *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint64_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<int8_t, uint32_t, uint16_t>::search<uint32_t>(
-    const int8_t *query, const size_t K, const uint32_t L, uint32_t *indices, float *distances);
+    const int8_t *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint32_t *indices, float *distances);
 
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> Index<float, uint64_t, uint16_t>::search_with_filters<
     uint64_t>(const float *query, const uint16_t &filter_label, const size_t K, const uint32_t L, uint64_t *indices,

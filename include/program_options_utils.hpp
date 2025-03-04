@@ -22,6 +22,7 @@ const char *DATA_TYPE_DESCRIPTION = "data type, one of {int8, uint8, float} - fl
 const char *DISTANCE_FUNCTION_DESCRIPTION =
     "distance function {l2, mips, fast_l2, cosine}.  'fast l2' and 'mips' only support data_type float";
 const char *INDEX_PATH_PREFIX_DESCRIPTION = "Path prefix to the index, e.g. '/mnt/data/my_ann_index'";
+const char *CLUSTER_PATH_DESCRIPTION = "Path prefix to the cluster file, e.g. '/mnt/data/my_ann_cluster_mappings'";
 const char *RESULT_PATH_DESCRIPTION =
     "Path prefix for saving results of the queries, e.g. '/mnt/data/query_file_X.bin'";
 const char *QUERY_FILE_DESCRIPTION = "Query file in binary format, e.g. '/mnt/data/query_file_X.bin'";

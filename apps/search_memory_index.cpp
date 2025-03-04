@@ -26,7 +26,7 @@
 namespace po = boost::program_options;
 
 template <typename T, typename LabelT = uint32_t>
-int search_memory_index(diskann::Metric &metric, const std::string &index_path, const std::string &result_path_prefix,
+int search_memory_index(diskann::Metric &metric, const std::string &index_path, std::string &cluster_path, const std::string &result_path_prefix,
                         const std::string &query_file, const std::string &truthset_file, const uint32_t num_threads,
                         const uint32_t recall_at, const bool print_all_recalls, const std::vector<uint32_t> &Lvec,
                         const bool dynamic, const bool tags, const bool show_qps_per_thread,
@@ -146,6 +146,29 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
 
     double best_recall = 0.0;
 
+
+    std::ifstream in;
+    //std::string filename = "/nvmessd1/fbv4/avarhade/clustering/cluster_to_node_mapping.bin";
+    in.exceptions(std::ios::badbit | std::ios::failbit);
+    in.open(cluster_path, std::ios::binary | std::ios::in);
+
+    size_t file_offset = 0;
+    size_t _max_cluster_size, _num_clusters;
+    in.seekg(file_offset, in.beg);
+    in.read((char *)&_num_clusters, sizeof(size_t));
+    in.read((char *)&_max_cluster_size, sizeof(size_t));
+
+    std::unordered_map<uint32_t, std::vector<uint32_t>> _cluster_to_node;
+    for (uint32_t i = 0; i < _num_clusters; i++)
+    {
+        uint32_t cluster_size;
+        in.read((char *)&cluster_size, sizeof(uint32_t));
+        std::vector<uint32_t> nodes(cluster_size);
+        in.read((char *)nodes.data(), cluster_size * sizeof(uint32_t));
+        _cluster_to_node[i] = std::move(nodes);
+    }
+    in.close();
+
     for (uint32_t test_id = 0; test_id < Lvec.size(); test_id++)
     {
         uint32_t L = Lvec[test_id];
@@ -203,7 +226,7 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
             }
             else
             {
-                auto search_result = index->search(query + i * query_aligned_dim, recall_at, L,
+                auto search_result = index->search(query + i * query_aligned_dim, recall_at, L, _cluster_to_node,
                                      query_result_ids[test_id].data() + i * recall_at);
                 cmp_stats[i] = search_result.second;
                 hop_stats[i] = search_result.first;
@@ -282,7 +305,7 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
 
 int main(int argc, char **argv)
 {
-    std::string data_type, dist_fn, index_path_prefix, result_path, query_file, gt_file, filter_label, label_type,
+    std::string data_type, dist_fn, index_path_prefix, cluster_path, result_path, query_file, gt_file, filter_label, label_type,
         query_filters_file;
     uint32_t num_threads, K;
     std::vector<uint32_t> Lvec;
@@ -303,6 +326,8 @@ int main(int argc, char **argv)
                                        program_options_utils::DISTANCE_FUNCTION_DESCRIPTION);
         required_configs.add_options()("index_path_prefix", po::value<std::string>(&index_path_prefix)->required(),
                                        program_options_utils::INDEX_PATH_PREFIX_DESCRIPTION);
+        required_configs.add_options()("cluster_path", po::value<std::string>(&cluster_path)->required(),
+                                       program_options_utils::CLUSTER_PATH_DESCRIPTION);
         required_configs.add_options()("result_path", po::value<std::string>(&result_path)->required(),
                                        program_options_utils::RESULT_PATH_DESCRIPTION);
         required_configs.add_options()("query_file", po::value<std::string>(&query_file)->required(),
@@ -425,18 +450,18 @@ int main(int argc, char **argv)
             if (data_type == std::string("int8"))
             {
                 return search_memory_index<int8_t, uint16_t>(
-                    metric, index_path_prefix, result_path, query_file, gt_file, num_threads, K, print_all_recalls,
+                    metric, index_path_prefix, cluster_path, result_path, query_file, gt_file, num_threads, K, print_all_recalls,
                     Lvec, dynamic, tags, show_qps_per_thread, query_filters, fail_if_recall_below);
             }
             else if (data_type == std::string("uint8"))
             {
                 return search_memory_index<uint8_t, uint16_t>(
-                    metric, index_path_prefix, result_path, query_file, gt_file, num_threads, K, print_all_recalls,
+                    metric, index_path_prefix, cluster_path, result_path, query_file, gt_file, num_threads, K, print_all_recalls,
                     Lvec, dynamic, tags, show_qps_per_thread, query_filters, fail_if_recall_below);
             }
             else if (data_type == std::string("float"))
             {
-                return search_memory_index<float, uint16_t>(metric, index_path_prefix, result_path, query_file, gt_file,
+                return search_memory_index<float, uint16_t>(metric, index_path_prefix, cluster_path, result_path, query_file, gt_file,
                                                             num_threads, K, print_all_recalls, Lvec, dynamic, tags,
                                                             show_qps_per_thread, query_filters, fail_if_recall_below);
             }
@@ -450,19 +475,19 @@ int main(int argc, char **argv)
         {
             if (data_type == std::string("int8"))
             {
-                return search_memory_index<int8_t>(metric, index_path_prefix, result_path, query_file, gt_file,
+                return search_memory_index<int8_t>(metric, index_path_prefix, cluster_path, result_path, query_file, gt_file,
                                                    num_threads, K, print_all_recalls, Lvec, dynamic, tags,
                                                    show_qps_per_thread, query_filters, fail_if_recall_below);
             }
             else if (data_type == std::string("uint8"))
             {
-                return search_memory_index<uint8_t>(metric, index_path_prefix, result_path, query_file, gt_file,
+                return search_memory_index<uint8_t>(metric, index_path_prefix, cluster_path, result_path, query_file, gt_file,
                                                     num_threads, K, print_all_recalls, Lvec, dynamic, tags,
                                                     show_qps_per_thread, query_filters, fail_if_recall_below);
             }
             else if (data_type == std::string("float"))
             {
-                return search_memory_index<float>(metric, index_path_prefix, result_path, query_file, gt_file,
+                return search_memory_index<float>(metric, index_path_prefix, cluster_path, result_path, query_file, gt_file,
                                                   num_threads, K, print_all_recalls, Lvec, dynamic, tags,
                                                   show_qps_per_thread, query_filters, fail_if_recall_below);
             }

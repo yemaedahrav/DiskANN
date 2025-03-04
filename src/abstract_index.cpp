@@ -14,12 +14,12 @@ void AbstractIndex::build(const data_type *data, const size_t num_points_to_load
 }
 
 template <typename data_type, typename IDType>
-std::pair<uint32_t, uint32_t> AbstractIndex::search(const data_type *query, const size_t K, const uint32_t L,
+std::pair<uint32_t, uint32_t> AbstractIndex::search(const data_type *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node,
                                                     IDType *indices, float *distances)
 {
     auto any_indices = std::any(indices);
     auto any_query = std::any(query);
-    return _search(any_query, K, L, any_indices, distances);
+    return _search(any_query, K, L, _cluster_to_node, any_indices, distances);
 }
 
 template <typename data_type, typename tag_type>
@@ -142,18 +142,18 @@ template DISKANN_DLLEXPORT void AbstractIndex::build<uint8_t, uint64_t>(const ui
                                                                         const std::vector<uint64_t> &tags);
 
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> AbstractIndex::search<float, uint32_t>(
-    const float *query, const size_t K, const uint32_t L, uint32_t *indices, float *distances);
+    const float *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint32_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> AbstractIndex::search<uint8_t, uint32_t>(
-    const uint8_t *query, const size_t K, const uint32_t L, uint32_t *indices, float *distances);
+    const uint8_t *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint32_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> AbstractIndex::search<int8_t, uint32_t>(
-    const int8_t *query, const size_t K, const uint32_t L, uint32_t *indices, float *distances);
+    const int8_t *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint32_t *indices, float *distances);
 
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> AbstractIndex::search<float, uint64_t>(
-    const float *query, const size_t K, const uint32_t L, uint64_t *indices, float *distances);
+    const float *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint64_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> AbstractIndex::search<uint8_t, uint64_t>(
-    const uint8_t *query, const size_t K, const uint32_t L, uint64_t *indices, float *distances);
+    const uint8_t *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint64_t *indices, float *distances);
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> AbstractIndex::search<int8_t, uint64_t>(
-    const int8_t *query, const size_t K, const uint32_t L, uint64_t *indices, float *distances);
+    const int8_t *query, const size_t K, const uint32_t L, std::unordered_map<uint32_t, std::vector<uint32_t>> &_cluster_to_node, uint64_t *indices, float *distances);
 
 template DISKANN_DLLEXPORT std::pair<uint32_t, uint32_t> AbstractIndex::search_with_filters<uint32_t>(
     const DataType &query, const std::string &raw_label, const size_t K, const uint32_t L, uint32_t *indices,
