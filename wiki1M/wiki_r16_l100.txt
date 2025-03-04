@@ -2,7 +2,17 @@ Starting index build with R: 16  Lbuild: 100  alpha: 1.2  #threads: 48
 L2: Using AVX2 distance computation DistanceL2Float
 Using only first 1000000 from file.. 
 Starting index build with 1000000 points... 
-0% of index build completed.10% of index build completed.20% of index build completed.30% of index build completed.40% of index build completed.50% of index build completed.60% of index build completed.70% of index build completed.80% of index build completed.90% of index build completed.Starting final cleanup..done. Link time: 53.1431s
+
+0% of index build completed.
+10% of index build completed.
+20% of index build completed.
+30% of index build completed.
+40% of index build completed.
+50% of index build completed.
+60% of index build completed.
+70% of index build completed.
+80% of index build completed.
+90% of index build completed.Starting final cleanup..done. Link time: 53.1431s
 Index built with degree: max:16  avg:12.9848  min:1  count(deg<2):8427
 Indexing time: 54.3603
 Not saving tags as they are not enabled.
@@ -12,7 +22,7 @@ Opened: /nvmessd1/fbv4/avarhade/datasets/wikipedia_base_1M_l2_gt, size: 4000008,
 Reading truthset file /nvmessd1/fbv4/avarhade/datasets/wikipedia_base_1M_l2_gt ...
 Metadata: #pts = 5000, #dims = 100... 
 L2: Using AVX2 distance computation DistanceL2Float
-Resizing took: 0.0358747s
+Resizing took: 0.0358066s
 From graph header, expected_file_size: 55939380, _max_observed_degree: 16, _start: 5490, file_frozen_pts: 0
 Loading vamana graph /nvmessd1/fbv4/avarhade/wiki_memory_index_r16_l100...done. Index has 1000000 nodes and 12984839 out-edges, _start is set to 5490
 Num frozen points:0 _nd: 1000000 _start: 5490 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 1000000
@@ -20,12 +30,12 @@ Index loaded
 Using 48 threads to search
   Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency  Recall@100
 =============================================================================================
- 100    61410.50           1414.31      106.36              744.14       16756.35       63.29
- 150    54118.92           1991.06      151.87              877.85        1181.04       74.74
- 200    39727.34           2579.07      200.70             1199.35        1632.46       80.23
- 250    30687.01           3166.02      250.74             1548.13        2253.96       84.18
- 300    24215.61           3751.45      300.86             1963.78        2941.66       88.07
- 500    11067.26           5995.36      500.48             4311.73        7385.44       96.86
+ 100    58861.13           1414.31      106.36              789.95       15710.21       63.29
+ 150    52032.25           1991.06      151.87              914.58        1387.23       74.74
+ 200    38948.89           2579.07      200.70             1221.85        1741.74       80.23
+ 250    29868.95           3166.02      250.74             1595.27        2579.31       84.18
+ 300    23930.94           3751.45      300.86             1986.70        2823.35       88.07
+ 500    10745.52           5995.36      500.48             4440.33        7199.92       96.86
 Done searching. Now saving results 
 Writing bin: /home/rakri/avarhade/Dump/tmp_100_idx_uint32.bin
 bin: #pts = 5000, #dims = 100, size = 2000008B
