@@ -5,6 +5,7 @@ import glob
 import string
 
 # Read all files starting with 'recall' in the specified directory
+# Each recall file contains a single number which is the recall value for a particular query
 file_list = glob.glob('prec40M/variable-alpha-baseline/recall*.txt')
 
 # Initialize an empty list to store data
