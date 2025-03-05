@@ -28,9 +28,11 @@
 
 #define MAX_POINTS_FOR_USING_BITSET 10000000
 
-#define THRESHOLD 0
-#define MAX_CLUSTER_SIZE 1
+
+
 #define POINT_MULTIPLICITY 1
+#define MAX_CLUSTER_SIZE 32
+#define THRESHOLD 0.001
 
 namespace diskann
 {
@@ -904,7 +906,7 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
         //diskann::cout << "Expanded Node: "<<n<<std::endl;
         {
             std::shared_lock<std::shared_timed_mutex> status_lock(_cluster_lock);
-            if (cluster_status[n] == false)
+            if (cluster_status[n] == false && search_invocation == false)
             {   
                 diskann::cout<<n<<" is not a cluster centre"<<std::endl;
                 break;
@@ -1604,7 +1606,7 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
 
     // Save cluster_to_node mapping in file to be loaded during search. The saved file will be used in running search only search, that is not the search during build.
     std::ofstream out;
-    std::string filename = "/nvmessd1/fbv4/avarhade/clustering/cluster_mapping_l" + std::to_string(_indexingQueueSize) + "_r" + std::to_string(_indexingRange) + "_mcs" + std::to_string(MAX_CLUSTER_SIZE) + "_pm" + std::to_string(POINT_MULTIPLICITY) + "_t" + std::to_string(THRESHOLD) + ".bin";
+    std::string filename = "/nvmessd1/fbv4/avarhade/clustering/cluster_mapping_r" + std::to_string(_indexingRange) + "_l" + std::to_string(_indexingQueueSize) + "_mcs" + std::to_string(MAX_CLUSTER_SIZE) + "_pm" + std::to_string(POINT_MULTIPLICITY) + "_t" + std::to_string(THRESHOLD) + ".bin";
     out.open(filename, std::ios::binary | std::ios::out);
     
     size_t file_offset = 0;
@@ -1803,6 +1805,7 @@ void Index<T, TagT, LabelT>::build_with_data_populated(const std::vector<TagT> &
     std::vector<bool> cluster_status;
     std::unordered_map<uint32_t, std::set<uint32_t>> cluster_to_node;
     generate_frozen_point();
+    diskann::cout<<"Clustering Parameters: "<<"MAX_CLUSTER_SIZE: "<<MAX_CLUSTER_SIZE<<", POINT_MULTIPLICITY: "<<POINT_MULTIPLICITY<<", THRESHOLD: "<<THRESHOLD<<std::endl;
     link(cluster_status, cluster_to_node);
 
     size_t max = 0, min = SIZE_MAX, total = 0, cnt = 0, cnt_0 = 0, graph_points = 0, total_points = 0;

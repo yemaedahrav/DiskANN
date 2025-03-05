@@ -1,0 +1,56 @@
+Starting index build with R: 64  Lbuild: 100  alpha: 1.2  #threads: 48
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+Clustering Parameters: MAX_CLUSTER_SIZE: 32, POINT_MULTIPLICITY: 1, THRESHOLD: 0.1
+0% of index build completed.10% of index build completed.20% of index build completed.30% of index build completed.40% of index build completed.50% of index build completed.60% of index build completed.70% of index build completed.80% of index build completed.90% of index build completed.Starting final cleanup..done. Link time: 146.471s
+Total number of clusters: 999872
+Average Cluster Size: 1.00013
+Cluster to Node mapping saved in file: /nvmessd1/fbv4/avarhade/clustering/cluster_mapping_l100_r64_mcs32_pm1_t0.100000.bin
+Points in graph/cluster centers: 999872
+Index built with degree: max:64  avg:26.571  min:1  count(deg<2):3743  count(deg=0):0
+Indexing time: 148.069
+Not saving tags as they are not enabled.
+Time taken for save: 2.94608s.
+Starting index build with R: 64  Lbuild: 100  alpha: 1.2  #threads: 48
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+Clustering Parameters: MAX_CLUSTER_SIZE: 32, POINT_MULTIPLICITY: 1, THRESHOLD: 0.3
+0% of index build completed.10% of index build completed.20% of index build completed.30% of index build completed.40% of index build completed.50% of index build completed.60% of index build completed.70% of index build completed.80% of index build completed.90% of index build completed.Starting final cleanup..done. Link time: 143.687s
+Total number of clusters: 999851
+Average Cluster Size: 1.00015
+Cluster to Node mapping saved in file: /nvmessd1/fbv4/avarhade/clustering/cluster_mapping_l100_r64_mcs32_pm1_t0.300000.bin
+Points in graph/cluster centers: 999851
+Index built with degree: max:64  avg:26.5683  min:1  count(deg<2):3768  count(deg=0):0
+Indexing time: 145.306
+Not saving tags as they are not enabled.
+Time taken for save: 3.02691s.
+Starting index build with R: 64  Lbuild: 100  alpha: 1.2  #threads: 48
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+Clustering Parameters: MAX_CLUSTER_SIZE: 32, POINT_MULTIPLICITY: 1, THRESHOLD: 0.01
+0% of index build completed.10% of index build completed.20% of index build completed.30% of index build completed.40% of index build completed.50% of index build completed.60% of index build completed.70% of index build completed.80% of index build completed.90% of index build completed.Starting final cleanup..done. Link time: 140.03s
+Total number of clusters: 999888
+Average Cluster Size: 1.00011
+Cluster to Node mapping saved in file: /nvmessd1/fbv4/avarhade/clustering/cluster_mapping_l100_r64_mcs32_pm1_t0.010000.bin
+Points in graph/cluster centers: 999888
+Index built with degree: max:64  avg:26.5695  min:1  count(deg<2):3805  count(deg=0):0
+Indexing time: 141.701
+Not saving tags as they are not enabled.
+Time taken for save: 3.0435s.
+Starting index build with R: 64  Lbuild: 100  alpha: 1.2  #threads: 48
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+Clustering Parameters: MAX_CLUSTER_SIZE: 32, POINT_MULTIPLICITY: 1, THRESHOLD: 1
+0% of index build completed.10% of index build completed.20% of index build completed.30% of index build completed.40% of index build completed.50% of index build completed.60% of index build completed.70% of index build completed.80% of index build completed.90% of index build completed.Starting final cleanup..done. Link time: 137.029s
+Total number of clusters: 999714
+Average Cluster Size: 1.00029
+Cluster to Node mapping saved in file: /nvmessd1/fbv4/avarhade/clustering/cluster_mapping_l100_r64_mcs32_pm1_t1.bin
+Points in graph/cluster centers: 999714
+Index built with degree: max:64  avg:26.5729  min:1  count(deg<2):3744  count(deg=0):0
+Indexing time: 138.748
+Not saving tags as they are not enabled.
+Time taken for save: 3.11637s.
