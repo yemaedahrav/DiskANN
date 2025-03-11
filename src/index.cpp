@@ -30,9 +30,11 @@
 
 
 
-#define POINT_MULTIPLICITY 1
+#define POINT_MULTIPLICITY 20
 #define MAX_CLUSTER_SIZE 32
-#define THRESHOLD 0.001
+#define THRESHOLD 0.2
+#define INVERSE_THRESHOLD 0.4
+
 
 namespace diskann
 {
@@ -1032,7 +1034,7 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
         _data_store->get_vector(location, scratch->aligned_query());
         iterate_to_fixed_point(scratch, Lindex, init_ids, false, cluster_status, node_to_cluster, unused_filter_label, false);
         NeighborPriorityQueue &L_list = scratch->best_l_nodes();
-        // Code to compare all the nodes in the L list with the node location and checking clustering condition/threshold here
+        // Code to compare all the nodes in the L list with the node location and checking clustering condition/thresholding here
         //diskann::cout<<"Distance: "<<std::endl;
         std::vector<std::pair<uint32_t, float>> cluster_candidates;
         {
@@ -1041,13 +1043,13 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
             {
                 uint32_t id = L_list[i].id;
                 auto dist = L_list[i].distance;
-                if (dist < THRESHOLD) 
+                if (dist > INVERSE_THRESHOLD) 
                 {
-                auto cur_cluster_size = cluster_to_node[id].size();
-                if (cur_cluster_size < MAX_CLUSTER_SIZE)
-                {
-                    cluster_candidates.emplace_back(id, MAX_CLUSTER_SIZE - cur_cluster_size);
-                }
+                    auto cur_cluster_size = cluster_to_node[id].size();
+                    if (cur_cluster_size < MAX_CLUSTER_SIZE)
+                    {
+                        cluster_candidates.emplace_back(id, MAX_CLUSTER_SIZE - cur_cluster_size);
+                    }
                 }
             }
 
@@ -1606,7 +1608,7 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
 
     // Save cluster_to_node mapping in file to be loaded during search. The saved file will be used in running search only search, that is not the search during build.
     std::ofstream out;
-    std::string filename = "/nvmessd1/fbv4/avarhade/clustering/cluster_mapping_r" + std::to_string(_indexingRange) + "_l" + std::to_string(_indexingQueueSize) + "_mcs" + std::to_string(MAX_CLUSTER_SIZE) + "_pm" + std::to_string(POINT_MULTIPLICITY) + "_t" + std::to_string(THRESHOLD) + ".bin";
+    std::string filename = "/nvmessd1/fbv4/avarhade/clustering/cluster_mapping_r" + std::to_string(_indexingRange) + "_l" + std::to_string(_indexingQueueSize) + "_mcs" + std::to_string(MAX_CLUSTER_SIZE) + "_pm" + std::to_string(POINT_MULTIPLICITY) + "_it" + std::to_string(INVERSE_THRESHOLD) + ".bin";
     out.open(filename, std::ios::binary | std::ios::out);
     
     size_t file_offset = 0;
@@ -1805,7 +1807,7 @@ void Index<T, TagT, LabelT>::build_with_data_populated(const std::vector<TagT> &
     std::vector<bool> cluster_status;
     std::unordered_map<uint32_t, std::set<uint32_t>> cluster_to_node;
     generate_frozen_point();
-    diskann::cout<<"Clustering Parameters: "<<"MAX_CLUSTER_SIZE: "<<MAX_CLUSTER_SIZE<<", POINT_MULTIPLICITY: "<<POINT_MULTIPLICITY<<", THRESHOLD: "<<THRESHOLD<<std::endl;
+    diskann::cout<<"Clustering Parameters: "<<"MAX_CLUSTER_SIZE: "<<MAX_CLUSTER_SIZE<<", POINT_MULTIPLICITY: "<<POINT_MULTIPLICITY<<", INVERSE_THRESHOLD: "<<INVERSE_THRESHOLD<<std::endl;
     link(cluster_status, cluster_to_node);
 
     size_t max = 0, min = SIZE_MAX, total = 0, cnt = 0, cnt_0 = 0, graph_points = 0, total_points = 0;

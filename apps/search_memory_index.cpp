@@ -88,6 +88,35 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
                       .with_num_frozen_pts(num_frozen_pts)
                       .build();
 
+                      
+    std::ifstream in;
+    in.exceptions(std::ios::badbit | std::ios::failbit);
+    in.open(cluster_path, std::ios::binary | std::ios::in);
+    if (!in.is_open())
+    {
+        std::cerr << "Error opening file: " << cluster_path << std::endl;
+    }else{
+        std::cout<<"Opened cluster file: "<<cluster_path<<std::endl;
+    }
+
+    size_t file_offset = 0;
+    size_t _max_cluster_size, _num_clusters;
+    in.seekg(file_offset, in.beg);
+    in.read((char *)&_num_clusters, sizeof(size_t));
+    in.read((char *)&_max_cluster_size, sizeof(size_t));
+
+    std::unordered_map<uint32_t, std::vector<uint32_t>> _cluster_to_node;
+    for (uint32_t i = 0; i < _num_clusters; i++)
+    {
+        uint32_t cluster_size;
+        in.read((char *)&cluster_size, sizeof(uint32_t));
+        std::vector<uint32_t> nodes(cluster_size);
+        in.read((char *)nodes.data(), cluster_size * sizeof(uint32_t));
+        _cluster_to_node[i] = std::move(nodes);
+    }
+    in.close();
+
+
     auto index_factory = diskann::IndexFactory(config);
     auto index = index_factory.create_instance();
     index->load(index_path.c_str(), num_threads, *(std::max_element(Lvec.begin(), Lvec.end())));
@@ -145,29 +174,6 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
     }
 
     double best_recall = 0.0;
-
-
-    std::ifstream in;
-    //std::string filename = "/nvmessd1/fbv4/avarhade/clustering/cluster_to_node_mapping.bin";
-    in.exceptions(std::ios::badbit | std::ios::failbit);
-    in.open(cluster_path, std::ios::binary | std::ios::in);
-
-    size_t file_offset = 0;
-    size_t _max_cluster_size, _num_clusters;
-    in.seekg(file_offset, in.beg);
-    in.read((char *)&_num_clusters, sizeof(size_t));
-    in.read((char *)&_max_cluster_size, sizeof(size_t));
-
-    std::unordered_map<uint32_t, std::vector<uint32_t>> _cluster_to_node;
-    for (uint32_t i = 0; i < _num_clusters; i++)
-    {
-        uint32_t cluster_size;
-        in.read((char *)&cluster_size, sizeof(uint32_t));
-        std::vector<uint32_t> nodes(cluster_size);
-        in.read((char *)nodes.data(), cluster_size * sizeof(uint32_t));
-        _cluster_to_node[i] = std::move(nodes);
-    }
-    in.close();
 
     for (uint32_t test_id = 0; test_id < Lvec.size(); test_id++)
     {

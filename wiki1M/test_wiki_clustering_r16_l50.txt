@@ -415,3 +415,8 @@ Finished writing bin.
 Writing bin: /home/rakri/avarhade/Dump/tmp_500_dists_float.bin
 bin: #pts = 5000, #dims = 50, size = 1000008B
 Finished writing bin.
+
+
+
+NORMALIZED DATASET
+
