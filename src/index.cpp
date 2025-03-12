@@ -38,6 +38,12 @@
 
 namespace diskann
 {
+
+    std::vector<uint32_t> dist_comps;
+    std::vector<float> search_times;
+    std::vector<float> expansion_times;
+    int query_id = 0;
+    
 // Initialize an index with metric m, load the data of type T with filename
 // (bin), and initialize max_points
 template <typename T, typename TagT, typename LabelT>
@@ -2245,7 +2251,7 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::search(const T *query, con
     {
         throw ANNException("Set L to a value of at least K", -1, __FUNCSIG__, __FILE__, __LINE__);
     }
-
+    auto search_s = std::chrono::high_resolution_clock::now();
     ScratchStoreManager<InMemQueryScratch<T>> manager(_query_scratch);
     auto scratch = manager.scratch_space();
 
@@ -2268,6 +2274,10 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::search(const T *query, con
     std::vector<bool> cluster_status(_max_points + _num_frozen_pts, true); 
     std::vector<uint32_t> node_to_cluster(_max_points + _num_frozen_pts, 0);
     auto retval = iterate_to_fixed_point(scratch, L, init_ids, false, cluster_status, node_to_cluster, unused_filter_label, true);
+    auto search_e = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> search_time = search_e - search_s;
+    
+    auto expand_s = std::chrono::high_resolution_clock::now();
     NeighborPriorityQueue &best_L_nodes = scratch->best_l_nodes();
 
     // Lambda to batch compute query<->node distances in PQ space
@@ -2300,25 +2310,25 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::search(const T *query, con
     // in.close();
 
     uint32_t post_dist_comps = 0;
+    std::unordered_set<uint32_t> unique_nodes;
     std::unordered_map<uint32_t, std::vector<uint32_t>> relevant_clusters;
     {   
         std::shared_lock<std::shared_timed_mutex> cluster_lock(_cluster_lock);
         for (size_t i = 0; i < best_L_nodes.size(); ++i) {
-            relevant_clusters[best_L_nodes[i].id] = _cluster_to_node[best_L_nodes[i].id];
+            for (auto node : _cluster_to_node[best_L_nodes[i].id]) {
+                unique_nodes.insert(node);
+            }
         }
     }
     
-    for (size_t i = 0; i < best_L_nodes.size(); ++i)
-    {   
-        std::vector<uint32_t> cluster_list = relevant_clusters[best_L_nodes[i].id];
-        size_t cluster_size = cluster_list.size();
-        std::vector<float> cluster_dist(cluster_size);
-        compute_dists(cluster_list, cluster_dist);
-        post_dist_comps += cluster_size;
-        for (size_t j = 0; j < cluster_size; ++j)
-        {
-            best_L_nodes.insert(Neighbor(cluster_list[j], cluster_dist[j]));
-        }
+    std::vector<uint32_t> node_list(unique_nodes.begin(), unique_nodes.end());
+    size_t node_list_size = node_list.size();
+    std::vector<float> node_dist(node_list_size);
+    compute_dists(node_list, node_dist);
+    post_dist_comps = node_list_size;
+    for (size_t j = 0; j < node_list_size; ++j)
+    {
+        best_L_nodes.insert(Neighbor(node_list[j], node_dist[j]));
     }
 
     size_t pos = 0;
@@ -2347,6 +2357,27 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::search(const T *query, con
     {
         diskann::cerr << "Found fewer than K elements for query" << std::endl;
     }
+    auto expand_e = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> expand_time = expand_e - expand_s;
+    
+    dist_comps[query_id] = post_dist_comps;
+    search_times[query_id] = (float)(search_time.count()*1000000);
+    expansion_times[query_id] = (float)(expand_time.count()*1000000);
+    // if (timer_log.is_open()) {
+    //     double search_time_val = search_time.count();
+    //     double expand_time_val = expand_time.count();
+    //     timer_log.write(reinterpret_cast<const char*>(&search_time_val), sizeof(search_time_val));
+    //     timer_log.write(reinterpret_cast<const char*>(&expand_time_val), sizeof(expand_time_val));
+    // } else {
+    //     std::cerr << "Unable to open timer_log file for writing." << std::endl;
+    // }
+
+    // if (dist_log.is_open()) {
+    //     dist_log.write(reinterpret_cast<const char*>(&retval.second), sizeof(retval.second));
+    //     dist_log.write(reinterpret_cast<const char*>(&post_dist_comps), sizeof(post_dist_comps));
+    // } else {
+    //     std::cerr << "Unable to open dist_log file for writing." << std::endl;
+    // }
     retval.second += post_dist_comps;
     return retval;
 }

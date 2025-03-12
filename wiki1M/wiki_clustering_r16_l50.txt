@@ -268,20 +268,6 @@ Index built with degree: max:16  avg:15.6091  min:1  count(deg<2):19  count(deg=
 Indexing time: 67.6966
 Not saving tags as they are not enabled.
 Time taken for save: 3.008s.
-Reading (with alignment) bin file /nvmessd1/fbv4/avarhade/datasets/wiki1M_queries_normalized.bin ...Metadata: #pts = 5000, #dims = 768, aligned_dim = 768... allocating aligned memory of 15360000 bytes... done. Copying data to mem_aligned buffer... done.
-Opened: /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized, size: 4000008, cache_size: 4000008
-Reading truthset file /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized ...
-Metadata: #pts = 5000, #dims = 100... 
-L2: Using AVX2 distance computation DistanceL2Float
-Resizing took: 0.0363823s
-From graph header, expected_file_size: 23583872, _max_observed_degree: 16, _start: 5490, file_frozen_pts: 0
-Loading vamana graph /nvmessd1/fbv4/avarhade/clustering/wiki_memory_index_clustering_r16_l50_mcs32_pm10_t0.3...done. Index has 686339 nodes/clusters and 4895962 out-edges, _start is set to 5490
-Index loaded
-Using 48 threads to search
-  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency   Recall@50
-=============================================================================================
-
-
 
 Reading (with alignment) bin file /nvmessd1/fbv4/avarhade/datasets/wiki1M_queries_normalized.bin ...Metadata: #pts = 5000, #dims = 768, aligned_dim = 768... allocating aligned memory of 15360000 bytes... done. Copying data to mem_aligned buffer... done.
 Opened: /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized, size: 4000008, cache_size: 4000008
@@ -431,108 +417,8 @@ Finished writing bin.
 Writing bin: /home/rakri/avarhade/Dump/tmp_500_dists_float.bin
 bin: #pts = 5000, #dims = 50, size = 1000008B
 Finished writing bin.
-Starting index build with R: 16  Lbuild: 50  alpha: 1.2  #threads: 48
-L2: Using AVX2 distance computation DistanceL2Float
-Using only first 1000000 from file.. 
-Starting index build with 1000000 points... 
-Clustering Parameters: MAX_CLUSTER_SIZE: 32, POINT_MULTIPLICITY: 20, INVERSE_THRESHOLD: 0.4
 
-0% of index build completed.
-10% of index build completed.
-20% of index build completed.
-30% of index build completed.
-40% of index build completed.
-50% of index build completed.
-60% of index build completed.
-70% of index build completed.
-80% of index build completed.
-90% of index build completed.Starting final cleanup..done. Link time: 108.584s
-Total number of clusters: 760283
-Average Cluster Size: 5.56221
-Cluster to Node mapping saved in file: /nvmessd1/fbv4/avarhade/clustering/cluster_mapping_r16_l50_mcs32_pm20_t0.400000.bin
-Points in graph/cluster centers: 760283
-Index built with degree: max:16  avg:14.0082  min:1  count(deg<2):930  count(deg=0):0
-Indexing time: 111
-Not saving tags as they are not enabled.
-Time taken for save: 3.38225s.
-Reading (with alignment) bin file /nvmessd1/fbv4/avarhade/datasets/wiki1M_queries_normalized.bin ...Metadata: #pts = 5000, #dims = 768, aligned_dim = 768... allocating aligned memory of 15360000 bytes... done. Copying data to mem_aligned buffer... done.
-Opened: /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized, size: 4000008, cache_size: 4000008
-Reading truthset file /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized ...
-Metadata: #pts = 5000, #dims = 100... 
-L2: Using AVX2 distance computation DistanceL2Float
-Resizing took: 0.0353254s
-From graph header, expected_file_size: 46600704, _max_observed_degree: 16, _start: 5490, file_frozen_pts: 0
-Loading vamana graph /nvmessd1/fbv4/avarhade/clustering/wiki_memory_index_clustering_r16_l50_mcs32_pm20_it0.4...done. Index has 239717 nodes/clusters and 10650170 out-edges, _start is set to 5490
-Index loaded
-Using 48 threads to search
-  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency   Recall@50
-=============================================================================================
-basic_ios::clear: iostream error
-Reading (with alignment) bin file /nvmessd1/fbv4/avarhade/datasets/wiki1M_queries_normalized.bin ...Metadata: #pts = 5000, #dims = 768, aligned_dim = 768... allocating aligned memory of 15360000 bytes... done. Copying data to mem_aligned buffer... done.
-Opened: /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized, size: 4000008, cache_size: 4000008
-Reading truthset file /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized ...
-Metadata: #pts = 5000, #dims = 100... 
-L2: Using AVX2 distance computation DistanceL2Float
-Resizing took: 0.0351507s
-From graph header, expected_file_size: 46600704, _max_observed_degree: 16, _start: 5490, file_frozen_pts: 0
-Loading vamana graph /nvmessd1/fbv4/avarhade/clustering/wiki_memory_index_clustering_r16_l50_mcs32_pm20_it0.4...done. Index has 239717 nodes/clusters and 10650170 out-edges, _start is set to 5490
-Index loaded
-Using 48 threads to search
-  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency   Recall@50
-=============================================================================================
-basic_ios::clear: iostream error
-Reading (with alignment) bin file /nvmessd1/fbv4/avarhade/datasets/wiki1M_queries_normalized.bin ...Metadata: #pts = 5000, #dims = 768, aligned_dim = 768... allocating aligned memory of 15360000 bytes... done. Copying data to mem_aligned buffer... done.
-Opened: /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized, size: 4000008, cache_size: 4000008
-Reading truthset file /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized ...
-Metadata: #pts = 5000, #dims = 100... 
-L2: Using AVX2 distance computation DistanceL2Float
-Resizing took: 0.0365802s
-From graph header, expected_file_size: 46600704, _max_observed_degree: 16, _start: 5490, file_frozen_pts: 0
-Loading vamana graph /nvmessd1/fbv4/avarhade/clustering/wiki_memory_index_clustering_r16_l50_mcs32_pm20_it0.4...done. Index has 239717 nodes/clusters and 10650170 out-edges, _start is set to 5490
-Index loaded
-Using 48 threads to search
-  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency   Recall@50
-=============================================================================================
-basic_ios::clear: iostream error
-Reading (with alignment) bin file /nvmessd1/fbv4/avarhade/datasets/wiki1M_queries_normalized.bin ...Metadata: #pts = 5000, #dims = 768, aligned_dim = 768... allocating aligned memory of 15360000 bytes... done. Copying data to mem_aligned buffer... done.
-Opened: /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized, size: 4000008, cache_size: 4000008
-Reading truthset file /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized ...
-Metadata: #pts = 5000, #dims = 100... 
-L2: Using AVX2 distance computation DistanceL2Float
-Resizing took: 0.0361728s
-From graph header, expected_file_size: 46600704, _max_observed_degree: 16, _start: 5490, file_frozen_pts: 0
-Loading vamana graph /nvmessd1/fbv4/avarhade/clustering/wiki_memory_index_clustering_r16_l50_mcs32_pm20_it0.4...done. Index has 239717 nodes/clusters and 10650170 out-edges, _start is set to 5490
-Index loaded
-Using 48 threads to search
-  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency   Recall@50
-=============================================================================================
-basic_ios::clear: iostream error
-Reading (with alignment) bin file /nvmessd1/fbv4/avarhade/datasets/wiki1M_queries_normalized.bin ...Metadata: #pts = 5000, #dims = 768, aligned_dim = 768... allocating aligned memory of 15360000 bytes... done. Copying data to mem_aligned buffer... done.
-Opened: /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized, size: 4000008, cache_size: 4000008
-Reading truthset file /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized ...
-Metadata: #pts = 5000, #dims = 100... 
-L2: Using AVX2 distance computation DistanceL2Float
-Resizing took: 0.0358058s
-From graph header, expected_file_size: 46600704, _max_observed_degree: 16, _start: 5490, file_frozen_pts: 0
-Loading vamana graph /nvmessd1/fbv4/avarhade/clustering/wiki_memory_index_clustering_r16_l50_mcs32_pm20_it0.4...done. Index has 239717 nodes/clusters and 10650170 out-edges, _start is set to 5490
-Index loaded
-Using 48 threads to search
-  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency   Recall@50
-=============================================================================================
-basic_ios::clear: iostream error
-Reading (with alignment) bin file /nvmessd1/fbv4/avarhade/datasets/wiki1M_queries_normalized.bin ...Metadata: #pts = 5000, #dims = 768, aligned_dim = 768... allocating aligned memory of 15360000 bytes... done. Copying data to mem_aligned buffer... done.
-Opened: /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized, size: 4000008, cache_size: 4000008
-Reading truthset file /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized ...
-Metadata: #pts = 5000, #dims = 100... 
-L2: Using AVX2 distance computation DistanceL2Float
-Resizing took: 0.0351289s
-From graph header, expected_file_size: 46600704, _max_observed_degree: 16, _start: 5490, file_frozen_pts: 0
-Loading vamana graph /nvmessd1/fbv4/avarhade/clustering/wiki_memory_index_clustering_r16_l50_mcs32_pm20_it0.4...done. Index has 239717 nodes/clusters and 10650170 out-edges, _start is set to 5490
-Index loaded
-Using 48 threads to search
-  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency   Recall@50
-=============================================================================================
-basic_ios::clear: iostream error
+
 Starting index build with R: 16  Lbuild: 50  alpha: 1.2  #threads: 48
 L2: Using AVX2 distance computation DistanceL2Float
 Using only first 1000000 from file.. 
@@ -578,6 +464,83 @@ Using 48 threads to search
  250     3143.32           5253.63      258.53            15214.76       30946.24       91.08
  300     3017.34           6213.68      307.86            15837.23       34460.11       92.29
  500     2144.13           9975.24      506.19            22284.30       45120.93       94.90
+Done searching. Now saving results 
+Writing bin: /home/rakri/avarhade/Dump/tmp_50_idx_uint32.bin
+bin: #pts = 5000, #dims = 50, size = 1000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_50_dists_float.bin
+bin: #pts = 5000, #dims = 50, size = 1000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_100_idx_uint32.bin
+bin: #pts = 5000, #dims = 50, size = 1000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_100_dists_float.bin
+bin: #pts = 5000, #dims = 50, size = 1000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_150_idx_uint32.bin
+bin: #pts = 5000, #dims = 50, size = 1000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_150_dists_float.bin
+bin: #pts = 5000, #dims = 50, size = 1000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_200_idx_uint32.bin
+bin: #pts = 5000, #dims = 50, size = 1000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_200_dists_float.bin
+bin: #pts = 5000, #dims = 50, size = 1000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_250_idx_uint32.bin
+bin: #pts = 5000, #dims = 50, size = 1000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_250_dists_float.bin
+bin: #pts = 5000, #dims = 50, size = 1000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_300_idx_uint32.bin
+bin: #pts = 5000, #dims = 50, size = 1000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_300_dists_float.bin
+bin: #pts = 5000, #dims = 50, size = 1000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_500_idx_uint32.bin
+bin: #pts = 5000, #dims = 50, size = 1000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_500_dists_float.bin
+bin: #pts = 5000, #dims = 50, size = 1000008B
+Finished writing bin.
+Starting index build with R: 16  Lbuild: 50  alpha: 1.2  #threads: 48
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+Clustering Parameters: MAX_CLUSTER_SIZE: 32, POINT_MULTIPLICITY: 20, INVERSE_THRESHOLD: 0.4
+0% of index build completed.10% of index build completed.20% of index build completed.30% of index build completed.40% of index build completed.50% of index build completed.60% of index build completed.70% of index build completed.80% of index build completed.90% of index build completed.Starting final cleanup..done. Link time: 105.505s
+Total number of clusters: 760585
+Average Cluster Size: 5.55988
+Cluster to Node mapping saved in file: /nvmessd1/fbv4/avarhade/clustering/cluster_mapping_r16_l50_mcs32_pm20_it0.400000.bin
+Points in graph/cluster centers: 760585
+Index built with degree: max:16  avg:14.0082  min:1  count(deg<2):968  count(deg=0):0
+Indexing time: 107.883
+Not saving tags as they are not enabled.
+Time taken for save: 3.42046s.
+Reading (with alignment) bin file /nvmessd1/fbv4/avarhade/datasets/wiki1M_queries_normalized.bin ...Metadata: #pts = 5000, #dims = 768, aligned_dim = 768... allocating aligned memory of 15360000 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized, size: 4000008, cache_size: 4000008
+Reading truthset file /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized ...
+Metadata: #pts = 5000, #dims = 100... 
+Opened cluster file: /nvmessd1/fbv4/avarhade/clustering/cluster_mapping_r16_l50_mcs32_pm20_it0.400000.bin
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0346426s
+From graph header, expected_file_size: 46617832, _max_observed_degree: 16, _start: 5490, file_frozen_pts: 0
+Loading vamana graph /nvmessd1/fbv4/avarhade/clustering/wiki_log_memory_index_clustering_r16_l50_mcs32_pm20_it0.4...done. Index has 239415 nodes/clusters and 10654452 out-edges, _start is set to 5490
+Index loaded
+Using 48 threads to search
+  Ls         QPS     Avg dist cmps     Exp dist cmps    Dist %    Avg hops  Mean Latency (mus)   99.9 Latency  Search Latency (mus)     Exp Latency (mus) Latency %   Recall@50
+===============================================================================================================================================================================
+  50     4459.45           1217.99            233.28     19.15       62.95            10694.82       32810.58               3735.73               1245.31     25.00       71.76
+ 100     3710.13           2141.01            560.30     26.17      111.49            12890.67       29722.16               6066.35               2597.94     29.98       82.27
+ 150     3179.57           3031.08            938.49     30.96      160.26            15038.70       33310.87               7717.38               3815.98     33.09       86.79
+ 200     3064.50           3896.41           1320.49     33.89      209.29            15602.95       33123.41               8574.03               4565.87     34.75       89.38
+ 250     3517.98           4744.15           1692.89     35.68      258.46            13575.03       38130.00               8224.41               4695.74     36.34       91.06
+ 300     3137.77           5575.71           2102.82     37.71      307.92            15226.29       33568.16               8348.53               5313.20     38.89       92.30
+ 500     2180.18           8779.04           2966.35     33.79      506.19            21893.97       50789.36               9795.36               7165.39     42.25       94.87
 Done searching. Now saving results 
 Writing bin: /home/rakri/avarhade/Dump/tmp_50_idx_uint32.bin
 bin: #pts = 5000, #dims = 50, size = 1000008B

@@ -23,6 +23,13 @@
 #include "program_options_utils.hpp"
 #include "index_factory.h"
 
+// namespace diskann {
+//     std::vector<uint32_t> dist_comps;
+//     std::vector<float> search_times;
+//     std::vector<float> expansion_times;
+//     int query_id;
+// }
+
 namespace po = boost::program_options;
 
 template <typename T, typename LabelT = uint32_t>
@@ -138,9 +145,9 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
     }
     else
     {
-        std::cout << std::setw(4) << "Ls" << std::setw(12) << qps_title << std::setw(18) << "Avg dist cmps" << std::setw(12) << "Avg hops"
-                  << std::setw(20) << "Mean Latency (mus)" << std::setw(15) << "99.9 Latency";
-        table_width += 4 + 12 + 18 + 12 + 20 + 15;
+        std::cout << std::setw(4) << "Ls" << std::setw(12) << qps_title << std::setw(18) << "Avg dist cmps" << std::setw(18) << "Exp dist cmps" << std::setw(10) << "Dist %" << std::setw(12) << "Avg hops"
+                  << std::setw(20) << "Mean Latency (mus)" << std::setw(15) << "99.9 Latency" << std::setw(22) << "Search Latency (mus)"<< std::setw(22) << "Exp Latency (mus)" << std::setw(10) << "Latency %";
+        table_width += 4 + 12 + 18 + 18 + 10 + 12 + 20 + 15 + 22 + 22 + 10;
     }
     uint32_t recalls_to_print = 0;
     const uint32_t first_recall = print_all_recalls ? 1 : recall_at;
@@ -161,10 +168,14 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
     std::vector<float> latency_stats(query_num, 0);
     std::vector<uint32_t> cmp_stats;
     std::vector<uint32_t> hop_stats;
+    diskann::search_times = std::vector<float>(query_num, 0);
+    diskann::expansion_times = std::vector<float>(query_num, 0);
+
     if (not tags || filtered_search)
     {
         cmp_stats = std::vector<uint32_t>(query_num, 0);
         hop_stats = std::vector<uint32_t>(query_num, 0);
+        diskann::dist_comps = std::vector<uint32_t>(query_num, 0);
     }
 
     std::vector<TagT> query_result_tags;
@@ -184,6 +195,14 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
             continue;
         }
 
+        // std::string timer_log_path = cluster_path;
+        // std::string dist_log_path = cluster_path;
+        // std::replace(timer_log_path.begin(), timer_log_path.end(), "cluster_mapping", "timer_log_"+std::to_string(L));
+        // std::replace(dist_log_path.begin(), dist_log_path.end(), "cluster_mapping", "dist_log_"+std::to_string(L));
+
+        // std::ofstream timer_log(timer_log_path, std::ios::out | std::ios::binary);
+        // std::ofstream dist_log(dist_log_path, std::ios::out | std::ios::binary);
+
         query_result_ids[test_id].resize(recall_at * query_num);
         query_result_dists[test_id].resize(recall_at * query_num);
         std::vector<T *> res = std::vector<T *>();
@@ -194,6 +213,7 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
         for (int64_t i = 0; i < (int64_t)query_num; i++)
         {   
             //diskann::cout<<"Query: "<<i<<std::endl;
+            diskann::query_id = i;
             auto qs = std::chrono::high_resolution_clock::now();
             if (filtered_search && !tags)
             {
@@ -265,6 +285,9 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
 
         float avg_cmps = (float)std::accumulate(cmp_stats.begin(), cmp_stats.end(), 0) / (float)query_num;
         float avg_hops = (float)std::accumulate(hop_stats.begin(), hop_stats.end(), 0) / (float)query_num;
+        float avg_dist_comps = (float)std::accumulate(diskann::dist_comps.begin(), diskann::dist_comps.end(), 0) / (float)query_num;
+        double avg_search_time = std::accumulate(diskann::search_times.begin(), diskann::search_times.end(), 0.0) / static_cast<float>(query_num);
+        double avg_expansion_time = std::accumulate(diskann::expansion_times.begin(), diskann::expansion_times.end(), 0.0) / static_cast<float>(query_num);
 
         if (tags && !filtered_search)
         {
@@ -272,10 +295,12 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
                       << std::setw(15) << (float)latency_stats[(uint64_t)(0.999 * query_num)];
         }
         else
-        {
-            std::cout << std::setw(4) << L << std::setw(12) << displayed_qps << std::setw(18) << avg_cmps << std::setw(12) << avg_hops
+        {   
+            float dist_percentage = (avg_dist_comps / avg_cmps) * 100;
+            float latency_percentage = (avg_expansion_time / (avg_search_time + avg_expansion_time)) * 100;
+            std::cout << std::setw(4) << L << std::setw(12) << displayed_qps << std::setw(18) << avg_cmps << std::setw(18) << avg_dist_comps << std::setw(10) << dist_percentage << std::setw(12) << avg_hops
                       << std::setw(20) << (float)mean_latency << std::setw(15)
-                      << (float)latency_stats[(uint64_t)(0.999 * query_num)];
+                      << (float)latency_stats[(uint64_t)(0.999 * query_num)] << std::setw(22) << avg_search_time << std::setw(22) << avg_expansion_time << std::setw(10) << latency_percentage;
         }
         for (double recall : recalls)
         {
@@ -283,6 +308,8 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
             best_recall = std::max(recall, best_recall);
         }
         std::cout << std::endl;
+        // timer_log.close();
+        // dist_log.close();
     }
 
     std::cout << "Done searching. Now saving results " << std::endl;

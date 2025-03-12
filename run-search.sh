@@ -33,4 +33,7 @@ data_path="${file_base_path}/wiki1M_normalized.bin"
 gt_file="${file_base_path}/wiki1M_gt_normalized"
 query_file="${file_base_path}/wiki1M_queries_normalized.bin"
 result_path="/home/rakri/avarhade/Dump/tmp"
-./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/clustering/wiki_memory_index_clustering_r16_l50_mcs32_pm10_t0.3 --cluster_path /nvmessd1/fbv4/avarhade/clustering/cluster_mapping_r16_l50_mcs32_pm10_t0.300000.bin --gt_file $gt_file --query_file $query_file --result_path $result_path -K 50 -L 50 100 150 200 250 300 500 -T 48 >> /home/rakri/avarhade/DiskANN/wiki1M/wiki_clustering_r16_l50.txt
+
+
+./apps/build_memory_index --data_path $data_path --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/clustering/wiki_log_memory_index_clustering_r16_l50_mcs32_pm20_it0.4 -R 16 -L 50 -T 48 >> /home/rakri/avarhade/DiskANN/wiki1M/wiki_log_clustering_r16_l50.txt
+./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/clustering/wiki_log_memory_index_clustering_r16_l50_mcs32_pm20_it0.4 --cluster_path /nvmessd1/fbv4/avarhade/clustering/cluster_mapping_r16_l50_mcs32_pm20_it0.400000.bin --gt_file $gt_file --query_file $query_file --result_path $result_path -K 50 -L 50 100 150 200 250 300 500 -T 48 >> /home/rakri/avarhade/DiskANN/wiki1M/wiki_log_clustering_r16_l50.txt

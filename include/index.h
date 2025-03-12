@@ -29,9 +29,18 @@
 #define EXPAND_IF_FULL 0
 #define DEFAULT_MAXC 750
 
+// extern std::ofstream timer_log;
+// extern std::ofstream dist_log;
+
+
+
 namespace diskann
 {
-
+    extern std::vector<uint32_t> dist_comps;
+    extern std::vector<float> search_times;
+    extern std::vector<float> expansion_times;
+    extern int query_id;
+    
 inline double estimate_ram_usage(size_t size, uint32_t dim, uint32_t datasize, uint32_t degree)
 {
     double size_of_data = ((double)size) * ROUND_UP(dim, 8) * datasize;

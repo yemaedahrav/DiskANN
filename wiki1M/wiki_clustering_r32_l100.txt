@@ -523,3 +523,73 @@ Finished writing bin.
 Writing bin: /home/rakri/avarhade/Dump/tmp_500_dists_float.bin
 bin: #pts = 5000, #dims = 100, size = 2000008B
 Finished writing bin.
+Starting index build with R: 32  Lbuild: 100  alpha: 1.2  #threads: 48
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+Clustering Parameters: MAX_CLUSTER_SIZE: 32, POINT_MULTIPLICITY: 20, INVERSE_THRESHOLD: 0.4
+0% of index build completed.10% of index build completed.20% of index build completed.30% of index build completed.40% of index build completed.50% of index build completed.60% of index build completed.70% of index build completed.80% of index build completed.90% of index build completed.Starting final cleanup..done. Link time: 127.895s
+Total number of clusters: 701945
+Average Cluster Size: 8.09579
+Cluster to Node mapping saved in file: /nvmessd1/fbv4/avarhade/clustering/cluster_mapping_r32_l100_mcs32_pm20_it0.400000.bin
+Points in graph/cluster centers: 701945
+Index built with degree: max:32  avg:26.4408  min:1  count(deg<2):46  count(deg=0):0
+Indexing time: 130.748
+Not saving tags as they are not enabled.
+Time taken for save: 3.02575s.
+Reading (with alignment) bin file /nvmessd1/fbv4/avarhade/datasets/wiki1M_queries_normalized.bin ...Metadata: #pts = 5000, #dims = 768, aligned_dim = 768... allocating aligned memory of 15360000 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized, size: 4000008, cache_size: 4000008
+Reading truthset file /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized ...
+Metadata: #pts = 5000, #dims = 100... 
+Opened cluster file: /nvmessd1/fbv4/avarhade/clustering/cluster_mapping_r32_l100_mcs32_pm20_it0.400000.bin
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.034577s
+From graph header, expected_file_size: 78239920, _max_observed_degree: 32, _start: 5490, file_frozen_pts: 0
+Loading vamana graph /nvmessd1/fbv4/avarhade/clustering/wiki_log_memory_index_clustering_r32_l100_mcs32_pm20_it0.4...done. Index has 298055 nodes/clusters and 18559974 out-edges, _start is set to 5490
+Index loaded
+Using 48 threads to search
+  Ls         QPS     Avg dist cmps     Exp dist cmps    Dist %    Avg hops  Mean Latency (mus)   99.9 Latency  Search Latency (mus)     Exp Latency (mus) Latency %  Recall@100
+===============================================================================================================================================================================
+ 100     2583.42           3254.77            488.61     15.01      104.82            18493.25       44326.58               6548.83               2299.80     25.99       87.63
+ 150     2228.01           4659.57           1003.48     21.54      154.15            21443.38       44715.20              10774.52               4173.55     27.92       91.60
+ 200     2760.94           6000.23           1487.02     24.78      203.71            17318.68       41997.21              11285.06               4502.81     28.52       93.64
+ 250     2449.59           7303.30           1931.91     26.45      253.38            19503.28       41974.30              12018.84               5171.09     30.08       94.86
+ 300     1860.13           8575.38           2373.62     27.68      303.12            25713.10       52779.95              14419.18               6540.11     31.20       95.70
+ 500     1289.47          13438.19           3453.99     25.70      502.43            37068.18       74892.09              18396.30               9635.87     34.37       97.28
+Done searching. Now saving results 
+Writing bin: /home/rakri/avarhade/Dump/tmp_100_idx_uint32.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_100_dists_float.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_150_idx_uint32.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_150_dists_float.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_200_idx_uint32.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_200_dists_float.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_250_idx_uint32.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_250_dists_float.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_300_idx_uint32.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_300_dists_float.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_500_idx_uint32.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_500_dists_float.bin
+bin: #pts = 5000, #dims = 100, size = 2000008B
+Finished writing bin.
