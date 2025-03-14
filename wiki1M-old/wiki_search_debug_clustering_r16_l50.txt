@@ -1,0 +1,1145 @@
+Reading (with alignment) bin file /nvmessd1/fbv4/avarhade/datasets/wiki1M_queries_normalized.bin ...Metadata: #pts = 5000, #dims = 768, aligned_dim = 768... allocating aligned memory of 15360000 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized, size: 4000008, cache_size: 4000008
+Reading truthset file /nvmessd1/fbv4/avarhade/datasets/wiki1M_gt_normalized ...
+Metadata: #pts = 5000, #dims = 100... 
+Opened cluster file: /nvmessd1/fbv4/avarhade/clustering/wiki_cluster_mapping_r16_l50_mcs100_pm50_t0.3.bin
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0358761s
+From graph header, expected_file_size: 23099220, _max_observed_degree: 16, _start: 5490, file_frozen_pts: 0
+Loading vamana graph /nvmessd1/fbv4/avarhade/clustering/wiki_memory_index_clustering_r16_l50_mcs100_pm50_t0.3...done. 
+Index has 304922 nodes/clusters and 4774799 out-edges, _start is set to 5490
+Index loaded
+Using 1 threads to search
+  Ls         QPS     Avg dist cmps     Exp dist cmps    Dist %    Avg hops  Mean Latency (mus)   99.9 Latency  Search Latency (mus)     Exp Latency (mus) Latency %   Recall@50
+===============================================================================================================================================================================
+Query: 0
+Hop: 0 Node: 5490 Deg: 16 Search Cumulative Comparisons: 16
+Hop: 1 Node: 335942 Deg: 16 Search Cumulative Comparisons: 31
+Hop: 2 Node: 26638 Deg: 16 Search Cumulative Comparisons: 46
+Hop: 3 Node: 712660 Deg: 16 Search Cumulative Comparisons: 61
+Hop: 4 Node: 767142 Deg: 16 Search Cumulative Comparisons: 76
+Hop: 5 Node: 986236 Deg: 16 Search Cumulative Comparisons: 91
+Hop: 6 Node: 368634 Deg: 16 Search Cumulative Comparisons: 106
+Hop: 7 Node: 934524 Deg: 16 Search Cumulative Comparisons: 120
+Hop: 8 Node: 313364 Deg: 16 Search Cumulative Comparisons: 136
+Hop: 9 Node: 925424 Deg: 16 Search Cumulative Comparisons: 151
+Hop: 10 Node: 786478 Deg: 16 Search Cumulative Comparisons: 163
+Hop: 11 Node: 203233 Deg: 16 Search Cumulative Comparisons: 178
+Hop: 12 Node: 161815 Deg: 16 Search Cumulative Comparisons: 193
+Hop: 13 Node: 78384 Deg: 16 Search Cumulative Comparisons: 206
+Hop: 14 Node: 452258 Deg: 16 Search Cumulative Comparisons: 220
+Hop: 15 Node: 111742 Deg: 16 Search Cumulative Comparisons: 232
+Hop: 16 Node: 100138 Deg: 16 Search Cumulative Comparisons: 244
+Hop: 17 Node: 789378 Deg: 16 Search Cumulative Comparisons: 258
+Hop: 18 Node: 859448 Deg: 16 Search Cumulative Comparisons: 267
+Hop: 19 Node: 510778 Deg: 16 Search Cumulative Comparisons: 276
+Hop: 20 Node: 302129 Deg: 16 Search Cumulative Comparisons: 288
+Hop: 21 Node: 839220 Deg: 16 Search Cumulative Comparisons: 300
+Hop: 22 Node: 653051 Deg: 16 Search Cumulative Comparisons: 311
+Hop: 23 Node: 284677 Deg: 16 Search Cumulative Comparisons: 324
+Hop: 24 Node: 35742 Deg: 16 Search Cumulative Comparisons: 340
+Hop: 25 Node: 194046 Deg: 16 Search Cumulative Comparisons: 355
+Hop: 26 Node: 194036 Deg: 16 Search Cumulative Comparisons: 369
+Hop: 27 Node: 79382 Deg: 16 Search Cumulative Comparisons: 383
+Hop: 28 Node: 646591 Deg: 16 Search Cumulative Comparisons: 390
+Hop: 29 Node: 286992 Deg: 16 Search Cumulative Comparisons: 404
+Hop: 30 Node: 273865 Deg: 16 Search Cumulative Comparisons: 418
+Hop: 31 Node: 534816 Deg: 16 Search Cumulative Comparisons: 431
+Hop: 32 Node: 264891 Deg: 16 Search Cumulative Comparisons: 445
+Hop: 33 Node: 30229 Deg: 16 Search Cumulative Comparisons: 455
+Hop: 34 Node: 732169 Deg: 16 Search Cumulative Comparisons: 464
+Hop: 35 Node: 73128 Deg: 16 Search Cumulative Comparisons: 477
+Hop: 36 Node: 89035 Deg: 16 Search Cumulative Comparisons: 490
+Hop: 37 Node: 258407 Deg: 16 Search Cumulative Comparisons: 504
+Hop: 38 Node: 885594 Deg: 16 Search Cumulative Comparisons: 518
+Hop: 39 Node: 497622 Deg: 16 Search Cumulative Comparisons: 532
+Hop: 40 Node: 673328 Deg: 16 Search Cumulative Comparisons: 543
+Hop: 41 Node: 424280 Deg: 16 Search Cumulative Comparisons: 558
+Hop: 42 Node: 341552 Deg: 16 Search Cumulative Comparisons: 570
+Hop: 43 Node: 312976 Deg: 16 Search Cumulative Comparisons: 582
+Hop: 44 Node: 279832 Deg: 16 Search Cumulative Comparisons: 597
+Hop: 45 Node: 10125 Deg: 16 Search Cumulative Comparisons: 610
+Hop: 46 Node: 285231 Deg: 16 Search Cumulative Comparisons: 625
+Hop: 47 Node: 490864 Deg: 16 Search Cumulative Comparisons: 638
+Hop: 48 Node: 760257 Deg: 16 Search Cumulative Comparisons: 653
+Hop: 49 Node: 748717 Deg: 16 Search Cumulative Comparisons: 666
+Hop: 50 Node: 223758 Deg: 16 Search Cumulative Comparisons: 673
+Hop: 51 Node: 297231 Deg: 16 Search Cumulative Comparisons: 686
+Total Hops: 52 Total Search Distance Comparisons: 686
+Cluster Size: 8 Cumulative Unique nodes: 7
+Cluster Size: 33 Cumulative Unique nodes: 36
+Cluster Size: 21 Cumulative Unique nodes: 51
+Cluster Size: 100 Cumulative Unique nodes: 150
+Cluster Size: 100 Cumulative Unique nodes: 249
+Cluster Size: 58 Cumulative Unique nodes: 303
+Cluster Size: 13 Cumulative Unique nodes: 314
+Cluster Size: 7 Cumulative Unique nodes: 318
+Cluster Size: 2 Cumulative Unique nodes: 318
+Cluster Size: 26 Cumulative Unique nodes: 343
+Cluster Size: 28 Cumulative Unique nodes: 365
+Cluster Size: 100 Cumulative Unique nodes: 464
+Cluster Size: 8 Cumulative Unique nodes: 468
+Cluster Size: 12 Cumulative Unique nodes: 477
+Cluster Size: 4 Cumulative Unique nodes: 480
+Cluster Size: 19 Cumulative Unique nodes: 496
+Cluster Size: 100 Cumulative Unique nodes: 593
+Cluster Size: 100 Cumulative Unique nodes: 692
+Cluster Size: 25 Cumulative Unique nodes: 705
+Cluster Size: 2 Cumulative Unique nodes: 706
+Cluster Size: 100 Cumulative Unique nodes: 790
+Cluster Size: 13 Cumulative Unique nodes: 801
+Cluster Size: 2 Cumulative Unique nodes: 801
+Cluster Size: 33 Cumulative Unique nodes: 815
+Cluster Size: 16 Cumulative Unique nodes: 824
+Cluster Size: 2 Cumulative Unique nodes: 825
+Cluster Size: 1 Cumulative Unique nodes: 825
+Cluster Size: 100 Cumulative Unique nodes: 914
+Cluster Size: 100 Cumulative Unique nodes: 1006
+Cluster Size: 81 Cumulative Unique nodes: 1075
+Cluster Size: 100 Cumulative Unique nodes: 1168
+Cluster Size: 100 Cumulative Unique nodes: 1256
+Cluster Size: 13 Cumulative Unique nodes: 1265
+Cluster Size: 29 Cumulative Unique nodes: 1279
+Cluster Size: 52 Cumulative Unique nodes: 1318
+Cluster Size: 42 Cumulative Unique nodes: 1343
+Cluster Size: 6 Cumulative Unique nodes: 1348
+Cluster Size: 16 Cumulative Unique nodes: 1362
+Cluster Size: 47 Cumulative Unique nodes: 1408
+Cluster Size: 2 Cumulative Unique nodes: 1409
+Cluster Size: 15 Cumulative Unique nodes: 1420
+Cluster Size: 15 Cumulative Unique nodes: 1433
+Cluster Size: 100 Cumulative Unique nodes: 1532
+Cluster Size: 23 Cumulative Unique nodes: 1552
+Cluster Size: 17 Cumulative Unique nodes: 1566
+Cluster Size: 38 Cumulative Unique nodes: 1597
+Cluster Size: 100 Cumulative Unique nodes: 1678
+Cluster Size: 40 Cumulative Unique nodes: 1716
+Cluster Size: 5 Cumulative Unique nodes: 1718
+Cluster Size: 18 Cumulative Unique nodes: 1724
+Total Expansion Distance comparions: 1724
+
+Query: 1
+Hop: 0 Node: 5490 Deg: 16 Search Cumulative Comparisons: 16
+Hop: 1 Node: 902841 Deg: 16 Search Cumulative Comparisons: 31
+Hop: 2 Node: 483586 Deg: 16 Search Cumulative Comparisons: 46
+Hop: 3 Node: 531360 Deg: 16 Search Cumulative Comparisons: 61
+Hop: 4 Node: 854248 Deg: 16 Search Cumulative Comparisons: 76
+Hop: 5 Node: 816859 Deg: 16 Search Cumulative Comparisons: 90
+Hop: 6 Node: 372286 Deg: 16 Search Cumulative Comparisons: 105
+Hop: 7 Node: 252423 Deg: 16 Search Cumulative Comparisons: 120
+Hop: 8 Node: 573591 Deg: 16 Search Cumulative Comparisons: 135
+Hop: 9 Node: 161068 Deg: 16 Search Cumulative Comparisons: 150
+Hop: 10 Node: 118504 Deg: 16 Search Cumulative Comparisons: 165
+Hop: 11 Node: 220062 Deg: 16 Search Cumulative Comparisons: 177
+Hop: 12 Node: 784549 Deg: 16 Search Cumulative Comparisons: 191
+Hop: 13 Node: 118477 Deg: 16 Search Cumulative Comparisons: 201
+Hop: 14 Node: 48115 Deg: 16 Search Cumulative Comparisons: 213
+Hop: 15 Node: 959163 Deg: 16 Search Cumulative Comparisons: 226
+Hop: 16 Node: 573593 Deg: 16 Search Cumulative Comparisons: 239
+Hop: 17 Node: 118489 Deg: 16 Search Cumulative Comparisons: 252
+Hop: 18 Node: 48157 Deg: 16 Search Cumulative Comparisons: 263
+Hop: 19 Node: 205962 Deg: 16 Search Cumulative Comparisons: 277
+Hop: 20 Node: 71575 Deg: 16 Search Cumulative Comparisons: 290
+Hop: 21 Node: 761229 Deg: 16 Search Cumulative Comparisons: 300
+Hop: 22 Node: 255249 Deg: 16 Search Cumulative Comparisons: 313
+Hop: 23 Node: 54639 Deg: 16 Search Cumulative Comparisons: 328
+Hop: 24 Node: 48103 Deg: 16 Search Cumulative Comparisons: 336
+Hop: 25 Node: 733602 Deg: 16 Search Cumulative Comparisons: 347
+Hop: 26 Node: 413220 Deg: 16 Search Cumulative Comparisons: 358
+Hop: 27 Node: 791645 Deg: 16 Search Cumulative Comparisons: 366
+Hop: 28 Node: 590316 Deg: 16 Search Cumulative Comparisons: 374
+Hop: 29 Node: 27539 Deg: 16 Search Cumulative Comparisons: 384
+Hop: 30 Node: 250888 Deg: 16 Search Cumulative Comparisons: 396
+Hop: 31 Node: 71535 Deg: 16 Search Cumulative Comparisons: 406
+Hop: 32 Node: 810567 Deg: 16 Search Cumulative Comparisons: 413
+Hop: 33 Node: 734023 Deg: 16 Search Cumulative Comparisons: 426
+Hop: 34 Node: 563428 Deg: 16 Search Cumulative Comparisons: 437
+Hop: 35 Node: 179124 Deg: 16 Search Cumulative Comparisons: 450
+Hop: 36 Node: 810536 Deg: 16 Search Cumulative Comparisons: 458
+Hop: 37 Node: 205964 Deg: 16 Search Cumulative Comparisons: 467
+Hop: 38 Node: 205956 Deg: 16 Search Cumulative Comparisons: 477
+Hop: 39 Node: 789467 Deg: 16 Search Cumulative Comparisons: 486
+Hop: 40 Node: 633604 Deg: 16 Search Cumulative Comparisons: 495
+Hop: 41 Node: 48138 Deg: 16 Search Cumulative Comparisons: 509
+Hop: 42 Node: 160174 Deg: 16 Search Cumulative Comparisons: 516
+Hop: 43 Node: 71551 Deg: 16 Search Cumulative Comparisons: 528
+Hop: 44 Node: 350779 Deg: 16 Search Cumulative Comparisons: 542
+Hop: 45 Node: 988356 Deg: 16 Search Cumulative Comparisons: 545
+Hop: 46 Node: 828530 Deg: 16 Search Cumulative Comparisons: 556
+Hop: 47 Node: 160152 Deg: 16 Search Cumulative Comparisons: 559
+Hop: 48 Node: 627359 Deg: 16 Search Cumulative Comparisons: 573
+Hop: 49 Node: 517968 Deg: 16 Search Cumulative Comparisons: 584
+Hop: 50 Node: 181096 Deg: 16 Search Cumulative Comparisons: 597
+Hop: 51 Node: 156242 Deg: 16 Search Cumulative Comparisons: 610
+Hop: 52 Node: 573610 Deg: 16 Search Cumulative Comparisons: 619
+Hop: 53 Node: 48171 Deg: 16 Search Cumulative Comparisons: 627
+Hop: 54 Node: 766180 Deg: 16 Search Cumulative Comparisons: 634
+Hop: 55 Node: 278727 Deg: 16 Search Cumulative Comparisons: 640
+Total Hops: 56 Total Search Distance Comparisons: 640
+Cluster Size: 47 Cumulative Unique nodes: 46
+Cluster Size: 100 Cumulative Unique nodes: 145
+Cluster Size: 50 Cumulative Unique nodes: 189
+Cluster Size: 28 Cumulative Unique nodes: 212
+Cluster Size: 51 Cumulative Unique nodes: 262
+Cluster Size: 19 Cumulative Unique nodes: 276
+Cluster Size: 24 Cumulative Unique nodes: 297
+Cluster Size: 37 Cumulative Unique nodes: 323
+Cluster Size: 22 Cumulative Unique nodes: 332
+Cluster Size: 9 Cumulative Unique nodes: 339
+Cluster Size: 100 Cumulative Unique nodes: 426
+Cluster Size: 54 Cumulative Unique nodes: 467
+Cluster Size: 100 Cumulative Unique nodes: 565
+Cluster Size: 100 Cumulative Unique nodes: 661
+Cluster Size: 5 Cumulative Unique nodes: 662
+Cluster Size: 13 Cumulative Unique nodes: 670
+Cluster Size: 15 Cumulative Unique nodes: 683
+Cluster Size: 44 Cumulative Unique nodes: 725
+Cluster Size: 100 Cumulative Unique nodes: 808
+Cluster Size: 100 Cumulative Unique nodes: 896
+Cluster Size: 100 Cumulative Unique nodes: 974
+Cluster Size: 100 Cumulative Unique nodes: 1054
+Cluster Size: 51 Cumulative Unique nodes: 1096
+Cluster Size: 70 Cumulative Unique nodes: 1140
+Cluster Size: 1 Cumulative Unique nodes: 1140
+Cluster Size: 100 Cumulative Unique nodes: 1211
+Cluster Size: 23 Cumulative Unique nodes: 1231
+Cluster Size: 88 Cumulative Unique nodes: 1276
+Cluster Size: 100 Cumulative Unique nodes: 1353
+Cluster Size: 56 Cumulative Unique nodes: 1380
+Cluster Size: 6 Cumulative Unique nodes: 1384
+Cluster Size: 74 Cumulative Unique nodes: 1442
+Cluster Size: 100 Cumulative Unique nodes: 1516
+Cluster Size: 50 Cumulative Unique nodes: 1556
+Cluster Size: 15 Cumulative Unique nodes: 1560
+Cluster Size: 8 Cumulative Unique nodes: 1562
+Cluster Size: 46 Cumulative Unique nodes: 1593
+Cluster Size: 68 Cumulative Unique nodes: 1625
+Cluster Size: 47 Cumulative Unique nodes: 1666
+Cluster Size: 50 Cumulative Unique nodes: 1698
+Cluster Size: 51 Cumulative Unique nodes: 1728
+Cluster Size: 100 Cumulative Unique nodes: 1817
+Cluster Size: 44 Cumulative Unique nodes: 1844
+Cluster Size: 6 Cumulative Unique nodes: 1845
+Cluster Size: 46 Cumulative Unique nodes: 1866
+Cluster Size: 44 Cumulative Unique nodes: 1902
+Cluster Size: 23 Cumulative Unique nodes: 1912
+Cluster Size: 100 Cumulative Unique nodes: 1981
+Cluster Size: 44 Cumulative Unique nodes: 1998
+Cluster Size: 100 Cumulative Unique nodes: 2067
+Total Expansion Distance comparions: 2067
+
+Query: 2
+Hop: 0 Node: 5490 Deg: 16 Search Cumulative Comparisons: 16
+Hop: 1 Node: 483586 Deg: 16 Search Cumulative Comparisons: 31
+Hop: 2 Node: 289755 Deg: 16 Search Cumulative Comparisons: 46
+Hop: 3 Node: 737813 Deg: 16 Search Cumulative Comparisons: 61
+Hop: 4 Node: 171587 Deg: 16 Search Cumulative Comparisons: 76
+Hop: 5 Node: 94272 Deg: 16 Search Cumulative Comparisons: 90
+Hop: 6 Node: 76833 Deg: 16 Search Cumulative Comparisons: 105
+Hop: 7 Node: 144155 Deg: 16 Search Cumulative Comparisons: 120
+Hop: 8 Node: 975138 Deg: 16 Search Cumulative Comparisons: 135
+Hop: 9 Node: 678023 Deg: 16 Search Cumulative Comparisons: 150
+Hop: 10 Node: 285678 Deg: 16 Search Cumulative Comparisons: 165
+Hop: 11 Node: 76829 Deg: 16 Search Cumulative Comparisons: 178
+Hop: 12 Node: 737792 Deg: 16 Search Cumulative Comparisons: 188
+Hop: 13 Node: 424468 Deg: 16 Search Cumulative Comparisons: 203
+Hop: 14 Node: 961560 Deg: 16 Search Cumulative Comparisons: 217
+Hop: 15 Node: 387502 Deg: 16 Search Cumulative Comparisons: 232
+Hop: 16 Node: 358404 Deg: 16 Search Cumulative Comparisons: 246
+Hop: 17 Node: 94238 Deg: 16 Search Cumulative Comparisons: 261
+Hop: 18 Node: 386313 Deg: 16 Search Cumulative Comparisons: 273
+Hop: 19 Node: 780628 Deg: 16 Search Cumulative Comparisons: 289
+Hop: 20 Node: 737825 Deg: 16 Search Cumulative Comparisons: 300
+Hop: 21 Node: 497973 Deg: 16 Search Cumulative Comparisons: 313
+Hop: 22 Node: 451132 Deg: 16 Search Cumulative Comparisons: 326
+Hop: 23 Node: 557674 Deg: 16 Search Cumulative Comparisons: 341
+Hop: 24 Node: 76839 Deg: 16 Search Cumulative Comparisons: 354
+Hop: 25 Node: 834360 Deg: 16 Search Cumulative Comparisons: 364
+Hop: 26 Node: 786829 Deg: 16 Search Cumulative Comparisons: 378
+Hop: 27 Node: 517031 Deg: 16 Search Cumulative Comparisons: 392
+Hop: 28 Node: 25845 Deg: 16 Search Cumulative Comparisons: 406
+Hop: 29 Node: 638920 Deg: 16 Search Cumulative Comparisons: 418
+Hop: 30 Node: 206038 Deg: 16 Search Cumulative Comparisons: 433
+Hop: 31 Node: 75486 Deg: 16 Search Cumulative Comparisons: 447
+Hop: 32 Node: 245426 Deg: 16 Search Cumulative Comparisons: 462
+Hop: 33 Node: 82968 Deg: 16 Search Cumulative Comparisons: 473
+Hop: 34 Node: 94285 Deg: 16 Search Cumulative Comparisons: 483
+Hop: 35 Node: 67352 Deg: 16 Search Cumulative Comparisons: 498
+Hop: 36 Node: 523070 Deg: 16 Search Cumulative Comparisons: 512
+Hop: 37 Node: 8690 Deg: 16 Search Cumulative Comparisons: 525
+Hop: 38 Node: 523019 Deg: 16 Search Cumulative Comparisons: 537
+Hop: 39 Node: 347114 Deg: 16 Search Cumulative Comparisons: 551
+Hop: 40 Node: 346471 Deg: 16 Search Cumulative Comparisons: 566
+Hop: 41 Node: 427579 Deg: 16 Search Cumulative Comparisons: 576
+Hop: 42 Node: 285714 Deg: 16 Search Cumulative Comparisons: 590
+Hop: 43 Node: 810305 Deg: 16 Search Cumulative Comparisons: 603
+Hop: 44 Node: 796916 Deg: 16 Search Cumulative Comparisons: 616
+Hop: 45 Node: 942908 Deg: 16 Search Cumulative Comparisons: 625
+Hop: 46 Node: 867353 Deg: 16 Search Cumulative Comparisons: 635
+Hop: 47 Node: 795534 Deg: 16 Search Cumulative Comparisons: 645
+Hop: 48 Node: 560273 Deg: 16 Search Cumulative Comparisons: 654
+Hop: 49 Node: 367576 Deg: 16 Search Cumulative Comparisons: 667
+Hop: 50 Node: 117236 Deg: 16 Search Cumulative Comparisons: 680
+Total Hops: 51 Total Search Distance Comparisons: 680
+Cluster Size: 9 Cumulative Unique nodes: 8
+Cluster Size: 100 Cumulative Unique nodes: 107
+Cluster Size: 43 Cumulative Unique nodes: 148
+Cluster Size: 92 Cumulative Unique nodes: 236
+Cluster Size: 89 Cumulative Unique nodes: 322
+Cluster Size: 100 Cumulative Unique nodes: 418
+Cluster Size: 96 Cumulative Unique nodes: 497
+Cluster Size: 100 Cumulative Unique nodes: 596
+Cluster Size: 96 Cumulative Unique nodes: 679
+Cluster Size: 56 Cumulative Unique nodes: 719
+Cluster Size: 100 Cumulative Unique nodes: 815
+Cluster Size: 62 Cumulative Unique nodes: 865
+Cluster Size: 3 Cumulative Unique nodes: 866
+Cluster Size: 100 Cumulative Unique nodes: 949
+Cluster Size: 83 Cumulative Unique nodes: 1021
+Cluster Size: 15 Cumulative Unique nodes: 1031
+Cluster Size: 100 Cumulative Unique nodes: 1120
+Cluster Size: 70 Cumulative Unique nodes: 1177
+Cluster Size: 9 Cumulative Unique nodes: 1180
+Cluster Size: 40 Cumulative Unique nodes: 1218
+Cluster Size: 100 Cumulative Unique nodes: 1310
+Cluster Size: 14 Cumulative Unique nodes: 1322
+Cluster Size: 100 Cumulative Unique nodes: 1419
+Cluster Size: 51 Cumulative Unique nodes: 1444
+Cluster Size: 29 Cumulative Unique nodes: 1465
+Cluster Size: 100 Cumulative Unique nodes: 1556
+Cluster Size: 100 Cumulative Unique nodes: 1645
+Cluster Size: 36 Cumulative Unique nodes: 1679
+Cluster Size: 100 Cumulative Unique nodes: 1771
+Cluster Size: 100 Cumulative Unique nodes: 1855
+Cluster Size: 55 Cumulative Unique nodes: 1884
+Cluster Size: 100 Cumulative Unique nodes: 1963
+Cluster Size: 10 Cumulative Unique nodes: 1971
+Cluster Size: 64 Cumulative Unique nodes: 2013
+Cluster Size: 2 Cumulative Unique nodes: 2014
+Cluster Size: 67 Cumulative Unique nodes: 2065
+Cluster Size: 21 Cumulative Unique nodes: 2080
+Cluster Size: 100 Cumulative Unique nodes: 2157
+Cluster Size: 13 Cumulative Unique nodes: 2164
+Cluster Size: 100 Cumulative Unique nodes: 2244
+Cluster Size: 18 Cumulative Unique nodes: 2257
+Cluster Size: 12 Cumulative Unique nodes: 2262
+Cluster Size: 5 Cumulative Unique nodes: 2266
+Cluster Size: 14 Cumulative Unique nodes: 2277
+Cluster Size: 100 Cumulative Unique nodes: 2356
+Cluster Size: 22 Cumulative Unique nodes: 2369
+Cluster Size: 69 Cumulative Unique nodes: 2413
+Cluster Size: 76 Cumulative Unique nodes: 2465
+Cluster Size: 46 Cumulative Unique nodes: 2505
+Cluster Size: 100 Cumulative Unique nodes: 2597
+Total Expansion Distance comparions: 2597
+
+Query: 3
+Hop: 0 Node: 5490 Deg: 16 Search Cumulative Comparisons: 16
+Hop: 1 Node: 852813 Deg: 16 Search Cumulative Comparisons: 31
+Hop: 2 Node: 26638 Deg: 16 Search Cumulative Comparisons: 46
+Hop: 3 Node: 855654 Deg: 16 Search Cumulative Comparisons: 61
+Hop: 4 Node: 326809 Deg: 16 Search Cumulative Comparisons: 76
+Hop: 5 Node: 536068 Deg: 16 Search Cumulative Comparisons: 90
+Hop: 6 Node: 567885 Deg: 16 Search Cumulative Comparisons: 106
+Hop: 7 Node: 84044 Deg: 16 Search Cumulative Comparisons: 122
+Hop: 8 Node: 545255 Deg: 16 Search Cumulative Comparisons: 137
+Hop: 9 Node: 425268 Deg: 16 Search Cumulative Comparisons: 150
+Hop: 10 Node: 574501 Deg: 16 Search Cumulative Comparisons: 165
+Hop: 11 Node: 97292 Deg: 16 Search Cumulative Comparisons: 180
+Hop: 12 Node: 271141 Deg: 16 Search Cumulative Comparisons: 196
+Hop: 13 Node: 559945 Deg: 16 Search Cumulative Comparisons: 210
+Hop: 14 Node: 155770 Deg: 16 Search Cumulative Comparisons: 225
+Hop: 15 Node: 797996 Deg: 16 Search Cumulative Comparisons: 239
+Hop: 16 Node: 335263 Deg: 16 Search Cumulative Comparisons: 254
+Hop: 17 Node: 584621 Deg: 16 Search Cumulative Comparisons: 270
+Hop: 18 Node: 371723 Deg: 16 Search Cumulative Comparisons: 284
+Hop: 19 Node: 11348 Deg: 16 Search Cumulative Comparisons: 298
+Hop: 20 Node: 280810 Deg: 16 Search Cumulative Comparisons: 313
+Hop: 21 Node: 854422 Deg: 16 Search Cumulative Comparisons: 325
+Hop: 22 Node: 861214 Deg: 16 Search Cumulative Comparisons: 340
+Hop: 23 Node: 510691 Deg: 16 Search Cumulative Comparisons: 353
+Hop: 24 Node: 851156 Deg: 16 Search Cumulative Comparisons: 366
+Hop: 25 Node: 112146 Deg: 16 Search Cumulative Comparisons: 381
+Hop: 26 Node: 656456 Deg: 16 Search Cumulative Comparisons: 395
+Hop: 27 Node: 98812 Deg: 16 Search Cumulative Comparisons: 407
+Hop: 28 Node: 522297 Deg: 16 Search Cumulative Comparisons: 422
+Hop: 29 Node: 881545 Deg: 16 Search Cumulative Comparisons: 435
+Hop: 30 Node: 737720 Deg: 16 Search Cumulative Comparisons: 449
+Hop: 31 Node: 843107 Deg: 16 Search Cumulative Comparisons: 460
+Hop: 32 Node: 170598 Deg: 16 Search Cumulative Comparisons: 473
+Hop: 33 Node: 715399 Deg: 16 Search Cumulative Comparisons: 487
+Hop: 34 Node: 737732 Deg: 16 Search Cumulative Comparisons: 502
+Hop: 35 Node: 446699 Deg: 16 Search Cumulative Comparisons: 514
+Hop: 36 Node: 837491 Deg: 16 Search Cumulative Comparisons: 527
+Hop: 37 Node: 548356 Deg: 16 Search Cumulative Comparisons: 538
+Hop: 38 Node: 808748 Deg: 16 Search Cumulative Comparisons: 549
+Hop: 39 Node: 707811 Deg: 16 Search Cumulative Comparisons: 562
+Hop: 40 Node: 478377 Deg: 16 Search Cumulative Comparisons: 577
+Hop: 41 Node: 67544 Deg: 16 Search Cumulative Comparisons: 590
+Hop: 42 Node: 140689 Deg: 16 Search Cumulative Comparisons: 603
+Hop: 43 Node: 634274 Deg: 16 Search Cumulative Comparisons: 617
+Hop: 44 Node: 334523 Deg: 16 Search Cumulative Comparisons: 632
+Hop: 45 Node: 140705 Deg: 16 Search Cumulative Comparisons: 646
+Hop: 46 Node: 909060 Deg: 16 Search Cumulative Comparisons: 658
+Hop: 47 Node: 235796 Deg: 16 Search Cumulative Comparisons: 671
+Hop: 48 Node: 787191 Deg: 16 Search Cumulative Comparisons: 684
+Hop: 49 Node: 502749 Deg: 16 Search Cumulative Comparisons: 693
+Hop: 50 Node: 953282 Deg: 16 Search Cumulative Comparisons: 705
+Hop: 51 Node: 25322 Deg: 16 Search Cumulative Comparisons: 720
+Hop: 52 Node: 275586 Deg: 16 Search Cumulative Comparisons: 734
+Hop: 53 Node: 755039 Deg: 16 Search Cumulative Comparisons: 745
+Hop: 54 Node: 608817 Deg: 16 Search Cumulative Comparisons: 759
+Hop: 55 Node: 373732 Deg: 16 Search Cumulative Comparisons: 772
+Hop: 56 Node: 201604 Deg: 16 Search Cumulative Comparisons: 783
+Hop: 57 Node: 463703 Deg: 16 Search Cumulative Comparisons: 794
+Hop: 58 Node: 408008 Deg: 16 Search Cumulative Comparisons: 808
+Hop: 59 Node: 489402 Deg: 16 Search Cumulative Comparisons: 819
+Hop: 60 Node: 148988 Deg: 16 Search Cumulative Comparisons: 830
+Hop: 61 Node: 73079 Deg: 16 Search Cumulative Comparisons: 841
+Total Hops: 62 Total Search Distance Comparisons: 841
+Cluster Size: 3 Cumulative Unique nodes: 2
+Cluster Size: 41 Cumulative Unique nodes: 42
+Cluster Size: 100 Cumulative Unique nodes: 133
+Cluster Size: 100 Cumulative Unique nodes: 222
+Cluster Size: 100 Cumulative Unique nodes: 321
+Cluster Size: 38 Cumulative Unique nodes: 356
+Cluster Size: 44 Cumulative Unique nodes: 398
+Cluster Size: 100 Cumulative Unique nodes: 485
+Cluster Size: 40 Cumulative Unique nodes: 517
+Cluster Size: 18 Cumulative Unique nodes: 528
+Cluster Size: 7 Cumulative Unique nodes: 533
+Cluster Size: 100 Cumulative Unique nodes: 632
+Cluster Size: 100 Cumulative Unique nodes: 691
+Cluster Size: 100 Cumulative Unique nodes: 759
+Cluster Size: 100 Cumulative Unique nodes: 851
+Cluster Size: 25 Cumulative Unique nodes: 874
+Cluster Size: 40 Cumulative Unique nodes: 911
+Cluster Size: 100 Cumulative Unique nodes: 1007
+Cluster Size: 100 Cumulative Unique nodes: 1098
+Cluster Size: 100 Cumulative Unique nodes: 1197
+Cluster Size: 58 Cumulative Unique nodes: 1254
+Cluster Size: 100 Cumulative Unique nodes: 1330
+Cluster Size: 35 Cumulative Unique nodes: 1361
+Cluster Size: 8 Cumulative Unique nodes: 1367
+Cluster Size: 10 Cumulative Unique nodes: 1375
+Cluster Size: 8 Cumulative Unique nodes: 1382
+Cluster Size: 21 Cumulative Unique nodes: 1392
+Cluster Size: 87 Cumulative Unique nodes: 1475
+Cluster Size: 40 Cumulative Unique nodes: 1507
+Cluster Size: 11 Cumulative Unique nodes: 1513
+Cluster Size: 100 Cumulative Unique nodes: 1586
+Cluster Size: 11 Cumulative Unique nodes: 1591
+Cluster Size: 8 Cumulative Unique nodes: 1596
+Cluster Size: 2 Cumulative Unique nodes: 1597
+Cluster Size: 8 Cumulative Unique nodes: 1602
+Cluster Size: 35 Cumulative Unique nodes: 1629
+Cluster Size: 20 Cumulative Unique nodes: 1637
+Cluster Size: 46 Cumulative Unique nodes: 1660
+Cluster Size: 100 Cumulative Unique nodes: 1747
+Cluster Size: 19 Cumulative Unique nodes: 1765
+Cluster Size: 56 Cumulative Unique nodes: 1815
+Cluster Size: 43 Cumulative Unique nodes: 1847
+Cluster Size: 100 Cumulative Unique nodes: 1914
+Cluster Size: 1 Cumulative Unique nodes: 1914
+Cluster Size: 9 Cumulative Unique nodes: 1920
+Cluster Size: 100 Cumulative Unique nodes: 2009
+Cluster Size: 46 Cumulative Unique nodes: 2048
+Cluster Size: 100 Cumulative Unique nodes: 2120
+Cluster Size: 29 Cumulative Unique nodes: 2146
+Cluster Size: 100 Cumulative Unique nodes: 2218
+Total Expansion Distance comparions: 2218
+
+Query: 4
+Hop: 0 Node: 5490 Deg: 16 Search Cumulative Comparisons: 16
+Hop: 1 Node: 650838 Deg: 16 Search Cumulative Comparisons: 31
+Hop: 2 Node: 357673 Deg: 16 Search Cumulative Comparisons: 47
+Hop: 3 Node: 281415 Deg: 16 Search Cumulative Comparisons: 62
+Hop: 4 Node: 852813 Deg: 16 Search Cumulative Comparisons: 77
+Hop: 5 Node: 821519 Deg: 16 Search Cumulative Comparisons: 93
+Hop: 6 Node: 444786 Deg: 16 Search Cumulative Comparisons: 109
+Hop: 7 Node: 892609 Deg: 16 Search Cumulative Comparisons: 124
+Hop: 8 Node: 78697 Deg: 16 Search Cumulative Comparisons: 138
+Hop: 9 Node: 647396 Deg: 16 Search Cumulative Comparisons: 154
+Hop: 10 Node: 982278 Deg: 16 Search Cumulative Comparisons: 168
+Hop: 11 Node: 799705 Deg: 16 Search Cumulative Comparisons: 184
+Hop: 12 Node: 292742 Deg: 16 Search Cumulative Comparisons: 197
+Hop: 13 Node: 176258 Deg: 16 Search Cumulative Comparisons: 212
+Hop: 14 Node: 794577 Deg: 16 Search Cumulative Comparisons: 227
+Hop: 15 Node: 922870 Deg: 16 Search Cumulative Comparisons: 242
+Hop: 16 Node: 515755 Deg: 16 Search Cumulative Comparisons: 257
+Hop: 17 Node: 88741 Deg: 16 Search Cumulative Comparisons: 271
+Hop: 18 Node: 328461 Deg: 16 Search Cumulative Comparisons: 287
+Hop: 19 Node: 914978 Deg: 16 Search Cumulative Comparisons: 302
+Hop: 20 Node: 914918 Deg: 16 Search Cumulative Comparisons: 316
+Hop: 21 Node: 102244 Deg: 16 Search Cumulative Comparisons: 330
+Hop: 22 Node: 637006 Deg: 16 Search Cumulative Comparisons: 345
+Hop: 23 Node: 101047 Deg: 16 Search Cumulative Comparisons: 361
+Hop: 24 Node: 698544 Deg: 16 Search Cumulative Comparisons: 375
+Hop: 25 Node: 40688 Deg: 16 Search Cumulative Comparisons: 388
+Hop: 26 Node: 245926 Deg: 16 Search Cumulative Comparisons: 403
+Hop: 27 Node: 649875 Deg: 16 Search Cumulative Comparisons: 417
+Hop: 28 Node: 209628 Deg: 16 Search Cumulative Comparisons: 429
+Hop: 29 Node: 14262 Deg: 16 Search Cumulative Comparisons: 444
+Hop: 30 Node: 936010 Deg: 16 Search Cumulative Comparisons: 456
+Hop: 31 Node: 594622 Deg: 16 Search Cumulative Comparisons: 469
+Hop: 32 Node: 651456 Deg: 16 Search Cumulative Comparisons: 483
+Hop: 33 Node: 886622 Deg: 16 Search Cumulative Comparisons: 495
+Hop: 34 Node: 188474 Deg: 16 Search Cumulative Comparisons: 509
+Hop: 35 Node: 687290 Deg: 16 Search Cumulative Comparisons: 524
+Hop: 36 Node: 745562 Deg: 16 Search Cumulative Comparisons: 538
+Hop: 37 Node: 934559 Deg: 16 Search Cumulative Comparisons: 553
+Hop: 38 Node: 366420 Deg: 16 Search Cumulative Comparisons: 568
+Hop: 39 Node: 24690 Deg: 16 Search Cumulative Comparisons: 583
+Hop: 40 Node: 412451 Deg: 16 Search Cumulative Comparisons: 599
+Hop: 41 Node: 628838 Deg: 16 Search Cumulative Comparisons: 614
+Hop: 42 Node: 187852 Deg: 16 Search Cumulative Comparisons: 629
+Hop: 43 Node: 412446 Deg: 16 Search Cumulative Comparisons: 643
+Hop: 44 Node: 412432 Deg: 16 Search Cumulative Comparisons: 658
+Hop: 45 Node: 61854 Deg: 16 Search Cumulative Comparisons: 673
+Hop: 46 Node: 332971 Deg: 16 Search Cumulative Comparisons: 687
+Hop: 47 Node: 412415 Deg: 16 Search Cumulative Comparisons: 699
+Hop: 48 Node: 354911 Deg: 16 Search Cumulative Comparisons: 710
+Hop: 49 Node: 760636 Deg: 16 Search Cumulative Comparisons: 724
+Hop: 50 Node: 349728 Deg: 16 Search Cumulative Comparisons: 734
+Hop: 51 Node: 146866 Deg: 16 Search Cumulative Comparisons: 748
+Hop: 52 Node: 951962 Deg: 16 Search Cumulative Comparisons: 758
+Hop: 53 Node: 273467 Deg: 16 Search Cumulative Comparisons: 774
+Hop: 54 Node: 721319 Deg: 16 Search Cumulative Comparisons: 786
+Hop: 55 Node: 919541 Deg: 16 Search Cumulative Comparisons: 793
+Hop: 56 Node: 367955 Deg: 16 Search Cumulative Comparisons: 806
+Hop: 57 Node: 777459 Deg: 16 Search Cumulative Comparisons: 814
+Hop: 58 Node: 739601 Deg: 16 Search Cumulative Comparisons: 827
+Hop: 59 Node: 671593 Deg: 16 Search Cumulative Comparisons: 841
+Hop: 60 Node: 777456 Deg: 16 Search Cumulative Comparisons: 848
+Hop: 61 Node: 61890 Deg: 16 Search Cumulative Comparisons: 861
+Hop: 62 Node: 320745 Deg: 16 Search Cumulative Comparisons: 876
+Hop: 63 Node: 155357 Deg: 16 Search Cumulative Comparisons: 887
+Hop: 64 Node: 199728 Deg: 16 Search Cumulative Comparisons: 898
+Hop: 65 Node: 11105 Deg: 16 Search Cumulative Comparisons: 912
+Hop: 66 Node: 400334 Deg: 16 Search Cumulative Comparisons: 925
+Hop: 67 Node: 400323 Deg: 16 Search Cumulative Comparisons: 937
+Hop: 68 Node: 63821 Deg: 16 Search Cumulative Comparisons: 951
+Hop: 69 Node: 412419 Deg: 16 Search Cumulative Comparisons: 964
+Hop: 70 Node: 809410 Deg: 16 Search Cumulative Comparisons: 978
+Hop: 71 Node: 142311 Deg: 16 Search Cumulative Comparisons: 992
+Hop: 72 Node: 529045 Deg: 16 Search Cumulative Comparisons: 1007
+Hop: 73 Node: 555544 Deg: 16 Search Cumulative Comparisons: 1021
+Hop: 74 Node: 519893 Deg: 16 Search Cumulative Comparisons: 1033
+Hop: 75 Node: 323580 Deg: 16 Search Cumulative Comparisons: 1042
+Hop: 76 Node: 147971 Deg: 16 Search Cumulative Comparisons: 1056
+Hop: 77 Node: 266292 Deg: 16 Search Cumulative Comparisons: 1072
+Hop: 78 Node: 266329 Deg: 16 Search Cumulative Comparisons: 1087
+Hop: 79 Node: 291014 Deg: 16 Search Cumulative Comparisons: 1100
+Total Hops: 80 Total Search Distance Comparisons: 1100
+Cluster Size: 5 Cumulative Unique nodes: 4
+Cluster Size: 4 Cumulative Unique nodes: 7
+Cluster Size: 5 Cumulative Unique nodes: 11
+Cluster Size: 5 Cumulative Unique nodes: 15
+Cluster Size: 7 Cumulative Unique nodes: 21
+Cluster Size: 12 Cumulative Unique nodes: 32
+Cluster Size: 1 Cumulative Unique nodes: 32
+Cluster Size: 48 Cumulative Unique nodes: 77
+Cluster Size: 13 Cumulative Unique nodes: 89
+Cluster Size: 100 Cumulative Unique nodes: 188
+Cluster Size: 2 Cumulative Unique nodes: 189
+Cluster Size: 15 Cumulative Unique nodes: 202
+Cluster Size: 2 Cumulative Unique nodes: 203
+Cluster Size: 6 Cumulative Unique nodes: 208
+Cluster Size: 83 Cumulative Unique nodes: 290
+Cluster Size: 1 Cumulative Unique nodes: 290
+Cluster Size: 61 Cumulative Unique nodes: 345
+Cluster Size: 2 Cumulative Unique nodes: 346
+Cluster Size: 16 Cumulative Unique nodes: 360
+Cluster Size: 100 Cumulative Unique nodes: 457
+Cluster Size: 100 Cumulative Unique nodes: 549
+Cluster Size: 100 Cumulative Unique nodes: 646
+Cluster Size: 4 Cumulative Unique nodes: 649
+Cluster Size: 15 Cumulative Unique nodes: 659
+Cluster Size: 10 Cumulative Unique nodes: 668
+Cluster Size: 4 Cumulative Unique nodes: 671
+Cluster Size: 100 Cumulative Unique nodes: 769
+Cluster Size: 4 Cumulative Unique nodes: 772
+Cluster Size: 100 Cumulative Unique nodes: 871
+Cluster Size: 5 Cumulative Unique nodes: 875
+Cluster Size: 9 Cumulative Unique nodes: 877
+Cluster Size: 6 Cumulative Unique nodes: 881
+Cluster Size: 47 Cumulative Unique nodes: 926
+Cluster Size: 2 Cumulative Unique nodes: 926
+Cluster Size: 3 Cumulative Unique nodes: 927
+Cluster Size: 35 Cumulative Unique nodes: 958
+Cluster Size: 14 Cumulative Unique nodes: 971
+Cluster Size: 2 Cumulative Unique nodes: 972
+Cluster Size: 9 Cumulative Unique nodes: 977
+Cluster Size: 1 Cumulative Unique nodes: 977
+Cluster Size: 5 Cumulative Unique nodes: 981
+Cluster Size: 3 Cumulative Unique nodes: 983
+Cluster Size: 1 Cumulative Unique nodes: 983
+Cluster Size: 9 Cumulative Unique nodes: 989
+Cluster Size: 8 Cumulative Unique nodes: 992
+Cluster Size: 1 Cumulative Unique nodes: 992
+Cluster Size: 8 Cumulative Unique nodes: 999
+Cluster Size: 1 Cumulative Unique nodes: 999
+Cluster Size: 10 Cumulative Unique nodes: 1005
+Cluster Size: 56 Cumulative Unique nodes: 1059
+Total Expansion Distance comparions: 1059
+
+Query: 5
+Hop: 0 Node: 5490 Deg: 16 Search Cumulative Comparisons: 16
+Hop: 1 Node: 483586 Deg: 16 Search Cumulative Comparisons: 31
+Hop: 2 Node: 800702 Deg: 16 Search Cumulative Comparisons: 46
+Hop: 3 Node: 800715 Deg: 16 Search Cumulative Comparisons: 59
+Hop: 4 Node: 446896 Deg: 16 Search Cumulative Comparisons: 74
+Hop: 5 Node: 648073 Deg: 16 Search Cumulative Comparisons: 89
+Hop: 6 Node: 951534 Deg: 16 Search Cumulative Comparisons: 104
+Hop: 7 Node: 446934 Deg: 16 Search Cumulative Comparisons: 118
+Hop: 8 Node: 805805 Deg: 16 Search Cumulative Comparisons: 133
+Hop: 9 Node: 500611 Deg: 16 Search Cumulative Comparisons: 149
+Hop: 10 Node: 260543 Deg: 16 Search Cumulative Comparisons: 165
+Hop: 11 Node: 498240 Deg: 16 Search Cumulative Comparisons: 179
+Hop: 12 Node: 431123 Deg: 16 Search Cumulative Comparisons: 194
+Hop: 13 Node: 431129 Deg: 16 Search Cumulative Comparisons: 209
+Hop: 14 Node: 431097 Deg: 16 Search Cumulative Comparisons: 218
+Hop: 15 Node: 431126 Deg: 16 Search Cumulative Comparisons: 227
+Hop: 16 Node: 431116 Deg: 16 Search Cumulative Comparisons: 237
+Hop: 17 Node: 431153 Deg: 16 Search Cumulative Comparisons: 250
+Hop: 18 Node: 182276 Deg: 16 Search Cumulative Comparisons: 265
+Hop: 19 Node: 431074 Deg: 16 Search Cumulative Comparisons: 277
+Hop: 20 Node: 131848 Deg: 16 Search Cumulative Comparisons: 291
+Hop: 21 Node: 910330 Deg: 16 Search Cumulative Comparisons: 303
+Hop: 22 Node: 97613 Deg: 16 Search Cumulative Comparisons: 312
+Hop: 23 Node: 335389 Deg: 16 Search Cumulative Comparisons: 326
+Hop: 24 Node: 127602 Deg: 16 Search Cumulative Comparisons: 341
+Hop: 25 Node: 278925 Deg: 16 Search Cumulative Comparisons: 354
+Hop: 26 Node: 431102 Deg: 16 Search Cumulative Comparisons: 365
+Hop: 27 Node: 431106 Deg: 16 Search Cumulative Comparisons: 372
+Hop: 28 Node: 805776 Deg: 16 Search Cumulative Comparisons: 386
+Hop: 29 Node: 131881 Deg: 16 Search Cumulative Comparisons: 397
+Hop: 30 Node: 394583 Deg: 16 Search Cumulative Comparisons: 410
+Hop: 31 Node: 695678 Deg: 16 Search Cumulative Comparisons: 423
+Hop: 32 Node: 97611 Deg: 16 Search Cumulative Comparisons: 434
+Hop: 33 Node: 390297 Deg: 16 Search Cumulative Comparisons: 444
+Hop: 34 Node: 431101 Deg: 16 Search Cumulative Comparisons: 451
+Hop: 35 Node: 912380 Deg: 16 Search Cumulative Comparisons: 460
+Hop: 36 Node: 832557 Deg: 16 Search Cumulative Comparisons: 473
+Hop: 37 Node: 973757 Deg: 16 Search Cumulative Comparisons: 481
+Hop: 38 Node: 464211 Deg: 16 Search Cumulative Comparisons: 491
+Hop: 39 Node: 448609 Deg: 16 Search Cumulative Comparisons: 504
+Hop: 40 Node: 431158 Deg: 16 Search Cumulative Comparisons: 513
+Hop: 41 Node: 628487 Deg: 16 Search Cumulative Comparisons: 521
+Hop: 42 Node: 628471 Deg: 16 Search Cumulative Comparisons: 529
+Hop: 43 Node: 431142 Deg: 16 Search Cumulative Comparisons: 533
+Hop: 44 Node: 431128 Deg: 16 Search Cumulative Comparisons: 538
+Hop: 45 Node: 615120 Deg: 16 Search Cumulative Comparisons: 549
+Hop: 46 Node: 417565 Deg: 16 Search Cumulative Comparisons: 561
+Hop: 47 Node: 431159 Deg: 16 Search Cumulative Comparisons: 567
+Hop: 48 Node: 431119 Deg: 16 Search Cumulative Comparisons: 573
+Hop: 49 Node: 355051 Deg: 16 Search Cumulative Comparisons: 584
+Hop: 50 Node: 540598 Deg: 16 Search Cumulative Comparisons: 589
+Hop: 51 Node: 653462 Deg: 16 Search Cumulative Comparisons: 600
+Hop: 52 Node: 657349 Deg: 16 Search Cumulative Comparisons: 611
+Hop: 53 Node: 653482 Deg: 16 Search Cumulative Comparisons: 623
+Total Hops: 54 Total Search Distance Comparisons: 623
+Cluster Size: 15 Cumulative Unique nodes: 14
+Cluster Size: 63 Cumulative Unique nodes: 76
+Cluster Size: 16 Cumulative Unique nodes: 86
+Cluster Size: 11 Cumulative Unique nodes: 90
+Cluster Size: 2 Cumulative Unique nodes: 91
+Cluster Size: 100 Cumulative Unique nodes: 178
+Cluster Size: 23 Cumulative Unique nodes: 193
+Cluster Size: 35 Cumulative Unique nodes: 225
+Cluster Size: 100 Cumulative Unique nodes: 315
+Cluster Size: 2 Cumulative Unique nodes: 315
+Cluster Size: 2 Cumulative Unique nodes: 315
+Cluster Size: 15 Cumulative Unique nodes: 322
+Cluster Size: 100 Cumulative Unique nodes: 399
+Cluster Size: 19 Cumulative Unique nodes: 416
+Cluster Size: 30 Cumulative Unique nodes: 436
+Cluster Size: 39 Cumulative Unique nodes: 467
+Cluster Size: 100 Cumulative Unique nodes: 554
+Cluster Size: 18 Cumulative Unique nodes: 571
+Cluster Size: 100 Cumulative Unique nodes: 656
+Cluster Size: 6 Cumulative Unique nodes: 659
+Cluster Size: 100 Cumulative Unique nodes: 744
+Cluster Size: 8 Cumulative Unique nodes: 749
+Cluster Size: 44 Cumulative Unique nodes: 782
+Cluster Size: 16 Cumulative Unique nodes: 796
+Cluster Size: 1 Cumulative Unique nodes: 796
+Cluster Size: 37 Cumulative Unique nodes: 821
+Cluster Size: 3 Cumulative Unique nodes: 823
+Cluster Size: 10 Cumulative Unique nodes: 832
+Cluster Size: 100 Cumulative Unique nodes: 918
+Cluster Size: 17 Cumulative Unique nodes: 928
+Cluster Size: 36 Cumulative Unique nodes: 959
+Cluster Size: 71 Cumulative Unique nodes: 1016
+Cluster Size: 99 Cumulative Unique nodes: 1086
+Cluster Size: 25 Cumulative Unique nodes: 1106
+Cluster Size: 39 Cumulative Unique nodes: 1116
+Cluster Size: 22 Cumulative Unique nodes: 1132
+Cluster Size: 31 Cumulative Unique nodes: 1160
+Cluster Size: 60 Cumulative Unique nodes: 1209
+Cluster Size: 14 Cumulative Unique nodes: 1220
+Cluster Size: 2 Cumulative Unique nodes: 1221
+Cluster Size: 3 Cumulative Unique nodes: 1222
+Cluster Size: 5 Cumulative Unique nodes: 1224
+Cluster Size: 73 Cumulative Unique nodes: 1276
+Cluster Size: 1 Cumulative Unique nodes: 1276
+Cluster Size: 6 Cumulative Unique nodes: 1280
+Cluster Size: 40 Cumulative Unique nodes: 1310
+Cluster Size: 5 Cumulative Unique nodes: 1312
+Cluster Size: 8 Cumulative Unique nodes: 1317
+Cluster Size: 100 Cumulative Unique nodes: 1405
+Cluster Size: 4 Cumulative Unique nodes: 1406
+Total Expansion Distance comparions: 1406
+
+Query: 6
+Hop: 0 Node: 5490 Deg: 16 Search Cumulative Comparisons: 16
+Hop: 1 Node: 24453 Deg: 16 Search Cumulative Comparisons: 31
+Hop: 2 Node: 731846 Deg: 16 Search Cumulative Comparisons: 46
+Hop: 3 Node: 625804 Deg: 16 Search Cumulative Comparisons: 61
+Hop: 4 Node: 180034 Deg: 16 Search Cumulative Comparisons: 76
+Hop: 5 Node: 794340 Deg: 16 Search Cumulative Comparisons: 90
+Hop: 6 Node: 462065 Deg: 16 Search Cumulative Comparisons: 105
+Hop: 7 Node: 462072 Deg: 16 Search Cumulative Comparisons: 120
+Hop: 8 Node: 231633 Deg: 16 Search Cumulative Comparisons: 135
+Hop: 9 Node: 897586 Deg: 16 Search Cumulative Comparisons: 150
+Hop: 10 Node: 955233 Deg: 16 Search Cumulative Comparisons: 162
+Hop: 11 Node: 795197 Deg: 16 Search Cumulative Comparisons: 177
+Hop: 12 Node: 324330 Deg: 16 Search Cumulative Comparisons: 191
+Hop: 13 Node: 169501 Deg: 16 Search Cumulative Comparisons: 205
+Hop: 14 Node: 324273 Deg: 16 Search Cumulative Comparisons: 218
+Hop: 15 Node: 324281 Deg: 16 Search Cumulative Comparisons: 232
+Hop: 16 Node: 54357 Deg: 16 Search Cumulative Comparisons: 248
+Hop: 17 Node: 324331 Deg: 16 Search Cumulative Comparisons: 261
+Hop: 18 Node: 498648 Deg: 16 Search Cumulative Comparisons: 274
+Hop: 19 Node: 324345 Deg: 16 Search Cumulative Comparisons: 287
+Hop: 20 Node: 428308 Deg: 16 Search Cumulative Comparisons: 301
+Hop: 21 Node: 324301 Deg: 16 Search Cumulative Comparisons: 314
+Hop: 22 Node: 763241 Deg: 16 Search Cumulative Comparisons: 320
+Hop: 23 Node: 675659 Deg: 16 Search Cumulative Comparisons: 332
+Hop: 24 Node: 967936 Deg: 16 Search Cumulative Comparisons: 345
+Hop: 25 Node: 78560 Deg: 16 Search Cumulative Comparisons: 351
+Hop: 26 Node: 243382 Deg: 16 Search Cumulative Comparisons: 364
+Hop: 27 Node: 35875 Deg: 16 Search Cumulative Comparisons: 376
+Hop: 28 Node: 780365 Deg: 16 Search Cumulative Comparisons: 387
+Hop: 29 Node: 721516 Deg: 16 Search Cumulative Comparisons: 399
+Hop: 30 Node: 195915 Deg: 16 Search Cumulative Comparisons: 411
+Hop: 31 Node: 115050 Deg: 16 Search Cumulative Comparisons: 423
+Hop: 32 Node: 324288 Deg: 16 Search Cumulative Comparisons: 431
+Hop: 33 Node: 54451 Deg: 16 Search Cumulative Comparisons: 445
+Hop: 34 Node: 324286 Deg: 16 Search Cumulative Comparisons: 454
+Hop: 35 Node: 195933 Deg: 16 Search Cumulative Comparisons: 462
+Hop: 36 Node: 77843 Deg: 16 Search Cumulative Comparisons: 476
+Hop: 37 Node: 698547 Deg: 16 Search Cumulative Comparisons: 490
+Hop: 38 Node: 195927 Deg: 16 Search Cumulative Comparisons: 498
+Hop: 39 Node: 324279 Deg: 16 Search Cumulative Comparisons: 509
+Hop: 40 Node: 115047 Deg: 16 Search Cumulative Comparisons: 519
+Hop: 41 Node: 974200 Deg: 16 Search Cumulative Comparisons: 530
+Hop: 42 Node: 914028 Deg: 16 Search Cumulative Comparisons: 541
+Hop: 43 Node: 676066 Deg: 16 Search Cumulative Comparisons: 552
+Hop: 44 Node: 381707 Deg: 16 Search Cumulative Comparisons: 566
+Hop: 45 Node: 285319 Deg: 16 Search Cumulative Comparisons: 579
+Hop: 46 Node: 955210 Deg: 16 Search Cumulative Comparisons: 592
+Hop: 47 Node: 841840 Deg: 16 Search Cumulative Comparisons: 604
+Hop: 48 Node: 696408 Deg: 16 Search Cumulative Comparisons: 616
+Hop: 49 Node: 118326 Deg: 16 Search Cumulative Comparisons: 628
+Hop: 50 Node: 955227 Deg: 16 Search Cumulative Comparisons: 636
+Hop: 51 Node: 462132 Deg: 16 Search Cumulative Comparisons: 648
+Hop: 52 Node: 329009 Deg: 16 Search Cumulative Comparisons: 662
+Hop: 53 Node: 949618 Deg: 16 Search Cumulative Comparisons: 674
+Hop: 54 Node: 498790 Deg: 16 Search Cumulative Comparisons: 682
+Hop: 55 Node: 783010 Deg: 16 Search Cumulative Comparisons: 689
+Hop: 56 Node: 949698 Deg: 16 Search Cumulative Comparisons: 697
+Hop: 57 Node: 412402 Deg: 16 Search Cumulative Comparisons: 709
+Total Hops: 58 Total Search Distance Comparisons: 709
+Cluster Size: 100 Cumulative Unique nodes: 99
+Cluster Size: 52 Cumulative Unique nodes: 143
+Cluster Size: 63 Cumulative Unique nodes: 202
+Cluster Size: 23 Cumulative Unique nodes: 219
+Cluster Size: 100 Cumulative Unique nodes: 308
+Cluster Size: 2 Cumulative Unique nodes: 309
+Cluster Size: 100 Cumulative Unique nodes: 404
+Cluster Size: 1 Cumulative Unique nodes: 404
+Cluster Size: 38 Cumulative Unique nodes: 440
+Cluster Size: 43 Cumulative Unique nodes: 461
+Cluster Size: 100 Cumulative Unique nodes: 523
+Cluster Size: 43 Cumulative Unique nodes: 563
+Cluster Size: 8 Cumulative Unique nodes: 564
+Cluster Size: 49 Cumulative Unique nodes: 596
+Cluster Size: 6 Cumulative Unique nodes: 597
+Cluster Size: 26 Cumulative Unique nodes: 617
+Cluster Size: 3 Cumulative Unique nodes: 617
+Cluster Size: 63 Cumulative Unique nodes: 657
+Cluster Size: 28 Cumulative Unique nodes: 678
+Cluster Size: 10 Cumulative Unique nodes: 686
+Cluster Size: 62 Cumulative Unique nodes: 719
+Cluster Size: 9 Cumulative Unique nodes: 725
+Cluster Size: 48 Cumulative Unique nodes: 768
+Cluster Size: 78 Cumulative Unique nodes: 830
+Cluster Size: 24 Cumulative Unique nodes: 851
+Cluster Size: 100 Cumulative Unique nodes: 936
+Cluster Size: 50 Cumulative Unique nodes: 978
+Cluster Size: 63 Cumulative Unique nodes: 1029
+Cluster Size: 29 Cumulative Unique nodes: 1053
+Cluster Size: 100 Cumulative Unique nodes: 1117
+Cluster Size: 15 Cumulative Unique nodes: 1122
+Cluster Size: 100 Cumulative Unique nodes: 1182
+Cluster Size: 14 Cumulative Unique nodes: 1195
+Cluster Size: 12 Cumulative Unique nodes: 1197
+Cluster Size: 16 Cumulative Unique nodes: 1200
+Cluster Size: 100 Cumulative Unique nodes: 1268
+Cluster Size: 6 Cumulative Unique nodes: 1271
+Cluster Size: 19 Cumulative Unique nodes: 1275
+Cluster Size: 6 Cumulative Unique nodes: 1275
+Cluster Size: 17 Cumulative Unique nodes: 1290
+Cluster Size: 100 Cumulative Unique nodes: 1349
+Cluster Size: 1 Cumulative Unique nodes: 1349
+Cluster Size: 2 Cumulative Unique nodes: 1349
+Cluster Size: 3 Cumulative Unique nodes: 1351
+Cluster Size: 9 Cumulative Unique nodes: 1354
+Cluster Size: 15 Cumulative Unique nodes: 1368
+Cluster Size: 25 Cumulative Unique nodes: 1390
+Cluster Size: 16 Cumulative Unique nodes: 1399
+Cluster Size: 16 Cumulative Unique nodes: 1409
+Cluster Size: 22 Cumulative Unique nodes: 1430
+Total Expansion Distance comparions: 1430
+
+Query: 7
+Hop: 0 Node: 5490 Deg: 16 Search Cumulative Comparisons: 16
+Hop: 1 Node: 5450 Deg: 16 Search Cumulative Comparisons: 31
+Hop: 2 Node: 98497 Deg: 16 Search Cumulative Comparisons: 47
+Hop: 3 Node: 880324 Deg: 16 Search Cumulative Comparisons: 61
+Hop: 4 Node: 361199 Deg: 16 Search Cumulative Comparisons: 77
+Hop: 5 Node: 4325 Deg: 16 Search Cumulative Comparisons: 92
+Hop: 6 Node: 143008 Deg: 16 Search Cumulative Comparisons: 105
+Hop: 7 Node: 372364 Deg: 16 Search Cumulative Comparisons: 119
+Hop: 8 Node: 9101 Deg: 16 Search Cumulative Comparisons: 133
+Hop: 9 Node: 9120 Deg: 16 Search Cumulative Comparisons: 148
+Hop: 10 Node: 9089 Deg: 16 Search Cumulative Comparisons: 163
+Hop: 11 Node: 9096 Deg: 16 Search Cumulative Comparisons: 174
+Hop: 12 Node: 490509 Deg: 16 Search Cumulative Comparisons: 186
+Hop: 13 Node: 142971 Deg: 16 Search Cumulative Comparisons: 197
+Hop: 14 Node: 328239 Deg: 16 Search Cumulative Comparisons: 211
+Hop: 15 Node: 372352 Deg: 16 Search Cumulative Comparisons: 224
+Hop: 16 Node: 426893 Deg: 16 Search Cumulative Comparisons: 235
+Hop: 17 Node: 4316 Deg: 16 Search Cumulative Comparisons: 247
+Hop: 18 Node: 817040 Deg: 16 Search Cumulative Comparisons: 255
+Hop: 19 Node: 426915 Deg: 16 Search Cumulative Comparisons: 266
+Hop: 20 Node: 418697 Deg: 16 Search Cumulative Comparisons: 276
+Hop: 21 Node: 268370 Deg: 16 Search Cumulative Comparisons: 289
+Hop: 22 Node: 143013 Deg: 16 Search Cumulative Comparisons: 298
+Hop: 23 Node: 143000 Deg: 16 Search Cumulative Comparisons: 307
+Hop: 24 Node: 858732 Deg: 16 Search Cumulative Comparisons: 316
+Hop: 25 Node: 751851 Deg: 16 Search Cumulative Comparisons: 326
+Hop: 26 Node: 490505 Deg: 16 Search Cumulative Comparisons: 336
+Hop: 27 Node: 395268 Deg: 16 Search Cumulative Comparisons: 347
+Hop: 28 Node: 459216 Deg: 16 Search Cumulative Comparisons: 361
+Hop: 29 Node: 142974 Deg: 16 Search Cumulative Comparisons: 371
+Hop: 30 Node: 409204 Deg: 16 Search Cumulative Comparisons: 381
+Hop: 31 Node: 751787 Deg: 16 Search Cumulative Comparisons: 390
+Hop: 32 Node: 4312 Deg: 16 Search Cumulative Comparisons: 405
+Hop: 33 Node: 4367 Deg: 16 Search Cumulative Comparisons: 417
+Hop: 34 Node: 418670 Deg: 16 Search Cumulative Comparisons: 425
+Hop: 35 Node: 175738 Deg: 16 Search Cumulative Comparisons: 436
+Hop: 36 Node: 143070 Deg: 16 Search Cumulative Comparisons: 445
+Hop: 37 Node: 166484 Deg: 16 Search Cumulative Comparisons: 453
+Hop: 38 Node: 174815 Deg: 16 Search Cumulative Comparisons: 465
+Hop: 39 Node: 372366 Deg: 16 Search Cumulative Comparisons: 472
+Hop: 40 Node: 228619 Deg: 16 Search Cumulative Comparisons: 481
+Hop: 41 Node: 418681 Deg: 16 Search Cumulative Comparisons: 487
+Hop: 42 Node: 9221 Deg: 16 Search Cumulative Comparisons: 497
+Hop: 43 Node: 9254 Deg: 16 Search Cumulative Comparisons: 508
+Hop: 44 Node: 920063 Deg: 16 Search Cumulative Comparisons: 517
+Hop: 45 Node: 3973 Deg: 16 Search Cumulative Comparisons: 529
+Hop: 46 Node: 59702 Deg: 16 Search Cumulative Comparisons: 544
+Hop: 47 Node: 139104 Deg: 16 Search Cumulative Comparisons: 553
+Hop: 48 Node: 490535 Deg: 16 Search Cumulative Comparisons: 563
+Hop: 49 Node: 490519 Deg: 16 Search Cumulative Comparisons: 570
+Hop: 50 Node: 923191 Deg: 16 Search Cumulative Comparisons: 577
+Hop: 51 Node: 866355 Deg: 16 Search Cumulative Comparisons: 585
+Hop: 52 Node: 426928 Deg: 16 Search Cumulative Comparisons: 591
+Hop: 53 Node: 174833 Deg: 16 Search Cumulative Comparisons: 600
+Hop: 54 Node: 156693 Deg: 16 Search Cumulative Comparisons: 606
+Total Hops: 55 Total Search Distance Comparisons: 606
+Cluster Size: 65 Cumulative Unique nodes: 64
+Cluster Size: 36 Cumulative Unique nodes: 96
+Cluster Size: 100 Cumulative Unique nodes: 190
+Cluster Size: 100 Cumulative Unique nodes: 264
+Cluster Size: 60 Cumulative Unique nodes: 321
+Cluster Size: 18 Cumulative Unique nodes: 324
+Cluster Size: 100 Cumulative Unique nodes: 413
+Cluster Size: 46 Cumulative Unique nodes: 453
+Cluster Size: 100 Cumulative Unique nodes: 523
+Cluster Size: 33 Cumulative Unique nodes: 545
+Cluster Size: 24 Cumulative Unique nodes: 553
+Cluster Size: 42 Cumulative Unique nodes: 581
+Cluster Size: 64 Cumulative Unique nodes: 606
+Cluster Size: 31 Cumulative Unique nodes: 620
+Cluster Size: 23 Cumulative Unique nodes: 639
+Cluster Size: 100 Cumulative Unique nodes: 686
+Cluster Size: 27 Cumulative Unique nodes: 708
+Cluster Size: 100 Cumulative Unique nodes: 768
+Cluster Size: 41 Cumulative Unique nodes: 789
+Cluster Size: 100 Cumulative Unique nodes: 822
+Cluster Size: 78 Cumulative Unique nodes: 852
+Cluster Size: 2 Cumulative Unique nodes: 853
+Cluster Size: 55 Cumulative Unique nodes: 876
+Cluster Size: 100 Cumulative Unique nodes: 952
+Cluster Size: 11 Cumulative Unique nodes: 958
+Cluster Size: 14 Cumulative Unique nodes: 966
+Cluster Size: 19 Cumulative Unique nodes: 979
+Cluster Size: 78 Cumulative Unique nodes: 1030
+Cluster Size: 11 Cumulative Unique nodes: 1035
+Cluster Size: 100 Cumulative Unique nodes: 1117
+Cluster Size: 18 Cumulative Unique nodes: 1124
+Cluster Size: 100 Cumulative Unique nodes: 1217
+Cluster Size: 100 Cumulative Unique nodes: 1286
+Cluster Size: 25 Cumulative Unique nodes: 1291
+Cluster Size: 100 Cumulative Unique nodes: 1354
+Cluster Size: 96 Cumulative Unique nodes: 1381
+Cluster Size: 24 Cumulative Unique nodes: 1397
+Cluster Size: 24 Cumulative Unique nodes: 1404
+Cluster Size: 75 Cumulative Unique nodes: 1429
+Cluster Size: 34 Cumulative Unique nodes: 1460
+Cluster Size: 17 Cumulative Unique nodes: 1474
+Cluster Size: 5 Cumulative Unique nodes: 1478
+Cluster Size: 54 Cumulative Unique nodes: 1513
+Cluster Size: 100 Cumulative Unique nodes: 1584
+Cluster Size: 63 Cumulative Unique nodes: 1620
+Cluster Size: 76 Cumulative Unique nodes: 1654
+Cluster Size: 16 Cumulative Unique nodes: 1663
+Cluster Size: 100 Cumulative Unique nodes: 1683
+Cluster Size: 32 Cumulative Unique nodes: 1699
+Cluster Size: 76 Cumulative Unique nodes: 1726
+Total Expansion Distance comparions: 1726
+
+Query: 8
+Hop: 0 Node: 5490 Deg: 16 Search Cumulative Comparisons: 16
+Hop: 1 Node: 531360 Deg: 16 Search Cumulative Comparisons: 31
+Hop: 2 Node: 860557 Deg: 16 Search Cumulative Comparisons: 46
+Hop: 3 Node: 913525 Deg: 16 Search Cumulative Comparisons: 62
+Hop: 4 Node: 8925 Deg: 16 Search Cumulative Comparisons: 76
+Hop: 5 Node: 143620 Deg: 16 Search Cumulative Comparisons: 91
+Hop: 6 Node: 216888 Deg: 16 Search Cumulative Comparisons: 105
+Hop: 7 Node: 584991 Deg: 16 Search Cumulative Comparisons: 119
+Hop: 8 Node: 218074 Deg: 16 Search Cumulative Comparisons: 135
+Hop: 9 Node: 43627 Deg: 16 Search Cumulative Comparisons: 149
+Hop: 10 Node: 216941 Deg: 16 Search Cumulative Comparisons: 163
+Hop: 11 Node: 8153 Deg: 16 Search Cumulative Comparisons: 179
+Hop: 12 Node: 389428 Deg: 16 Search Cumulative Comparisons: 194
+Hop: 13 Node: 236558 Deg: 16 Search Cumulative Comparisons: 209
+Hop: 14 Node: 146748 Deg: 16 Search Cumulative Comparisons: 223
+Hop: 15 Node: 848926 Deg: 16 Search Cumulative Comparisons: 234
+Hop: 16 Node: 931466 Deg: 16 Search Cumulative Comparisons: 249
+Hop: 17 Node: 780238 Deg: 16 Search Cumulative Comparisons: 264
+Hop: 18 Node: 966488 Deg: 16 Search Cumulative Comparisons: 278
+Hop: 19 Node: 589303 Deg: 16 Search Cumulative Comparisons: 293
+Hop: 20 Node: 82949 Deg: 16 Search Cumulative Comparisons: 307
+Hop: 21 Node: 33681 Deg: 16 Search Cumulative Comparisons: 319
+Hop: 22 Node: 142717 Deg: 16 Search Cumulative Comparisons: 332
+Hop: 23 Node: 902743 Deg: 16 Search Cumulative Comparisons: 344
+Hop: 24 Node: 902720 Deg: 16 Search Cumulative Comparisons: 355
+Hop: 25 Node: 142769 Deg: 16 Search Cumulative Comparisons: 365
+Hop: 26 Node: 651465 Deg: 16 Search Cumulative Comparisons: 380
+Hop: 27 Node: 230927 Deg: 16 Search Cumulative Comparisons: 393
+Hop: 28 Node: 688047 Deg: 16 Search Cumulative Comparisons: 405
+Hop: 29 Node: 34704 Deg: 16 Search Cumulative Comparisons: 418
+Hop: 30 Node: 949485 Deg: 16 Search Cumulative Comparisons: 432
+Hop: 31 Node: 16461 Deg: 16 Search Cumulative Comparisons: 447
+Hop: 32 Node: 96911 Deg: 16 Search Cumulative Comparisons: 461
+Hop: 33 Node: 688325 Deg: 16 Search Cumulative Comparisons: 474
+Hop: 34 Node: 250229 Deg: 16 Search Cumulative Comparisons: 487
+Hop: 35 Node: 117278 Deg: 16 Search Cumulative Comparisons: 498
+Hop: 36 Node: 256943 Deg: 16 Search Cumulative Comparisons: 510
+Hop: 37 Node: 966484 Deg: 16 Search Cumulative Comparisons: 517
+Hop: 38 Node: 827001 Deg: 16 Search Cumulative Comparisons: 528
+Hop: 39 Node: 142710 Deg: 16 Search Cumulative Comparisons: 536
+Hop: 40 Node: 945613 Deg: 16 Search Cumulative Comparisons: 545
+Hop: 41 Node: 7527 Deg: 16 Search Cumulative Comparisons: 558
+Hop: 42 Node: 218076 Deg: 16 Search Cumulative Comparisons: 571
+Hop: 43 Node: 842869 Deg: 16 Search Cumulative Comparisons: 583
+Hop: 44 Node: 56512 Deg: 16 Search Cumulative Comparisons: 595
+Hop: 45 Node: 35304 Deg: 16 Search Cumulative Comparisons: 610
+Hop: 46 Node: 535022 Deg: 16 Search Cumulative Comparisons: 622
+Hop: 47 Node: 371949 Deg: 16 Search Cumulative Comparisons: 631
+Hop: 48 Node: 902712 Deg: 16 Search Cumulative Comparisons: 643
+Hop: 49 Node: 8192 Deg: 16 Search Cumulative Comparisons: 658
+Hop: 50 Node: 142715 Deg: 16 Search Cumulative Comparisons: 666
+Hop: 51 Node: 826988 Deg: 16 Search Cumulative Comparisons: 677
+Hop: 52 Node: 127757 Deg: 16 Search Cumulative Comparisons: 687
+Hop: 53 Node: 755637 Deg: 16 Search Cumulative Comparisons: 697
+Hop: 54 Node: 827043 Deg: 16 Search Cumulative Comparisons: 702
+Total Hops: 55 Total Search Distance Comparisons: 702
+Cluster Size: 3 Cumulative Unique nodes: 2
+Cluster Size: 100 Cumulative Unique nodes: 101
+Cluster Size: 1 Cumulative Unique nodes: 101
+Cluster Size: 100 Cumulative Unique nodes: 195
+Cluster Size: 16 Cumulative Unique nodes: 210
+Cluster Size: 80 Cumulative Unique nodes: 289
+Cluster Size: 30 Cumulative Unique nodes: 312
+Cluster Size: 1 Cumulative Unique nodes: 312
+Cluster Size: 43 Cumulative Unique nodes: 352
+Cluster Size: 100 Cumulative Unique nodes: 451
+Cluster Size: 100 Cumulative Unique nodes: 548
+Cluster Size: 100 Cumulative Unique nodes: 646
+Cluster Size: 100 Cumulative Unique nodes: 745
+Cluster Size: 69 Cumulative Unique nodes: 806
+Cluster Size: 100 Cumulative Unique nodes: 893
+Cluster Size: 9 Cumulative Unique nodes: 897
+Cluster Size: 37 Cumulative Unique nodes: 912
+Cluster Size: 100 Cumulative Unique nodes: 994
+Cluster Size: 38 Cumulative Unique nodes: 1009
+Cluster Size: 69 Cumulative Unique nodes: 1047
+Cluster Size: 100 Cumulative Unique nodes: 1141
+Cluster Size: 28 Cumulative Unique nodes: 1155
+Cluster Size: 95 Cumulative Unique nodes: 1244
+Cluster Size: 35 Cumulative Unique nodes: 1265
+Cluster Size: 59 Cumulative Unique nodes: 1309
+Cluster Size: 100 Cumulative Unique nodes: 1404
+Cluster Size: 43 Cumulative Unique nodes: 1435
+Cluster Size: 36 Cumulative Unique nodes: 1460
+Cluster Size: 96 Cumulative Unique nodes: 1515
+Cluster Size: 100 Cumulative Unique nodes: 1576
+Cluster Size: 10 Cumulative Unique nodes: 1584
+Cluster Size: 18 Cumulative Unique nodes: 1594
+Cluster Size: 16 Cumulative Unique nodes: 1603
+Cluster Size: 27 Cumulative Unique nodes: 1610
+Cluster Size: 100 Cumulative Unique nodes: 1692
+Cluster Size: 2 Cumulative Unique nodes: 1693
+Cluster Size: 24 Cumulative Unique nodes: 1714
+Cluster Size: 16 Cumulative Unique nodes: 1729
+Cluster Size: 100 Cumulative Unique nodes: 1796
+Cluster Size: 36 Cumulative Unique nodes: 1823
+Cluster Size: 1 Cumulative Unique nodes: 1823
+Cluster Size: 5 Cumulative Unique nodes: 1823
+Cluster Size: 100 Cumulative Unique nodes: 1905
+Cluster Size: 100 Cumulative Unique nodes: 2003
+Cluster Size: 100 Cumulative Unique nodes: 2085
+Cluster Size: 100 Cumulative Unique nodes: 2159
+Cluster Size: 100 Cumulative Unique nodes: 2243
+Cluster Size: 100 Cumulative Unique nodes: 2337
+Cluster Size: 25 Cumulative Unique nodes: 2354
+Cluster Size: 100 Cumulative Unique nodes: 2444
+Total Expansion Distance comparions: 2444
+
+Query: 9
+Hop: 0 Node: 5490 Deg: 16 Search Cumulative Comparisons: 16
+Hop: 1 Node: 852813 Deg: 16 Search Cumulative Comparisons: 31
+Hop: 2 Node: 957633 Deg: 16 Search Cumulative Comparisons: 46
+Hop: 3 Node: 815018 Deg: 16 Search Cumulative Comparisons: 61
+Hop: 4 Node: 232237 Deg: 16 Search Cumulative Comparisons: 76
+Hop: 5 Node: 915852 Deg: 16 Search Cumulative Comparisons: 91
+Hop: 6 Node: 456355 Deg: 16 Search Cumulative Comparisons: 107
+Hop: 7 Node: 628374 Deg: 16 Search Cumulative Comparisons: 122
+Hop: 8 Node: 152968 Deg: 16 Search Cumulative Comparisons: 137
+Hop: 9 Node: 152987 Deg: 16 Search Cumulative Comparisons: 151
+Hop: 10 Node: 498155 Deg: 16 Search Cumulative Comparisons: 166
+Hop: 11 Node: 997897 Deg: 16 Search Cumulative Comparisons: 176
+Hop: 12 Node: 393166 Deg: 16 Search Cumulative Comparisons: 189
+Hop: 13 Node: 504831 Deg: 16 Search Cumulative Comparisons: 202
+Hop: 14 Node: 150336 Deg: 16 Search Cumulative Comparisons: 217
+Hop: 15 Node: 84044 Deg: 16 Search Cumulative Comparisons: 233
+Hop: 16 Node: 40066 Deg: 16 Search Cumulative Comparisons: 248
+Hop: 17 Node: 942665 Deg: 16 Search Cumulative Comparisons: 263
+Hop: 18 Node: 432564 Deg: 16 Search Cumulative Comparisons: 278
+Hop: 19 Node: 187289 Deg: 16 Search Cumulative Comparisons: 293
+Hop: 20 Node: 148038 Deg: 16 Search Cumulative Comparisons: 307
+Hop: 21 Node: 955375 Deg: 16 Search Cumulative Comparisons: 322
+Hop: 22 Node: 636677 Deg: 16 Search Cumulative Comparisons: 334
+Hop: 23 Node: 66503 Deg: 16 Search Cumulative Comparisons: 348
+Hop: 24 Node: 283759 Deg: 16 Search Cumulative Comparisons: 360
+Hop: 25 Node: 630440 Deg: 16 Search Cumulative Comparisons: 373
+Hop: 26 Node: 589159 Deg: 16 Search Cumulative Comparisons: 387
+Hop: 27 Node: 931535 Deg: 16 Search Cumulative Comparisons: 399
+Hop: 28 Node: 72929 Deg: 16 Search Cumulative Comparisons: 411
+Hop: 29 Node: 292742 Deg: 16 Search Cumulative Comparisons: 423
+Hop: 30 Node: 451749 Deg: 16 Search Cumulative Comparisons: 438
+Hop: 31 Node: 448251 Deg: 16 Search Cumulative Comparisons: 453
+Hop: 32 Node: 800067 Deg: 16 Search Cumulative Comparisons: 468
+Hop: 33 Node: 800066 Deg: 16 Search Cumulative Comparisons: 481
+Hop: 34 Node: 451760 Deg: 16 Search Cumulative Comparisons: 496
+Hop: 35 Node: 675031 Deg: 16 Search Cumulative Comparisons: 509
+Hop: 36 Node: 295592 Deg: 16 Search Cumulative Comparisons: 524
+Hop: 37 Node: 800060 Deg: 16 Search Cumulative Comparisons: 536
+Hop: 38 Node: 432221 Deg: 16 Search Cumulative Comparisons: 548
+Hop: 39 Node: 930436 Deg: 16 Search Cumulative Comparisons: 559
+Hop: 40 Node: 279346 Deg: 16 Search Cumulative Comparisons: 572
+Hop: 41 Node: 711692 Deg: 16 Search Cumulative Comparisons: 583
+Hop: 42 Node: 692232 Deg: 16 Search Cumulative Comparisons: 597
+Hop: 43 Node: 706710 Deg: 16 Search Cumulative Comparisons: 611
+Hop: 44 Node: 186583 Deg: 16 Search Cumulative Comparisons: 625
+Hop: 45 Node: 692231 Deg: 16 Search Cumulative Comparisons: 637
+Hop: 46 Node: 869874 Deg: 16 Search Cumulative Comparisons: 649
+Hop: 47 Node: 869878 Deg: 16 Search Cumulative Comparisons: 655
+Hop: 48 Node: 753657 Deg: 16 Search Cumulative Comparisons: 667
+Hop: 49 Node: 145155 Deg: 16 Search Cumulative Comparisons: 677
+Hop: 50 Node: 293783 Deg: 16 Search Cumulative Comparisons: 690
+Hop: 51 Node: 260048 Deg: 16 Search Cumulative Comparisons: 700
+Hop: 52 Node: 440411 Deg: 16 Search Cumulative Comparisons: 712
+Hop: 53 Node: 692228 Deg: 16 Search Cumulative Comparisons: 724
+Hop: 54 Node: 360795 Deg: 16 Search Cumulative Comparisons: 739
+Hop: 55 Node: 22533 Deg: 16 Search Cumulative Comparisons: 755
+Hop: 56 Node: 557308 Deg: 16 Search Cumulative Comparisons: 765
+Hop: 57 Node: 192895 Deg: 16 Search Cumulative Comparisons: 778
+Hop: 58 Node: 72612 Deg: 16 Search Cumulative Comparisons: 794
+Hop: 59 Node: 285756 Deg: 16 Search Cumulative Comparisons: 807
+Total Hops: 60 Total Search Distance Comparisons: 807
+Cluster Size: 4 Cumulative Unique nodes: 3
+Cluster Size: 70 Cumulative Unique nodes: 72
+Cluster Size: 6 Cumulative Unique nodes: 77
+Cluster Size: 1 Cumulative Unique nodes: 77
+Cluster Size: 3 Cumulative Unique nodes: 79
+Cluster Size: 100 Cumulative Unique nodes: 178
+Cluster Size: 3 Cumulative Unique nodes: 180
+Cluster Size: 100 Cumulative Unique nodes: 278
+Cluster Size: 3 Cumulative Unique nodes: 280
+Cluster Size: 63 Cumulative Unique nodes: 339
+Cluster Size: 24 Cumulative Unique nodes: 361
+Cluster Size: 55 Cumulative Unique nodes: 411
+Cluster Size: 2 Cumulative Unique nodes: 412
+Cluster Size: 25 Cumulative Unique nodes: 436
+Cluster Size: 31 Cumulative Unique nodes: 465
+Cluster Size: 56 Cumulative Unique nodes: 514
+Cluster Size: 4 Cumulative Unique nodes: 515
+Cluster Size: 1 Cumulative Unique nodes: 515
+Cluster Size: 5 Cumulative Unique nodes: 517
+Cluster Size: 41 Cumulative Unique nodes: 545
+Cluster Size: 100 Cumulative Unique nodes: 636
+Cluster Size: 6 Cumulative Unique nodes: 639
+Cluster Size: 45 Cumulative Unique nodes: 676
+Cluster Size: 94 Cumulative Unique nodes: 747
+Cluster Size: 100 Cumulative Unique nodes: 846
+Cluster Size: 2 Cumulative Unique nodes: 847
+Cluster Size: 22 Cumulative Unique nodes: 861
+Cluster Size: 6 Cumulative Unique nodes: 865
+Cluster Size: 16 Cumulative Unique nodes: 878
+Cluster Size: 6 Cumulative Unique nodes: 883
+Cluster Size: 1 Cumulative Unique nodes: 883
+Cluster Size: 46 Cumulative Unique nodes: 919
+Cluster Size: 8 Cumulative Unique nodes: 926
+Cluster Size: 12 Cumulative Unique nodes: 937
+Cluster Size: 100 Cumulative Unique nodes: 1018
+Cluster Size: 14 Cumulative Unique nodes: 1031
+Cluster Size: 2 Cumulative Unique nodes: 1032
+Cluster Size: 36 Cumulative Unique nodes: 1061
+Cluster Size: 100 Cumulative Unique nodes: 1147
+Cluster Size: 26 Cumulative Unique nodes: 1169
+Cluster Size: 2 Cumulative Unique nodes: 1170
+Cluster Size: 54 Cumulative Unique nodes: 1220
+Cluster Size: 100 Cumulative Unique nodes: 1291
+Cluster Size: 1 Cumulative Unique nodes: 1291
+Cluster Size: 1 Cumulative Unique nodes: 1291
+Cluster Size: 12 Cumulative Unique nodes: 1297
+Cluster Size: 100 Cumulative Unique nodes: 1378
+Cluster Size: 100 Cumulative Unique nodes: 1474
+Cluster Size: 70 Cumulative Unique nodes: 1533
+Cluster Size: 5 Cumulative Unique nodes: 1536
+Total Expansion Distance comparions: 1536
+
+  50   243827.53              5.12              3.64     71.12        0.12                4.09        1984.49                  1.80                  2.21     55.15        0.15
+Done searching. Now saving results 
+Writing bin: /home/rakri/avarhade/Dump/tmp_50_idx_uint32.bin
+bin: #pts = 5000, #dims = 50, size = 1000008B
+Finished writing bin.
+Writing bin: /home/rakri/avarhade/Dump/tmp_50_dists_float.bin
+bin: #pts = 5000, #dims = 50, size = 1000008B
+Finished writing bin.

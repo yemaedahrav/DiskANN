@@ -42,7 +42,7 @@ namespace diskann
     std::vector<float> search_times;
     std::vector<float> expansion_times;
     std::string cluster_filename;
-    int query_id = 0;
+    thread_local int query_id = 0;
     
 // Initialize an index with metric m, load the data of type T with filename
 // (bin), and initialize max_points
@@ -911,7 +911,10 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
     {
         auto nbr = best_L_nodes.closest_unexpanded();
         auto n = nbr.id;
-        //diskann::cout << "Expanded Node: "<<n<<std::endl;
+        if (search_invocation)
+        {
+            //diskann::cout << "Hop: " << hops << " Node: " << n;
+        }
         {
             std::shared_lock<std::shared_timed_mutex> status_lock(_cluster_lock);
             if (cluster_status[n] == false && search_invocation == false)
@@ -968,6 +971,10 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
             _locks[n].lock();
             auto nbrs = _graph_store->get_neighbours(n);
             _locks[n].unlock();
+            if (search_invocation)
+            {
+                //diskann::cout << " Deg: " << nbrs.size();
+            }
             for (auto id : nbrs)
             {
                 assert(id < _max_points + _num_frozen_pts);
@@ -1002,7 +1009,10 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
         assert(dist_scratch.capacity() >= id_scratch.size());
         compute_dists(id_scratch, dist_scratch);
         cmps += (uint32_t)id_scratch.size();
-
+        if (search_invocation)
+        {
+            //diskann::cout << " Search Cumulative Comparisons: " << cmps << std::endl;
+        }
         // Insert <id, dist> pairs into the pool of candidates
         for (size_t m = 0; m < id_scratch.size(); ++m)
         {   
@@ -1015,6 +1025,10 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
     //     std::cout << best_L_nodes[i].id << " ";
     // }
     // std::cout << std::endl;
+    if (search_invocation)
+    {
+        //diskann::cout << "Total Hops: " << hops << " Total Search Distance Comparisons: " << cmps << std::endl;
+    }
     return std::make_pair(hops, cmps);
 }
 
@@ -1814,7 +1828,7 @@ void Index<T, TagT, LabelT>::build_with_data_populated(const std::vector<TagT> &
     std::vector<bool> cluster_status;
     std::unordered_map<uint32_t, std::set<uint32_t>> cluster_to_node;
     generate_frozen_point();
-    diskann::cout<<"Clustering Parameters: "<<"MAX_CLUSTER_SIZE: "<<MAX_CLUSTER_SIZE<<", POINT_MULTIPLICITY: "<<POINT_MULTIPLICITY<<", THRESHOLD: "<<THRESHOLD<<std::endl;
+    diskann::cout<<"Clustering Parameters: "<<"MAX_CLUSTER_SIZE: "<<MAX_CLUSTER_SIZE<<", POINT_MULTIPLICITY: "<<POINT_MULTIPLICITY<<", THRESHOLD: "<<THRESHOLD;
     link(cluster_status, cluster_to_node);
 
     size_t max = 0, min = SIZE_MAX, total = 0, cnt = 0, cnt_0 = 0, graph_points = 0, total_points = 0;
@@ -2315,12 +2329,15 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::search(const T *query, con
     {   
         std::shared_lock<std::shared_timed_mutex> cluster_lock(_cluster_lock);
         for (size_t i = 0; i < best_L_nodes.size(); ++i) {
+            //diskann::cout<<"Cluster Size: "<<_cluster_to_node[best_L_nodes[i].id].size();
             for (auto node : _cluster_to_node[best_L_nodes[i].id]) {
                 unique_nodes.insert(node);
             }
             unique_nodes.erase(best_L_nodes[i].id);
+            //diskann::cout<<" Cumulative Unique nodes: "<<unique_nodes.size()<<std::endl;
         }
     }
+    //diskann::cout<<"Unique nodes: "<<unique_nodes.size()<<std::endl;
     
     std::vector<uint32_t> node_list(unique_nodes.begin(), unique_nodes.end());
     uint32_t node_list_size = node_list.size();
@@ -2331,6 +2348,7 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::search(const T *query, con
     {
         best_L_nodes.insert(Neighbor(node_list[j], node_dist[j]));
     }
+    //diskann::cout<<"Total Expansion Distance comparions: "<<post_dist_comps<<std::endl<<std::endl;
 
     size_t pos = 0;
     for (size_t i = 0; i < best_L_nodes.size(); ++i)
@@ -2361,9 +2379,13 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::search(const T *query, con
     auto expand_e = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> expand_time = expand_e - expand_s;
     
-    dist_comps[query_id] = post_dist_comps;
-    search_times[query_id] = (float)(search_time.count()*1000000);
-    expansion_times[query_id] = (float)(expand_time.count()*1000000);
+    {
+        std::unique_lock<std::shared_timed_mutex> cluster_lock(_cluster_lock);
+        dist_comps[query_id] = post_dist_comps;
+        search_times[query_id] = (float)(search_time.count()*1000000);
+        expansion_times[query_id] = (float)(expand_time.count()*1000000);
+    }
+    
     // if (timer_log.is_open()) {
     //     double search_time_val = search_time.count();
     //     double expand_time_val = expand_time.count();
@@ -2379,7 +2401,7 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::search(const T *query, con
     // } else {
     //     std::cerr << "Unable to open dist_log file for writing." << std::endl;
     // }
-    retval.second += post_dist_comps;
+    //retval.second += post_dist_comps;
     return retval;
 }
 
