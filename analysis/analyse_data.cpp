@@ -40,7 +40,7 @@ void read_bin_file(const std::string& file_path, std::vector<std::vector<float>>
 int main() {
 
     //std::string input_file = "/nvmessd2/bigann/wikipedia_cohere/wikipedia_query.bin";
-    std::string input_file = "/nvmessd1/fbv4/avarhade/datasets/prec1M_queries_normalized.bin";
+    std::string input_file = "/nvmessd1/fbv4/avarhade/datasets/prec1M_normalized.bin";
     std::vector<std::vector<float>> data;
 
     try {
