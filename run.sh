@@ -32,8 +32,8 @@ data_path="${file_base_path}/wiki1M_normalized.bin"
 gt_file="${file_base_path}/wiki1M_gt_normalized"
 query_file="${file_base_path}/wiki1M_queries_normalized.bin"
 
-# ./apps/build_memory_index --data_path $data_path --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/wiki_memory_index_normalized_r16_l50 -R 16 -L 50 -T 48 >> /home/rakri/avarhade/DiskANN/wiki1M/wiki_r16_l50.txt
-# ./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/wiki_memory_index_normalized_r16_l50 --gt_file $gt_file --query_file $query_file --result_path /home/rakri/avarhade/Dump/tmp -K 50 -L 50 100 150 200 250 300 500 -T 48 >> /home/rakri/avarhade/DiskANN/wiki1M/wiki_r16_l50.txt
+./apps/build_memory_index --data_path $data_path --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/wiki_memory_index_normalized_r16_l50 -R 16 -L 50 -T 48 >> /home/rakri/avarhade/DiskANN/wiki1M/wiki_r16_l50.txt
+./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/wiki_memory_index_normalized_r16_l50 --gt_file $gt_file --query_file $query_file --result_path /home/rakri/avarhade/Dump/tmp -K 50 -L 50 100 150 200 250 300 500 -T 48 >> /home/rakri/avarhade/DiskANN/wiki1M/wiki_r16_l50.txt
 
 ./apps/build_memory_index --data_path $data_path --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/wiki_memory_index_normalized_r32_l50 -R 32 -L 50 -T 48 >> /home/rakri/avarhade/DiskANN/wiki1M/wiki_r32_l50.txt
 ./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/wiki_memory_index_normalized_r32_l50 --gt_file $gt_file --query_file $query_file --result_path /home/rakri/avarhade/Dump/tmp -K 50 -L 50 100 150 200 250 300 500 -T 48 >> /home/rakri/avarhade/DiskANN/wiki1M/wiki_r32_l50.txt

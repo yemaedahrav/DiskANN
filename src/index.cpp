@@ -1296,7 +1296,7 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
         _start = (uint32_t)_max_points;
     else
         _start = calculate_entry_point();
-
+    _start = 5490;
     diskann::Timer link_timer;
 
 #pragma omp parallel for schedule(dynamic, 2048)
