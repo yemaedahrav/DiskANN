@@ -28,16 +28,24 @@ cmake -DCMAKE_BUILD_TYPE=Release .. && make -Bj
 
 # ./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/prec1M_memory_index_debug_clustering_r64_l100 --gt_file /nvmessd1/fbv4/prec1M_gt100.bin --query_file /nvmessd1/fbv4/queries.fbin --result_path /home/rakri/avarhade/Dump/tmp -K 50 -L 50 75 100 150 200 -T 1 >> /home/rakri/avarhade/DiskANN/prec1M/clustering/debug_clustering_r64_l100.txt
 
+
+# WIKI NORMALIZED
+# file_base_path="/nvmessd1/fbv4/avarhade/datasets"
+# data_path="${file_base_path}/wiki1M_normalized.bin"
+# gt_file="${file_base_path}/wiki1M_gt_normalized"
+# query_file="${file_base_path}/wiki1M_queries_normalized.bin"
+# result_path="/home/rakri/avarhade/Dump/tmp"
+
+# ./apps/build_memory_index --data_path $data_path --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/clustering/wiki_memory_index_clustering_r16_l50_mcs5_pm50_t0 --cluster_path /nvmessd1/fbv4/avarhade/clustering/wiki_cluster_mapping_r16_l50_mcs5_pm50_t0.bin -R 16 -L 50 -T 48 >> /home/rakri/avarhade/DiskANN/wiki1M/wiki_clustering_r16_l50.txt
+# ./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/clustering/wiki_memory_index_clustering_r16_l50_mcs5_pm50_t0 --cluster_path /nvmessd1/fbv4/avarhade/clustering/wiki_cluster_mapping_r16_l50_mcs5_pm50_t0.bin --gt_file $gt_file --query_file $query_file --result_path $result_path -K 50 -L 50 100 150 200 250 300 500 -T 48 >> /home/rakri/avarhade/DiskANN/wiki1M/wiki_clustering_r16_l50.txt
+
+
+# PREC1M (FBV4) NORMALIZED
 file_base_path="/nvmessd1/fbv4/avarhade/datasets"
-data_path="${file_base_path}/wiki1M_normalized.bin"
-gt_file="${file_base_path}/wiki1M_gt_normalized"
-query_file="${file_base_path}/wiki1M_queries_normalized.bin"
+data_path="${file_base_path}/prec1M_normalized.bin"
+gt_file="${file_base_path}/prec1M_gt_normalized"
+query_file="${file_base_path}/prec1M_queries_normalized.bin"
 result_path="/home/rakri/avarhade/Dump/tmp"
 
-
-# ./apps/build_memory_index --data_path $data_path --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/clustering/wiki_memory_index_clustering_r16_l50_mcs100_pm50_t0.3 --cluster_path /nvmessd1/fbv4/avarhade/clustering/wiki_cluster_mapping_r16_l50_mcs100_pm50_t0.3.bin -R 16 -L 50 -T 48 >> /home/rakri/avarhade/DiskANN/wiki1M/wiki_log_clustering_r16_l50.txt
-# ./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/clustering/wiki_memory_index_clustering_r16_l50_mcs100_pm50_t0.3 --cluster_path /nvmessd1/fbv4/avarhade/clustering/wiki_cluster_mapping_r16_l50_mcs100_pm50_t0.3.bin --gt_file $gt_file --query_file $query_file --result_path $result_path -K 50 -L 50 100 150 200 250 300 500 -T 1 >> /home/rakri/avarhade/DiskANN/wiki1M/wiki_log_clustering_r16_l50.txt
-# ./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/clustering/wiki_memory_index_clustering_r16_l50_mcs100_pm50_t0.3 --cluster_path /nvmessd1/fbv4/avarhade/clustering/wiki_cluster_mapping_r16_l50_mcs100_pm50_t0.3.bin --gt_file $gt_file --query_file $query_file --result_path $result_path -K 50 -L 50 100 150 200 250 300 500 -T 6 >> /home/rakri/avarhade/DiskANN/wiki1M/wiki_log_clustering_r16_l50.txt
-# ./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/clustering/wiki_memory_index_clustering_r16_l50_mcs100_pm50_t0.3 --cluster_path /nvmessd1/fbv4/avarhade/clustering/wiki_cluster_mapping_r16_l50_mcs100_pm50_t0.3.bin --gt_file $gt_file --query_file $query_file --result_path $result_path -K 50 -L 50 100 150 200 250 300 500 -T 12 >> /home/rakri/avarhade/DiskANN/wiki1M/wiki_log_clustering_r16_l50.txt
-# ./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/clustering/wiki_memory_index_clustering_r16_l50_mcs100_pm50_t0.3 --cluster_path /nvmessd1/fbv4/avarhade/clustering/wiki_cluster_mapping_r16_l50_mcs100_pm50_t0.3.bin --gt_file $gt_file --query_file $query_file --result_path $result_path -K 50 -L 50 100 150 200 250 300 500 -T 24 >> /home/rakri/avarhade/DiskANN/wiki1M/wiki_log_clustering_r16_l50.txt
-# ./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/clustering/wiki_memory_index_clustering_r16_l50_mcs100_pm50_t0.3 --cluster_path /nvmessd1/fbv4/avarhade/clustering/wiki_cluster_mapping_r16_l50_mcs100_pm50_t0.3.bin --gt_file $gt_file --query_file $query_file --result_path $result_path -K 50 -L 50 100 150 200 250 300 500 -T 48 >> /home/rakri/avarhade/DiskANN/wiki1M/wiki_log_clustering_r16_l50.txt
+./apps/build_memory_index --data_path $data_path --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/clustering/prec1M_memory_index_clustering_r48_l100_mcs10_pm30_t0.95 --cluster_path /nvmessd1/fbv4/avarhade/clustering/prec1M_cluster_mapping_r48_l100_mcs10_pm30_t0.95.bin -R 48 -L 100 -T 48 >> /home/rakri/avarhade/DiskANN/prec1M/prec1M_clustering_r48_l100.txt
+./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix /nvmessd1/fbv4/avarhade/clustering/prec1M_memory_index_clustering_r48_l100_mcs10_pm30_t0.95 --cluster_path /nvmessd1/fbv4/avarhade/clustering/prec1M_cluster_mapping_r48_l100_mcs10_pm30_t0.95.bin --gt_file $gt_file --query_file $query_file --result_path $result_path -K 100 -L 100 150 200 250 300 500 -T 48 >> /home/rakri/avarhade/DiskANN/prec1M/prec1M_clustering_r48_l100.txt

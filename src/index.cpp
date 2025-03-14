@@ -30,10 +30,9 @@
 
 
 
-#define POINT_MULTIPLICITY 50
-#define MAX_CLUSTER_SIZE 100
-#define THRESHOLD 0.3
-#define INVERSE_THRESHOLD 0.5
+#define POINT_MULTIPLICITY 30
+#define MAX_CLUSTER_SIZE 10
+#define THRESHOLD 0.95
 
 
 namespace diskann
