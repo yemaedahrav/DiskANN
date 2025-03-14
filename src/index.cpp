@@ -2323,7 +2323,7 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::search(const T *query, con
     }
     
     std::vector<uint32_t> node_list(unique_nodes.begin(), unique_nodes.end());
-    size_t node_list_size = node_list.size();
+    uint32_t node_list_size = node_list.size();
     std::vector<float> node_dist(node_list_size);
     compute_dists(node_list, node_dist);
     post_dist_comps = node_list_size;
