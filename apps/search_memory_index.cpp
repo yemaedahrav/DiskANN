@@ -115,11 +115,12 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
     std::unordered_map<uint32_t, std::vector<uint32_t>> _cluster_to_node;
     for (uint32_t i = 0; i < _num_clusters; i++)
     {
-        uint32_t cluster_size;
+        uint32_t cluster_size, cluster_id;
+        in.read((char *)&cluster_id, sizeof(uint32_t));
         in.read((char *)&cluster_size, sizeof(uint32_t));
         std::vector<uint32_t> nodes(cluster_size);
         in.read((char *)nodes.data(), cluster_size * sizeof(uint32_t));
-        _cluster_to_node[i] = std::move(nodes);
+        _cluster_to_node[cluster_id] = std::move(nodes);
     }
     in.close();
 

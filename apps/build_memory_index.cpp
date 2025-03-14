@@ -24,7 +24,7 @@ namespace po = boost::program_options;
 
 int main(int argc, char **argv)
 {
-    std::string data_type, dist_fn, data_path, index_path_prefix, label_file, universal_label, label_type;
+    std::string data_type, dist_fn, data_path, index_path_prefix, label_file, universal_label, label_type, cluster_path;
     uint32_t num_threads, R, L, Lf, build_PQ_bytes;
     float alpha;
     bool use_pq_build, use_opq;
@@ -43,6 +43,8 @@ int main(int argc, char **argv)
                                        program_options_utils::DISTANCE_FUNCTION_DESCRIPTION);
         required_configs.add_options()("index_path_prefix", po::value<std::string>(&index_path_prefix)->required(),
                                        program_options_utils::INDEX_PATH_PREFIX_DESCRIPTION);
+        required_configs.add_options()("cluster_path", po::value<std::string>(&cluster_path)->required(),
+                                       program_options_utils::CLUSTER_PATH_DESCRIPTION);
         required_configs.add_options()("data_path", po::value<std::string>(&data_path)->required(),
                                        program_options_utils::INPUT_DATA_PATH);
 
@@ -150,6 +152,7 @@ int main(int argc, char **argv)
 
         auto index_factory = diskann::IndexFactory(config);
         auto index = index_factory.create_instance();
+        diskann::cluster_filename = cluster_path;
         index->build(data_path, data_num, filter_params);
         index->save(index_path_prefix.c_str());
         index.reset();

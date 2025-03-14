@@ -173,7 +173,7 @@ std::tuple<uint32_t, uint32_t, size_t> InMemGraphStore::load_impl(const std::str
         in.read((char *)&k, sizeof(uint32_t));
 
         
-        if (k == 0)
+        if (k != 0)
         {   
             graph_points++;
             // Commenting this code for the clustering, because in clustering not all points will be in the graph, so many will have no out neighbors. This error is not actually an error
@@ -195,7 +195,7 @@ std::tuple<uint32_t, uint32_t, size_t> InMemGraphStore::load_impl(const std::str
         }
     }
 
-    diskann::cout << "done. Index has " << graph_points << " nodes/clusters and " << cc << " out-edges, _start is set to " << start
+    diskann::cout << "done. \nIndex has " << graph_points << " nodes/clusters and " << cc << " out-edges, _start is set to " << start
                   << std::endl;
     // Ideally the num of points is graph is different but we return nodes_read to maintain the checks run later on num of points
     return std::make_tuple(nodes_read, start, file_frozen_pts);
@@ -218,9 +218,18 @@ int InMemGraphStore::save_graph(const std::string &index_path_prefix, const size
     out.write((char *)&num_frozen_points, sizeof(size_t));
 
     // Note: num_points = _nd + _num_frozen_points
+    uint32_t cluster_count = 0;
     for (uint32_t i = 0; i < num_points; i++)
-    {
+    {   
+        //diskann::cout << "Point: " << i;
         uint32_t GK = (uint32_t)_graph[i].size();
+        if (GK == 0)
+        {   
+            //diskann::cout << " Point with No out-neighbours" << std::endl;
+        }else{
+            //diskann::cout << " Point with " << GK << " out-neighbours" << std::endl;
+            cluster_count++;
+        }
         out.write((char *)&GK, sizeof(uint32_t));
         out.write((char *)_graph[i].data(), GK * sizeof(uint32_t));
         max_degree = _graph[i].size() > max_degree ? (uint32_t)_graph[i].size() : max_degree;
@@ -230,6 +239,7 @@ int InMemGraphStore::save_graph(const std::string &index_path_prefix, const size
     out.write((char *)&index_size, sizeof(uint64_t));
     out.write((char *)&max_degree, sizeof(uint32_t));
     out.close();
+    diskann::cout<<"Saved. Number of clusters: "<<cluster_count<<std::endl;
     return (int)index_size;
 }
 

@@ -30,18 +30,18 @@
 
 
 
-#define POINT_MULTIPLICITY 20
-#define MAX_CLUSTER_SIZE 32
-#define THRESHOLD 0.2
-#define INVERSE_THRESHOLD 0.4
+#define POINT_MULTIPLICITY 50
+#define MAX_CLUSTER_SIZE 100
+#define THRESHOLD 0.3
+#define INVERSE_THRESHOLD 0.5
 
 
 namespace diskann
 {
-
     std::vector<uint32_t> dist_comps;
     std::vector<float> search_times;
     std::vector<float> expansion_times;
+    std::string cluster_filename;
     int query_id = 0;
     
 // Initialize an index with metric m, load the data of type T with filename
@@ -1049,7 +1049,7 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
             {
                 uint32_t id = L_list[i].id;
                 auto dist = L_list[i].distance;
-                if (dist > INVERSE_THRESHOLD) 
+                if (dist < THRESHOLD) 
                 {
                     auto cur_cluster_size = cluster_to_node[id].size();
                     if (cur_cluster_size < MAX_CLUSTER_SIZE)
@@ -1614,8 +1614,8 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
 
     // Save cluster_to_node mapping in file to be loaded during search. The saved file will be used in running search only search, that is not the search during build.
     std::ofstream out;
-    std::string filename = "/nvmessd1/fbv4/avarhade/clustering/cluster_mapping_r" + std::to_string(_indexingRange) + "_l" + std::to_string(_indexingQueueSize) + "_mcs" + std::to_string(MAX_CLUSTER_SIZE) + "_pm" + std::to_string(POINT_MULTIPLICITY) + "_it" + std::to_string(INVERSE_THRESHOLD) + ".bin";
-    out.open(filename, std::ios::binary | std::ios::out);
+    //std::string cluster_filename = "/nvmessd1/fbv4/avarhade/clustering/cluster_mapping_r" + std::to_string(_indexingRange) + "_l" + std::to_string(_indexingQueueSize) + "_mcs" + std::to_string(MAX_CLUSTER_SIZE) + "_pm" + std::to_string(POINT_MULTIPLICITY) + "_it" + std::to_string(THRESHOLD) + ".bin";
+    out.open(cluster_filename, std::ios::binary | std::ios::out);
     
     size_t file_offset = 0;
     size_t _max_cluster_size = MAX_CLUSTER_SIZE;
@@ -1625,15 +1625,16 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
     out.write((char *)&_max_cluster_size, sizeof(size_t));
 
     // Note: num_points = _nd + _num_frozen_points
-    for (uint32_t i = 0; i < _num_clusters; i++)
+    for (const auto &pair: cluster_to_node)
     {
-        uint32_t cluster_size = (uint32_t)cluster_to_node[i].size();
-        std::vector<uint32_t> cluster_to_node_vector(cluster_to_node[i].begin(), cluster_to_node[i].end());
+        uint32_t cluster_size = (uint32_t)pair.second.size();
+        std::vector<uint32_t> cluster_to_node_vector(pair.second.begin(), pair.second.end());
+        out.write((char *)&pair.first, sizeof(uint32_t));
         out.write((char *)&cluster_size, sizeof(uint32_t));
         out.write((char *)cluster_to_node_vector.data(), cluster_size * sizeof(uint32_t));
     }
     out.close();
-    diskann::cout<<"Cluster to Node mapping saved in file: "<<filename<<std::endl;
+    diskann::cout<<"Cluster to Node mapping saved in file: "<<cluster_filename<<std::endl;
 }
 
 template <typename T, typename TagT, typename LabelT>
@@ -1813,7 +1814,7 @@ void Index<T, TagT, LabelT>::build_with_data_populated(const std::vector<TagT> &
     std::vector<bool> cluster_status;
     std::unordered_map<uint32_t, std::set<uint32_t>> cluster_to_node;
     generate_frozen_point();
-    diskann::cout<<"Clustering Parameters: "<<"MAX_CLUSTER_SIZE: "<<MAX_CLUSTER_SIZE<<", POINT_MULTIPLICITY: "<<POINT_MULTIPLICITY<<", INVERSE_THRESHOLD: "<<INVERSE_THRESHOLD<<std::endl;
+    diskann::cout<<"Clustering Parameters: "<<"MAX_CLUSTER_SIZE: "<<MAX_CLUSTER_SIZE<<", POINT_MULTIPLICITY: "<<POINT_MULTIPLICITY<<", THRESHOLD: "<<THRESHOLD<<std::endl;
     link(cluster_status, cluster_to_node);
 
     size_t max = 0, min = SIZE_MAX, total = 0, cnt = 0, cnt_0 = 0, graph_points = 0, total_points = 0;
@@ -2311,13 +2312,13 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::search(const T *query, con
 
     uint32_t post_dist_comps = 0;
     std::unordered_set<uint32_t> unique_nodes;
-    std::unordered_map<uint32_t, std::vector<uint32_t>> relevant_clusters;
     {   
         std::shared_lock<std::shared_timed_mutex> cluster_lock(_cluster_lock);
         for (size_t i = 0; i < best_L_nodes.size(); ++i) {
             for (auto node : _cluster_to_node[best_L_nodes[i].id]) {
                 unique_nodes.insert(node);
             }
+            unique_nodes.erase(best_L_nodes[i].id);
         }
     }
     

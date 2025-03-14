@@ -39,6 +39,7 @@ namespace diskann
     extern std::vector<uint32_t> dist_comps;
     extern std::vector<float> search_times;
     extern std::vector<float> expansion_times;
+    extern std::string cluster_filename;
     extern int query_id;
     
 inline double estimate_ram_usage(size_t size, uint32_t dim, uint32_t datasize, uint32_t degree)
