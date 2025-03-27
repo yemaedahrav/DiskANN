@@ -1,8 +1,16 @@
+#-------------------------------------------------------------------------------------------------------------#
+#---------This is a test run on the cluster centres of a particular clustering run for sanity check-----------#
+#-------------------------------------------------------------------------------------------------------------#
+
 Starting index build with R: 16  Lbuild: 50  alpha: 1.2  #threads: 48
 L2: Using AVX2 distance computation DistanceL2Float
 Using only first 305000 from file.. 
 Starting index build with 305000 points... 
-0% of index build completed.32.7869% of index build completed.65.5738% of index build completed.98.3607% of index build completed.Starting final cleanup..done. Link time: 5.44076s
+
+0% of index build completed.
+32.7869% of index build completed.
+65.5738% of index build completed.
+98.3607% of index build completed.Starting final cleanup..done. Link time: 5.44076s
 Index built with degree: max:16  avg:11.3469  min:1  count(deg<2):1334
 Indexing time: 5.83376
 Not saving tags as they are not enabled.
@@ -74,7 +82,11 @@ Starting index build with R: 16  Lbuild: 50  alpha: 1.2  #threads: 48
 L2: Using AVX2 distance computation DistanceL2Float
 Using only first 305000 from file.. 
 Starting index build with 305000 points... 
-0% of index build completed.32.7869% of index build completed.65.5738% of index build completed.98.3607% of index build completed.Starting final cleanup..done. Link time: 5.41754s
+
+0% of index build completed.
+32.7869% of index build completed.
+65.5738% of index build completed.
+98.3607% of index build completed.Starting final cleanup..done. Link time: 5.41754s
 Index built with degree: max:16  avg:11.8073  min:1  count(deg<2):639
 Indexing time: 5.78953
 Not saving tags as they are not enabled.
