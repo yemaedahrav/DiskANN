@@ -64,15 +64,14 @@ void process_bin_file(const std::string& input_file, const std::string& output_f
 
 int main() {
 
-    // std::string input_file = "/nvmessd1/fbv4/queries.fbin";
-    // std::string output_file = "/nvmessd1/fbv4/avarhade/datasets/prec1M_queries_normalized.bin";
-    
-    // std::string input_file = "/nvmessd1/fbv4/prec1M.fbin";
-    // std::string output_file = "/nvmessd1/fbv4/avarhade/datasets/prec1M_normalized.bin";
+    // std::vector<std::pair<std::string, std::string>> file_pairs = {
+    //     {"/nvmessd2/bigann/wikipedia_cohere/wikipedia_base.bin.crop_nb_1000000", "/nvmessd1/fbv4/avarhade/datasets/wiki1M_normalized.bin"},
+    //     {"/nvmessd2/bigann/wikipedia_cohere/wikipedia_query.bin", "/nvmessd1/fbv4/avarhade/datasets/wiki1M_queries_normalized.bin"}
+    // };
 
     std::vector<std::pair<std::string, std::string>> file_pairs = {
-        {"/nvmessd2/bigann/wikipedia_cohere/wikipedia_base.bin.crop_nb_1000000", "/nvmessd1/fbv4/avarhade/datasets/wiki1M_normalized.bin"},
-        {"/nvmessd2/bigann/wikipedia_cohere/wikipedia_query.bin", "/nvmessd1/fbv4/avarhade/datasets/wiki1M_queries_normalized.bin"}
+        {"/home/t-avarhade/prec1M/prec1M.fbin", "/home/t-avarhade/prec1M/prec1M_normalized.bin"},
+        {"/home/t-avarhade/prec1M/queries.fbin", "/home/t-avarhade/prec1M/prec1M_queries_normalized.bin"}
     };
 
     for (const auto& pair : file_pairs) {
