@@ -32,7 +32,7 @@
 
 #define POINT_MULTIPLICITY 100
 #define MAX_CLUSTER_SIZE 1
-#define THRESHOLD 0
+#define THRESHOLD 0.3
 
 
 namespace diskann
@@ -1048,6 +1048,10 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
     // std::cout << std::endl;
     
     bool create_new_cluster = true;
+    float threshold=THRESHOLD;
+    if (location < 100000){
+        threshold=0.0;
+    }
     if (!use_filter)
     {   
         _data_store->get_vector(location, scratch->aligned_query());
@@ -1062,7 +1066,7 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
             {
                 uint32_t id = L_list[i].id;
                 auto dist = L_list[i].distance;
-                if (dist < THRESHOLD) 
+                if (dist < threshold) 
                 {
                     auto cur_cluster_size = cluster_to_node[id].size();
                     if (cur_cluster_size < MAX_CLUSTER_SIZE)
