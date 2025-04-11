@@ -146,9 +146,9 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
     }
     else
     {
-        std::cout << std::setw(4) << "Ls" << std::setw(12) << qps_title << std::setw(18) << "Search dist cmps" << std::setw(18) << "Expand dist cmps" << std::setw(12) << "Exp Dist %" << std::setw(12) << "Avg hops"
+        std::cout << std::setw(4) << "Ls" << std::setw(12) << qps_title << std::setw(18) << "Search dist cmps" << std::setw(18) << "Expand dist cmps" << std::setw(18) << "Total dist cmps" << std::setw(18) << "Exp Dist %" << std::setw(12) << "Avg hops"
                   << std::setw(20) << "Mean Latency (mus)" << std::setw(15) << "99.9 Latency" << std::setw(22) << "Search Latency (mus)"<< std::setw(22) << "Expand Latency (mus)" << std::setw(14) << "Exp Latency %";
-        table_width += 4 + 12 + 18 + 18 + 12 + 12 + 20 + 15 + 22 + 22 + 14;
+        table_width += 4 + 12 + 18 + 18 + 18 + 12 + 12 + 20 + 15 + 22 + 22 + 14;
     }
     uint32_t recalls_to_print = 0;
     const uint32_t first_recall = print_all_recalls ? 1 : recall_at;
@@ -171,12 +171,12 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
     std::vector<uint32_t> hop_stats;
     diskann::search_times = std::vector<float>(query_num, 0);
     diskann::expansion_times = std::vector<float>(query_num, 0);
+    diskann::dist_comps = std::vector<uint32_t>(query_num, 0);
 
     if (not tags || filtered_search)
     {
         cmp_stats = std::vector<uint32_t>(query_num, 0);
         hop_stats = std::vector<uint32_t>(query_num, 0);
-        diskann::dist_comps = std::vector<uint32_t>(query_num, 0);
     }
 
     std::vector<TagT> query_result_tags;
@@ -299,7 +299,7 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
         {   
             float dist_percentage = (avg_dist_comps / (avg_dist_comps + avg_cmps)) * 100;
             float latency_percentage = (avg_expansion_time / (avg_search_time + avg_expansion_time)) * 100;
-            std::cout << std::setw(4) << L << std::setw(12) << displayed_qps << std::setw(18) << avg_cmps << std::setw(18) << avg_dist_comps << std::setw(12) << dist_percentage << std::setw(12) << avg_hops
+            std::cout << std::setw(4) << L << std::setw(12) << displayed_qps << std::setw(18) << avg_cmps << std::setw(18) << avg_dist_comps << std::setw(18) << avg_dist_comps + avg_cmps << std::setw(12) << dist_percentage << std::setw(12) << avg_hops
                       << std::setw(20) << (float)mean_latency << std::setw(15)
                       << (float)latency_stats[(uint64_t)(0.999 * query_num)] << std::setw(22) << avg_search_time << std::setw(22) << avg_expansion_time << std::setw(14) << latency_percentage;
         }
