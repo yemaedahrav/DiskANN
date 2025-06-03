@@ -39,6 +39,12 @@ namespace diskann
     extern std::vector<uint32_t> dist_comps;
     extern std::vector<float> search_times;
     extern std::vector<float> expansion_times;
+
+    extern std::atomic<int> point_multiplicity;
+    extern std::atomic<int> max_cluster_size;
+    extern std::atomic<float> clustering_threshold;
+    extern std::atomic<float> hybrid_ratio;
+
     extern std::string cluster_filename;
     extern thread_local int query_id;
     

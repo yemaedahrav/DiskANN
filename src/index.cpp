@@ -29,9 +29,10 @@
 #define MAX_POINTS_FOR_USING_BITSET 10000000
 
 
-#define POINT_MULTIPLICITY 200
-#define MAX_CLUSTER_SIZE 16
-#define THRESHOLD 0.8
+// #define POINT_MULTIPLICITY 200
+// #define MAX_CLUSTER_SIZE 16
+// #define THRESHOLD 0.8
+// #define HYBRID_RATIO 0.3
 
 std::atomic<int> multipicity_counts{0};
 std::atomic<int> unit_cluster_counts{0};
@@ -41,6 +42,12 @@ namespace diskann
     std::vector<uint32_t> dist_comps;
     std::vector<float> search_times;
     std::vector<float> expansion_times;
+
+    std::atomic<int> point_multiplicity;
+    std::atomic<int> max_cluster_size;
+    std::atomic<float> clustering_threshold; 
+    std::atomic<float> hybrid_ratio;
+
     std::string cluster_filename;
     thread_local int query_id = 0;
     
@@ -1049,8 +1056,9 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
     // std::cout << std::endl;
     
     bool create_new_cluster = true;
-    float threshold=THRESHOLD;
-    if (location < 300000){
+    float threshold=clustering_threshold;
+    int standard_diskann_points = hybrid_ratio*(_nd + _num_frozen_pts);
+    if (location < standard_diskann_points){
         threshold=0.0;
     }
     if (!use_filter)
@@ -1071,9 +1079,9 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
                 if (dist < threshold) 
                 {
                     auto cur_cluster_size = cluster_to_node[id].size();
-                    if (cur_cluster_size < MAX_CLUSTER_SIZE)
+                    if (cur_cluster_size < max_cluster_size)
                     {
-                        cluster_candidates.emplace_back(id, MAX_CLUSTER_SIZE - cur_cluster_size);
+                        cluster_candidates.emplace_back(id, max_cluster_size - cur_cluster_size);
                     }
                 }
             }
@@ -1083,8 +1091,8 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
                 return a.second > b.second;
             });
 
-            // Add point to atmost top POINT_MULTIPLICITY empty clusters
-            size_t clusters_to_add = std::min(cluster_candidates.size(), static_cast<size_t>(POINT_MULTIPLICITY));
+            // Add point to atmost top point_multiplicity empty clusters
+            size_t clusters_to_add = std::min(cluster_candidates.size(), static_cast<size_t>(point_multiplicity));
             if(clusters_to_add == 0){
                 multipicity_counts ++;
             }
@@ -1470,7 +1478,9 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
     //     cluster_to_node[_start].insert(_start);
     //     node_to_cluster[_start] = _start;
     // }
-
+    
+    int standard_diskann_points = hybrid_ratio*(_nd + _num_frozen_pts);
+    diskann::cout<<"Standard DiskANN Points: "<<standard_diskann_points<<std::endl;
     cluster_centre_status.resize(visit_order.size(), false);
     std::vector<uint32_t> node_to_cluster = visit_order;
     // Set the start point to be a cluster center
@@ -1645,11 +1655,11 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
 
     // Save cluster_to_node mapping in file to be loaded during search. The saved file will be used in running search only search, that is not the search during build.
     std::ofstream out;
-    //std::string cluster_filename = "/nvmessd1/fbv4/avarhade/clustering/cluster_mapping_r" + std::to_string(_indexingRange) + "_l" + std::to_string(_indexingQueueSize) + "_mcs" + std::to_string(MAX_CLUSTER_SIZE) + "_pm" + std::to_string(POINT_MULTIPLICITY) + "_it" + std::to_string(THRESHOLD) + ".bin";
+    //std::string cluster_filename = "/nvmessd1/fbv4/avarhade/clustering/cluster_mapping_r" + std::to_string(_indexingRange) + "_l" + std::to_string(_indexingQueueSize) + "_mcs" + std::to_string(max_cluster_size) + "_pm" + std::to_string(point_multiplicity) + "_it" + std::to_string(clustering_threshold) + ".bin";
     out.open(cluster_filename, std::ios::binary | std::ios::out);
     
     size_t file_offset = 0;
-    size_t _max_cluster_size = MAX_CLUSTER_SIZE;
+    size_t _max_cluster_size = max_cluster_size;
     size_t _num_clusters = cluster_to_node.size();
     out.seekp(file_offset, out.beg);
     out.write((char *)&_num_clusters, sizeof(size_t));
@@ -1845,7 +1855,7 @@ void Index<T, TagT, LabelT>::build_with_data_populated(const std::vector<TagT> &
     std::vector<bool> cluster_centre_status;
     std::unordered_map<uint32_t, std::set<uint32_t>> cluster_to_node;
     generate_frozen_point();
-    diskann::cout<<"Clustering Parameters: "<<"MAX_CLUSTER_SIZE: "<<MAX_CLUSTER_SIZE<<", POINT_MULTIPLICITY: "<<POINT_MULTIPLICITY<<", THRESHOLD: "<<THRESHOLD;
+    diskann::cout<<"Clustering Parameters: "<<"max_cluster_size: "<<max_cluster_size<<", point_multiplicity: "<<point_multiplicity<<", clustering_threshold: "<<clustering_threshold;
     link(cluster_centre_status, cluster_to_node);
 
     size_t max = 0, min = SIZE_MAX, total = 0, cnt = 0, cnt_0 = 0, graph_points = 0, total_points = 0;

@@ -61,6 +61,13 @@ const char *FAIL_IF_RECALL_BELOW =
 const char *NUMBER_OF_NODES_TO_CACHE = "Number of BFS nodes around medoid(s) to cache.  Default value: 0";
 const char *BEAMWIDTH = "Beamwidth for search. Set 0 to optimize internally.  Default value: 2";
 const char *MAX_BUILD_DEGREE = "Maximum graph degree";
+const char *POINT_MULTIPLICITY = "Maximum number of different clusters each point can be added. Default value: 1";
+const char *MAX_CLUSTER_SIZE = 
+    "Maximum number of points in a cluster.  This is used to limit the size of the cluster to avoid memory issues. Default value: 10000";
+const char* THRESHOLD = "The threshold to control the tightness of the clustering algorithm. Default value: 0"
+                        "A value of 0 means that the clustering algorithm will not use a threshold and will cluster all points.";
+const char *HYBRID_RATIO = "The ratio of hybrid search to use.  This is used to control the amount of hybrid search "
+                           "used in the index.  Default value: 0.  A value of 0 means that no clustering happens";
 const char *GRAPH_BUILD_COMPLEXITY =
     "Size of the search working set during build time.  This is the numer of neighbor/distance pairs to keep in memory "
     "while building the index.  Higher value results in a higher quality graph but it will take more time to build the "

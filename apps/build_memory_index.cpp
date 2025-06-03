@@ -26,7 +26,8 @@ int main(int argc, char **argv)
 {
     std::string data_type, dist_fn, data_path, index_path_prefix, label_file, universal_label, label_type, cluster_path;
     uint32_t num_threads, R, L, Lf, build_PQ_bytes;
-    float alpha;
+    int PM, MCS;
+    float TR, HR, alpha;
     bool use_pq_build, use_opq;
 
     po::options_description desc{
@@ -47,12 +48,21 @@ int main(int argc, char **argv)
                                        program_options_utils::CLUSTER_PATH_DESCRIPTION);
         required_configs.add_options()("data_path", po::value<std::string>(&data_path)->required(),
                                        program_options_utils::INPUT_DATA_PATH);
+                        
 
         // Optional parameters
         po::options_description optional_configs("Optional");
         optional_configs.add_options()("num_threads,T",
                                        po::value<uint32_t>(&num_threads)->default_value(omp_get_num_procs()),
                                        program_options_utils::NUMBER_THREADS_DESCRIPTION);
+        optional_configs.add_options()("point_multiplicity,M", po::value<int>(&PM)->default_value(1),
+                                       program_options_utils::POINT_MULTIPLICITY);
+        optional_configs.add_options()("max_cluster_size,S", po::value<int>(&MCS)->default_value(1000),
+                                       program_options_utils::MAX_CLUSTER_SIZE);
+        optional_configs.add_options()("clustering_threshold,H", po::value<float>(&TR)->default_value(0),
+                                       program_options_utils::THRESHOLD);
+        optional_configs.add_options()("hybrid_ratio,F", po::value<float>(&HR)->default_value(0),
+                                       program_options_utils::HYBRID_RATIO);                
         optional_configs.add_options()("max_degree,R", po::value<uint32_t>(&R)->default_value(64),
                                        program_options_utils::MAX_BUILD_DEGREE);
         optional_configs.add_options()("Lbuild,L", po::value<uint32_t>(&L)->default_value(100),
@@ -153,6 +163,10 @@ int main(int argc, char **argv)
         auto index_factory = diskann::IndexFactory(config);
         auto index = index_factory.create_instance();
         diskann::cluster_filename = cluster_path;
+        diskann::point_multiplicity = PM;
+        diskann::max_cluster_size = MCS;
+        diskann::clustering_threshold = TR;
+        diskann::hybrid_ratio = HR;
         index->build(data_path, data_num, filter_params);
         index->save(index_path_prefix.c_str());
         index.reset();
