@@ -1479,8 +1479,8 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
     //     node_to_cluster[_start] = _start;
     // }
     
-    int standard_diskann_points = hybrid_ratio*(_nd + _num_frozen_pts);
-    diskann::cout<<"Standard DiskANN Points: "<<standard_diskann_points<<std::endl;
+    //int standard_diskann_points = hybrid_ratio*(_nd + _num_frozen_pts);
+    //diskann::cout<<"Standard DiskANN Points: "<<standard_diskann_points<<std::endl;
     cluster_centre_status.resize(visit_order.size(), false);
     std::vector<uint32_t> node_to_cluster = visit_order;
     // Set the start point to be a cluster center
@@ -1855,7 +1855,7 @@ void Index<T, TagT, LabelT>::build_with_data_populated(const std::vector<TagT> &
     std::vector<bool> cluster_centre_status;
     std::unordered_map<uint32_t, std::set<uint32_t>> cluster_to_node;
     generate_frozen_point();
-    diskann::cout<<"Clustering Parameters: "<<"max_cluster_size: "<<max_cluster_size<<", point_multiplicity: "<<point_multiplicity<<", clustering_threshold: "<<clustering_threshold;
+    diskann::cout<<"Clustering Parameters: "<<"max cluster size: "<<max_cluster_size<<", point multiplicity: "<<point_multiplicity<<", clustering threshold: "<<clustering_threshold<<", hybrid ratio: "<<hybrid_ratio<<std::endl;
     link(cluster_centre_status, cluster_to_node);
 
     size_t max = 0, min = SIZE_MAX, total = 0, cnt = 0, cnt_0 = 0, graph_points = 0, total_points = 0;
