@@ -58,19 +58,19 @@ void readClusterFile(const std::string& cluster_path, const std::string& data_in
     data_out_file.write((char *)&d, sizeof(uint32_t));
 
     for (const auto& id : cluster_ids) {
-        if (id < N) {
-            data_in_file.seekg(8 + id * d * sizeof(float), std::ios::beg);
-            std::vector<float> buffer(d);
-            data_in_file.read((char *)buffer.data(), d * sizeof(float));
-            data_out_file.write((char *)buffer.data(), d * sizeof(float));
-        } else {
+        if (id >= N) {
             std::cout<< "Cluster ID " << id << " is out of range." << std::endl;
         }
+        data_in_file.seekg(8 + id * d * sizeof(float), std::ios::beg);
+        std::vector<float> buffer(d);
+        data_in_file.read((char *)buffer.data(), d * sizeof(float));
+        data_out_file.write((char *)buffer.data(), d * sizeof(float));
     }
-    std::cout<< "Data written to " << data_out << std::endl; 
+    std::cout<< "Data written to " << data_out << std::endl;
 
     data_in_file.close();
     data_out_file.close();
+    return;
 }
 
 

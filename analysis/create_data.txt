@@ -1,0 +1,2 @@
+Opened cluster file: /home/t-avarhade/prec1M/index/cluster_r64_l100_m5_s100000_h0.75_f0.3
+Data written to /home/t-avarhade/prec1M/prec1M_normalized_hybrid_r64_l100_m5_s100000_h0.75_f0.3
