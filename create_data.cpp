@@ -6,19 +6,15 @@
 #include <string>
 #include <algorithm>
 
-void readClusterFile(const std::string& cluster_path, const std::string& data_in, const std::string& data_out, const std::string& output_path) {
-    
-    std::ofstream out(output_path);
-    if (!out.is_open()) {
-        out << "Error opening output file: " << output_path << std::endl;
-        return;
-    }
+
+
+void readClusterFile(const std::string& cluster_path, const std::string& data_in, const std::string& data_out) {
     
     std::ifstream in;
     in.exceptions(std::ios::badbit | std::ios::failbit);
     in.open(cluster_path, std::ios::binary | std::ios::in);
     if (!in.is_open()) {
-        out << "Error opening file: " << cluster_path << std::endl;
+        std::cout<< "Error opening file: " << cluster_path << std::endl;
         return;
     } else {
         std::cout << "Opened cluster file: " << cluster_path << std::endl;
@@ -43,7 +39,7 @@ void readClusterFile(const std::string& cluster_path, const std::string& data_in
 
     std::ifstream data_in_file(data_in, std::ios::binary);
     if (!data_in_file.is_open()) {
-        out << "Error opening data input file: " << data_in << std::endl;
+        std::cout<< "Error opening data input file: " << data_in << std::endl;
         return;
     }
 
@@ -53,7 +49,7 @@ void readClusterFile(const std::string& cluster_path, const std::string& data_in
 
     std::ofstream data_out_file(data_out, std::ios::binary);
     if (!data_out_file.is_open()) {
-        out << "Error opening data output file: " << data_out << std::endl;
+        std::cout<< "Error opening data output file: " << data_out << std::endl;
         return;
     }
 
@@ -68,23 +64,24 @@ void readClusterFile(const std::string& cluster_path, const std::string& data_in
             data_in_file.read((char *)buffer.data(), d * sizeof(float));
             data_out_file.write((char *)buffer.data(), d * sizeof(float));
         } else {
-            out << "Cluster ID " << id << " is out of range." << std::endl;
+            std::cout<< "Cluster ID " << id << " is out of range." << std::endl;
         }
     }
-    out << "Data written to " << data_out << std::endl; 
+    std::cout<< "Data written to " << data_out << std::endl; 
 
     data_in_file.close();
     data_out_file.close();
-
-    out.close();
 }
 
 
-int main() {
-    std::string cluster_path = "/nvmessd1/fbv4/avarhade/clustering/wiki_cluster_mapping_r16_l50_mcs100_pm50_t0.3.bin";
-    std::string data_in = "/nvmessd1/fbv4/avarhade/datasets/wiki1M_normalized.bin";
-    std::string data_out = "/nvmessd1/fbv4/avarhade/datasets/wiki1M_normalized_data_clusters_r16_l50_mcs100_pm50_t0.3_out.bin";
-    std::string output_path = "create_data.txt";
-    readClusterFile(cluster_path, data_in, data_out, output_path);
+int main(int argc, char* argv[]) {
+    if (argc != 4) {
+        std::cerr << "Usage: " << argv[0] << " <cluster_path> <data_in_path> <data_out_path>" << std::endl;
+        return 1;
+    }
+    std::string cluster_path = argv[1];  // The path of the cluster to node mappings (id mappings only)
+    std::string data_in = argv[2];       // The path of the input data file, needed for id to vector mappings
+    std::string data_out = argv[3];      // The path of the output data file, where the cluster centre vectors will be written (new data)
+    readClusterFile(cluster_path, data_in, data_out);
     return 0;
 }

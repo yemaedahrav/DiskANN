@@ -82,6 +82,10 @@ bin: #pts = 13265, #dims = 100, size = 5306008B
 Finished writing bin.
 
 
+----------------------------------------------------------------------------------------------------
+----------------------EXPERIMENT CONFIG TO BUILD DiskANN ON CLUSTERS CENTRES------------------------
+----------------------------------------------------------------------------------------------------
+
 Starting index build with R: 64  Lbuild: 100  alpha: 1.2  #threads: 1
 L2: Using AVX2 distance computation DistanceL2Float
 Using only first 1010812 from file.. 
