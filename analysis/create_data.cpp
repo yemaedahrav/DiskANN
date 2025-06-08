@@ -25,12 +25,13 @@ void readClusterFile(const std::string& cluster_path, const std::string& data_in
     in.seekg(file_offset, in.beg);
     in.read((char *)&_num_clusters, sizeof(size_t));
     in.read((char *)&_max_cluster_size, sizeof(size_t));
+    std::cout << "Number of clusters: " << _num_clusters << std::endl;
 
     std::vector<uint32_t> cluster_ids;
     for (uint32_t i = 0; i < _num_clusters; i++) {
         uint32_t cluster_size, cluster_id;
         in.read((char *)&cluster_id, sizeof(uint32_t));
-        in.seekg(sizeof(uint32_t), std::ios::cur); // Skip the cluster size
+        in.read((char *)&cluster_size, sizeof(uint32_t));
         in.seekg(cluster_size * sizeof(uint32_t), std::ios::cur); // Skip the nodes data
         cluster_ids.push_back(cluster_id);
     }
@@ -66,6 +67,7 @@ void readClusterFile(const std::string& cluster_path, const std::string& data_in
         data_in_file.read((char *)buffer.data(), d * sizeof(float));
         data_out_file.write((char *)buffer.data(), d * sizeof(float));
     }
+    std::cout<<"Number of cluster centres/data points in new graph: " << cluster_ids.size() << std::endl;
     std::cout<< "Data written to " << data_out << std::endl;
 
     data_in_file.close();
