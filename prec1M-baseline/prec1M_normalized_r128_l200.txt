@@ -230,3 +230,119 @@ Finished writing bin.
 Writing bin: /home/t-avarhade/Dump/tmp_500_dists_float.bin
 bin: #pts = 13265, #dims = 200, size = 10612008B
 Finished writing bin.
+Starting index build with R: 128  Lbuild: 200  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 303244 from file.. 
+Starting index build with 303244 points... 
+0% of index build completed.32.9767% of index build completed.65.9535% of index build completed.98.9302% of index build completed.Starting final cleanup..done. Link time: 85.7361s
+Index built with degree: max:128  avg:92.4202  min:1  count(deg<2):5192
+Indexing time: 85.9093
+Not saving tags as they are not enabled.
+Time taken for save: 0.982011s.
+Reading (with alignment) bin file /home/t-avarhade/prec1M/prec1M_queries_normalized.bin ...Metadata: #pts = 13265, #dims = 384, aligned_dim = 384... allocating aligned memory of 20375040 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/prec1M/index/prec1M_normalized_hybrid_r128_l200_m5_s100000_h1.5_f0.3_gt200, size: 21224008, cache_size: 21224008
+Reading truthset file /home/t-avarhade/prec1M/index/prec1M_normalized_hybrid_r128_l200_m5_s100000_h1.5_f0.3_gt200 ...
+Metadata: #pts = 13265, #dims = 200... 
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.00255683s
+From graph header, expected_file_size: 113316544, _max_observed_degree: 128, _start: 16456, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/prec1M/index/test...done. Index has 303244 nodes and 28025886 out-edges, _start is set to 16456
+Num frozen points:0 _nd: 303244 _start: 16456 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 303244
+Index loaded
+Using 96 threads to search
+  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency  Recall@200
+=============================================================================================
+ 200     1573.24          17880.93      204.83            60866.11      480316.31       90.61
+ 250     1432.12          21567.19      254.66            66890.45      167349.59       92.98
+ 300     1150.55          25110.07      304.52            83269.23      292672.94       94.60
+ 400      924.23          31823.83      404.31           103687.77      239572.31       96.59
+ 500      767.78          38114.27      504.17           124778.72      291899.09       97.71
+Done searching. Now saving results 
+Writing bin: /home/t-avarhade/Dump/tmp_200_idx_uint32.bin
+bin: #pts = 13265, #dims = 200, size = 10612008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_200_dists_float.bin
+bin: #pts = 13265, #dims = 200, size = 10612008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_250_idx_uint32.bin
+bin: #pts = 13265, #dims = 200, size = 10612008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_250_dists_float.bin
+bin: #pts = 13265, #dims = 200, size = 10612008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_300_idx_uint32.bin
+bin: #pts = 13265, #dims = 200, size = 10612008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_300_dists_float.bin
+bin: #pts = 13265, #dims = 200, size = 10612008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_400_idx_uint32.bin
+bin: #pts = 13265, #dims = 200, size = 10612008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_400_dists_float.bin
+bin: #pts = 13265, #dims = 200, size = 10612008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_500_idx_uint32.bin
+bin: #pts = 13265, #dims = 200, size = 10612008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_500_dists_float.bin
+bin: #pts = 13265, #dims = 200, size = 10612008B
+Finished writing bin.
+Starting index build with R: 128  Lbuild: 200  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 303244 from file.. 
+Starting index build with 303244 points... 
+0% of index build completed.32.9767% of index build completed.98.9302% of index build completed.65.9535% of index build completed.Starting final cleanup..done. Link time: 86.1314s
+Index built with degree: max:128  avg:92.3998  min:1  count(deg<2):5117
+Indexing time: 86.3029
+Not saving tags as they are not enabled.
+Time taken for save: 1.15498s.
+Reading (with alignment) bin file /home/t-avarhade/prec1M/prec1M_queries_normalized.bin ...Metadata: #pts = 13265, #dims = 384, aligned_dim = 384... allocating aligned memory of 20375040 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/prec1M/index/prec1M_normalized_hybrid_r128_l200_m5_s100000_h1.5_f0.3_gt200, size: 21224008, cache_size: 21224008
+Reading truthset file /home/t-avarhade/prec1M/index/prec1M_normalized_hybrid_r128_l200_m5_s100000_h1.5_f0.3_gt200 ...
+Metadata: #pts = 13265, #dims = 200... 
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.00237046s
+From graph header, expected_file_size: 113291732, _max_observed_degree: 128, _start: 16456, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/prec1M/index/test...done. Index has 303244 nodes and 28019683 out-edges, _start is set to 16456
+Num frozen points:0 _nd: 303244 _start: 16456 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 303244
+Index loaded
+Using 96 threads to search
+  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency  Recall@200
+=============================================================================================
+ 200     1564.85          17852.43      205.06            61178.75      453140.91       90.60
+ 250     1339.64          21537.92      254.88            71523.05      235946.64       92.96
+ 300     1060.54          25081.76      304.73            90360.09      245947.03       94.57
+ 400      919.18          31797.40      404.54           104221.03      245690.14       96.58
+ 500      763.84          38087.41      504.38           125446.58      286801.66       97.70
+Done searching. Now saving results 
+Writing bin: /home/t-avarhade/Dump/tmp_200_idx_uint32.bin
+bin: #pts = 13265, #dims = 200, size = 10612008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_200_dists_float.bin
+bin: #pts = 13265, #dims = 200, size = 10612008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_250_idx_uint32.bin
+bin: #pts = 13265, #dims = 200, size = 10612008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_250_dists_float.bin
+bin: #pts = 13265, #dims = 200, size = 10612008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_300_idx_uint32.bin
+bin: #pts = 13265, #dims = 200, size = 10612008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_300_dists_float.bin
+bin: #pts = 13265, #dims = 200, size = 10612008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_400_idx_uint32.bin
+bin: #pts = 13265, #dims = 200, size = 10612008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_400_dists_float.bin
+bin: #pts = 13265, #dims = 200, size = 10612008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_500_idx_uint32.bin
+bin: #pts = 13265, #dims = 200, size = 10612008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_500_dists_float.bin
+bin: #pts = 13265, #dims = 200, size = 10612008B
+Finished writing bin.
