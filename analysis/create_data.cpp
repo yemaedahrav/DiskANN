@@ -58,6 +58,7 @@ void readClusterFile(const std::string& cluster_path, const std::string& data_in
     data_out_file.write((char *)&new_N, sizeof(uint32_t));
     data_out_file.write((char *)&d, sizeof(uint32_t));
 
+    sort(cluster_ids.begin(), cluster_ids.end());
     for (const auto& id : cluster_ids) {
         if (id >= N) {
             std::cout<< "Cluster ID " << id << " is out of range." << std::endl;
