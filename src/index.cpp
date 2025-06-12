@@ -36,6 +36,7 @@
 
 std::atomic<int> multipicity_counts{0};
 std::atomic<int> unit_cluster_counts{0};
+std::atomic<int> second_pass_counts{0};
 
 namespace diskann
 {
@@ -1042,7 +1043,7 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
 template <typename T, typename TagT, typename LabelT>
 void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t Lindex,
                                                         std::vector<uint32_t> &pruned_list,
-                                                        InMemQueryScratch<T> *scratch, std::vector<uint32_t> &node_to_cluster, std::unordered_map<uint32_t, std::set<uint32_t>> &cluster_to_node, std::vector<bool> &cluster_centre_status, bool use_filter,
+                                                        InMemQueryScratch<T> *scratch, std::vector<uint32_t> &node_to_cluster, std::unordered_map<uint32_t, std::set<uint32_t>> &cluster_to_node, std::vector<bool> &cluster_centre_status, bool assign_flag, bool use_filter,
                                                         uint32_t filteredLindex)
 {
     const std::vector<uint32_t> init_ids = get_init_ids();
@@ -1087,9 +1088,9 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
             }
 
             // Sort clusters by emptiness (descending order)
-            std::sort(cluster_candidates.begin(), cluster_candidates.end(), [](const std::pair<uint32_t, float> &a, const std::pair<uint32_t, float> &b) {
-                return a.second > b.second;
-            });
+            // std::sort(cluster_candidates.begin(), cluster_candidates.end(), [](const std::pair<uint32_t, float> &a, const std::pair<uint32_t, float> &b) {
+            //     return a.second > b.second;
+            // });
 
             // Add point to atmost top point_multiplicity empty clusters
             size_t clusters_to_add = std::min(cluster_candidates.size(), static_cast<size_t>(point_multiplicity));
@@ -1102,9 +1103,12 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
             {
                 uint32_t cluster_id = cluster_candidates[i].first;
                 //diskann::cout<<"Remaining Cluster Capacity: "<<cluster_candidates[i].second<<std::endl;
-                node_to_cluster[location] = cluster_id;
-                cluster_to_node[cluster_id].insert(location);
                 create_new_cluster = false;
+                if(assign_flag){
+                    second_pass_counts++;
+                    node_to_cluster[location] = cluster_id;
+                    cluster_to_node[cluster_id].insert(location);
+                }
             }
             //diskann::cout<<std::endl;
             if(create_new_cluster)
@@ -1113,6 +1117,8 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
                 node_to_cluster[location] = location;
                 cluster_to_node[location].insert(location);
                 cluster_centre_status[location] = true;
+            }else{
+                return;
             }
         }
     }
@@ -1479,8 +1485,8 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
     //     node_to_cluster[_start] = _start;
     // }
     
-    //int standard_diskann_points = hybrid_ratio*(_nd + _num_frozen_pts);
-    //diskann::cout<<"Standard DiskANN Points: "<<standard_diskann_points<<std::endl;
+    int standard_diskann_points = hybrid_ratio*(_nd + _num_frozen_pts);
+    diskann::cout<<"Standard DiskANN Points: "<<standard_diskann_points<<std::endl;
     cluster_centre_status.resize(visit_order.size(), false);
     std::vector<uint32_t> node_to_cluster = visit_order;
     // Set the start point to be a cluster center
@@ -1508,11 +1514,11 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
         std::vector<uint32_t> pruned_list;
         if (_filtered_index)
         {
-            search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, node_to_cluster, cluster_to_node, cluster_centre_status, true, _filterIndexingQueueSize);
+            search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, node_to_cluster, cluster_to_node, cluster_centre_status, true, true, _filterIndexingQueueSize);
         }
         else
         {
-            search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, node_to_cluster, cluster_to_node, cluster_centre_status);
+            search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, node_to_cluster, cluster_to_node, cluster_centre_status, true);
         }
         {   
             std::shared_lock<std::shared_timed_mutex> status_lock(_cluster_lock);
@@ -1627,8 +1633,24 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
             _graph_store->set_neighbours((location_t)node, new_out_neighbors);
         }
     }
-    if (_nd > 0)
+// The second pass is to assign the points which are not part of the graph to the cluster centres
+#pragma omp parallel for schedule(dynamic, 2048)
+    for (int64_t node_ctr = 0; node_ctr < (int64_t)(visit_order.size()); node_ctr++)
     {
+        auto node = visit_order[node_ctr];
+        // diskann::cout<<"Node: "<<node<<std::endl;
+
+        if(cluster_centre_status[node]){
+            continue;
+        }
+        ScratchStoreManager<InMemQueryScratch<T>> manager(_query_scratch);
+        auto scratch = manager.scratch_space();
+        std::vector<uint32_t> pruned_list;
+        search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, node_to_cluster, cluster_to_node, cluster_centre_status, true);
+    }
+    if (_nd > 0)
+    {   
+        diskann::cout << "Second Pass Counts (Points not in graph): " << second_pass_counts << std::endl;
         diskann::cout << "done. Link time: " << ((double)link_timer.elapsed() / (double)1000000) << "s" << std::endl;
     }
 

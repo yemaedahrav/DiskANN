@@ -3,10 +3,10 @@ cmake -DCMAKE_BUILD_TYPE=Release .. && make -Bj
 
 R=128
 L=200
-M=5
-S=100000
+M=100
+S=100
 H=1.5
-F=0.3
+F=0
 T=96
 
 home="/home/t-avarhade"

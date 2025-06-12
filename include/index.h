@@ -277,7 +277,7 @@ template <typename T, typename TagT = uint32_t, typename LabelT = uint32_t> clas
                                                          const std::vector<LabelT> &filters, bool search_invocation);
 
     void search_for_point_and_prune(int location, uint32_t Lindex, std::vector<uint32_t> &pruned_list,
-                                    InMemQueryScratch<T> *scratch, std::vector<uint32_t> &node_to_cluster, std::unordered_map<uint32_t, std::set<uint32_t>> &cluster_to_node, std::vector<bool> &cluster_centre_status, bool use_filter = false,
+                                    InMemQueryScratch<T> *scratch, std::vector<uint32_t> &node_to_cluster, std::unordered_map<uint32_t, std::set<uint32_t>> &cluster_to_node, std::vector<bool> &cluster_centre_status, bool assign_flag, bool use_filter = false,
                                     uint32_t filteredLindex = 0);
 
     void prune_neighbors(const uint32_t location, std::vector<Neighbor> &pool, std::vector<uint32_t> &pruned_list,
