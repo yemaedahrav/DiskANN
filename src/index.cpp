@@ -1097,19 +1097,23 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
             if(clusters_to_add == 0){
                 multipicity_counts ++;
             }
+            else{
+                create_new_cluster = false;
+            }
             //diskann::cout<< "ID: "<<location <<", Multiplicity: "<<clusters_to_add<<std::endl;
-            
+            if(assign_flag){
             for (size_t i = 0; i < clusters_to_add; ++i)
             {
                 uint32_t cluster_id = cluster_candidates[i].first;
                 //diskann::cout<<"Remaining Cluster Capacity: "<<cluster_candidates[i].second<<std::endl;
-                create_new_cluster = false;
-                if(assign_flag){
+                
+                
                     second_pass_counts++;
                     node_to_cluster[location] = cluster_id;
                     cluster_to_node[cluster_id].insert(location);
-                }
+                
             }
+        }
             //diskann::cout<<std::endl;
             if(create_new_cluster)
             {   
@@ -1518,7 +1522,7 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
         }
         else
         {
-            search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, node_to_cluster, cluster_to_node, cluster_centre_status, true);
+            search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, node_to_cluster, cluster_to_node, cluster_centre_status, false);
         }
         {   
             std::shared_lock<std::shared_timed_mutex> status_lock(_cluster_lock);
