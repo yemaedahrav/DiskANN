@@ -34,9 +34,8 @@
 // #define THRESHOLD 0.8
 // #define HYBRID_RATIO 0.3
 
-std::atomic<int> multipicity_counts{0};
+std::atomic<int> total_cluster_counts{0};
 std::atomic<int> unit_cluster_counts{0};
-std::atomic<int> second_pass_counts{0};
 
 namespace diskann
 {
@@ -1059,13 +1058,18 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
     bool create_new_cluster = true;
     float threshold=clustering_threshold;
     int standard_diskann_points = hybrid_ratio*(_nd + _num_frozen_pts);
-    if (location < standard_diskann_points){
+    if (location < standard_diskann_points && assign_flag == false){
         threshold=0.0;
     }
     if (!use_filter)
     {   
         _data_store->get_vector(location, scratch->aligned_query());
-        iterate_to_fixed_point(scratch, Lindex, init_ids, false, cluster_centre_status, node_to_cluster, unused_filter_label, false);
+        // In case of the two-pass clustering build, think whether the search_invoation is true of false, it should be false
+        if(assign_flag){
+            iterate_to_fixed_point(scratch, Lindex, init_ids, false, cluster_centre_status, node_to_cluster, unused_filter_label, true);
+        }else{
+            iterate_to_fixed_point(scratch, Lindex, init_ids, false, cluster_centre_status, node_to_cluster, unused_filter_label, false);
+        }
         NeighborPriorityQueue &L_list = scratch->best_l_nodes();
         // Code to compare all the nodes in the L list with the node location and checking clustering condition/thresholding here
         //diskann::cout<<"Distance: "<<std::endl;
@@ -1094,26 +1098,22 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
 
             // Add point to atmost top point_multiplicity empty clusters
             size_t clusters_to_add = std::min(cluster_candidates.size(), static_cast<size_t>(point_multiplicity));
-            if(clusters_to_add == 0){
-                multipicity_counts ++;
+            if(clusters_to_add == 0 && assign_flag == false){
+                total_cluster_counts ++;
             }
             else{
                 create_new_cluster = false;
             }
             //diskann::cout<< "ID: "<<location <<", Multiplicity: "<<clusters_to_add<<std::endl;
             if(assign_flag){
-            for (size_t i = 0; i < clusters_to_add; ++i)
-            {
-                uint32_t cluster_id = cluster_candidates[i].first;
-                //diskann::cout<<"Remaining Cluster Capacity: "<<cluster_candidates[i].second<<std::endl;
-                
-                
-                    second_pass_counts++;
+                for (size_t i = 0; i < clusters_to_add; ++i){
+                    uint32_t cluster_id = cluster_candidates[i].first;
+                    //diskann::cout<<"Remaining Cluster Capacity: "<<cluster_candidates[i].second<<std::endl;
                     node_to_cluster[location] = cluster_id;
                     cluster_to_node[cluster_id].insert(location);
-                
+                }
+                return;
             }
-        }
             //diskann::cout<<std::endl;
             if(create_new_cluster)
             {   
@@ -1326,7 +1326,7 @@ void Index<T, TagT, LabelT>::prune_neighbors(const uint32_t location, std::vecto
         {
             temp_pool.push_back(neighbor);
         }else{
-            diskann::cout<<"This should not get printed: "<<neighbor.id<<std::endl;
+            diskann::cout<<"This should not get printed 1: "<<neighbor.id<<std::endl;
         }
     }
     pool.swap(temp_pool);
@@ -1381,6 +1381,22 @@ void Index<T, TagT, LabelT>::inter_insert(uint32_t n, std::vector<uint32_t> &pru
         {
             LockGuard guard(_locks[des]);
             auto &des_pool = _graph_store->get_neighbours(des);
+            // The below if statement code block removes any points which are not cluster centres (by any chance). Ideally this should not happen.
+            // if (!des_pool.empty())
+            // {
+            //     std::vector<uint32_t> temp_des_pool;
+            //     for (const auto &id : des_pool)
+            //     {   
+            //         std::shared_lock<std::shared_timed_mutex> status_lock(_cluster_lock);
+            //         if (cluster_centre_status[id])
+            //         {
+            //             temp_des_pool.push_back(id);
+            //         }else{
+            //             diskann::cout<<"This should not get printed 6: "<<id<<std::endl;
+            //         }
+            //     }
+            //     des_pool.swap(temp_des_pool);
+            // }
             if (std::find(des_pool.begin(), des_pool.end(), n) == des_pool.end())
             {
                 if (des_pool.size() < (uint64_t)(defaults::GRAPH_SLACK_FACTOR * range))
@@ -1490,7 +1506,7 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
     // }
     
     int standard_diskann_points = hybrid_ratio*(_nd + _num_frozen_pts);
-    diskann::cout<<"Standard DiskANN Points: "<<standard_diskann_points<<std::endl;
+    diskann::cout<<"Standard DiskANN Points (#Points before we begin clustering): "<<standard_diskann_points<<std::endl;
     cluster_centre_status.resize(visit_order.size(), false);
     std::vector<uint32_t> node_to_cluster = visit_order;
     // Set the start point to be a cluster center
@@ -1522,7 +1538,7 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
         }
         else
         {
-            search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, node_to_cluster, cluster_to_node, cluster_centre_status, false);
+            search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, node_to_cluster, cluster_to_node, cluster_centre_status, true);
         }
         {   
             std::shared_lock<std::shared_timed_mutex> status_lock(_cluster_lock);
@@ -1543,6 +1559,7 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
                     temp_pruned_list.push_back(id);
                 }else{
                     diskann::cout<<"This should not get printed 3: "<<id<<std::endl;
+                    // This is a check to ensure that none of the outneighbors of the current point are non-cluster centres. Each out-neighbor is a cluster centre.
                 }
             }
             pruned_list.swap(temp_pruned_list);
@@ -1638,27 +1655,26 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
         }
     }
 // The second pass is to assign the points which are not part of the graph to the cluster centres
-#pragma omp parallel for schedule(dynamic, 2048)
-    for (int64_t node_ctr = 0; node_ctr < (int64_t)(visit_order.size()); node_ctr++)
-    {
-        auto node = visit_order[node_ctr];
-        // diskann::cout<<"Node: "<<node<<std::endl;
+// #pragma omp parallel for schedule(dynamic, 2048)
+//     for (int64_t node_ctr = 0; node_ctr < (int64_t)(visit_order.size()); node_ctr++)
+//     {
+//         auto node = visit_order[node_ctr];
+//         // diskann::cout<<"Node: "<<node<<std::endl;
 
-        if(cluster_centre_status[node]){
-            continue;
-        }
-        ScratchStoreManager<InMemQueryScratch<T>> manager(_query_scratch);
-        auto scratch = manager.scratch_space();
-        std::vector<uint32_t> pruned_list;
-        search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, node_to_cluster, cluster_to_node, cluster_centre_status, true);
-    }
+//         if(cluster_centre_status[node]){
+//             continue;
+//         }
+//         ScratchStoreManager<InMemQueryScratch<T>> manager(_query_scratch);
+//         auto scratch = manager.scratch_space();
+//         std::vector<uint32_t> pruned_list;
+//         search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, node_to_cluster, cluster_to_node, cluster_centre_status, true);
+//     }
     if (_nd > 0)
     {   
-        diskann::cout << "Second Pass Counts (Points not in graph): " << second_pass_counts << std::endl;
         diskann::cout << "done. Link time: " << ((double)link_timer.elapsed() / (double)1000000) << "s" << std::endl;
     }
 
-    std::cout << "Total number of clusters: " << cluster_to_node.size() << std::endl;
+    std::cout << "Total number of clusters: " << cluster_to_node.size() << " "<<total_cluster_counts<<std::endl;
     //std::cout << "Cluster Sizes:" << std::endl;
     float cluster_size_sum = 0;
     for (const auto &pair : cluster_to_node)

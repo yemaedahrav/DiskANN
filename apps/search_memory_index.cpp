@@ -111,7 +111,7 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
     in.seekg(file_offset, in.beg);
     in.read((char *)&_num_clusters, sizeof(size_t));
     in.read((char *)&_max_cluster_size, sizeof(size_t));
-    std::cout << "Number of clusters: " << _num_clusters << std::endl;
+    std::cout << "Number of clusters (Search): " << _num_clusters << std::endl;
 
     std::unordered_map<uint32_t, std::vector<uint32_t>> _cluster_to_node;
     for (uint32_t i = 0; i < _num_clusters; i++)

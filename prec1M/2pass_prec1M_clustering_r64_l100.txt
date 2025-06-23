@@ -1,0 +1,145 @@
+Starting index build with R: 64  Lbuild: 100  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1010812 from file.. 
+Starting index build with 1010812 points... 
+Clustering Parameters: max cluster size: 100, point multiplicity: 100, clustering threshold: 1.5, hybrid ratio: 0
+Standard DiskANN Points (#Points before we begin clustering): 0
+
+0% of index build completed.
+9.89304% of index build completed.
+29.6791% of index build completed.
+19.7861% of index build completed.
+49.4652% of index build completed.
+39.5721% of index build completed.
+69.2513% of index build completed.
+59.3582% of index build completed.
+89.0373% of index build completed.
+79.1443% of index build completed.
+98.9304% of index build completed.Starting final cleanup..Node: 16456 has no neighbours
+done. Link time: 10.0997s
+Total number of clusters: 1 2021524
+Average Cluster Size: 100
+Cluster to Node mapping saved in file: /home/t-avarhade/prec1M/index/2pass_cluster_r64_l100_m100_s100_h1.5_f0.0
+Points in graph/cluster centers: 1
+Index built with degree: max:0  avg:0  min:0  count(deg<2):1  count(deg=0):1
+Indexing time: 10.5189
+Saved. Number of clusters: 0
+Not saving tags as they are not enabled.
+Time taken for save: 2.98114s.
+Reading (with alignment) bin file /home/t-avarhade/prec1M/prec1M_queries_normalized.bin ...Metadata: #pts = 13265, #dims = 384, aligned_dim = 384... allocating aligned memory of 20375040 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/prec1M/prec1M_normalized_gt200, size: 21224008, cache_size: 21224008
+Reading truthset file /home/t-avarhade/prec1M/prec1M_normalized_gt200 ...
+Metadata: #pts = 13265, #dims = 200... 
+Opened cluster file: /home/t-avarhade/prec1M/index/2pass_cluster_r64_l100_m100_s100_h1.5_f0.0
+Number of clusters: 1
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0128628s
+From graph header, expected_file_size: 4043272, _max_observed_degree: 0, _start: 16456, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/prec1M/index/2pass_prec1M_normalized_hybrid_r64_l100_m100_s100_h1.5_f0.0...done. 
+Index has 0 nodes/clusters and 0 out-edges, _start is set to 16456
+In InMemQueryScratch, one of search_l = 500, indexing_l = 500, dim = 384 or r = 0 is zero.
+
+Starting index build with R: 64  Lbuild: 100  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1010812 from file.. 
+Starting index build with 1010812 points... 
+Clustering Parameters: max cluster size: 100, point multiplicity: 100, clustering threshold: 1.5, hybrid ratio: 0
+Standard DiskANN Points (#Points before we begin clustering): 0
+
+0% of index build completed.
+9.89304% of index build completed.
+19.7861% of index build completed.
+29.6791% of index build completed.
+39.5721% of index build completed.
+49.4652% of index build completed.
+59.3582% of index build completed.
+69.2513% of index build completed.
+79.1443% of index build completed.
+89.0373% of index build completed.
+98.9304% of index build completed.Starting final cleanup..Node: 16456 has no neighbours
+done. Link time: 8.23633s
+Total number of clusters: 1 0
+Average Cluster Size: 100
+Cluster to Node mapping saved in file: /home/t-avarhade/prec1M/index/2pass_cluster_r64_l100_m100_s100_h1.5_f0.0
+Points in graph/cluster centers: 1
+Index built with degree: max:0  avg:0  min:0  count(deg<2):1  count(deg=0):1
+Indexing time: 8.6635
+Saved. Number of clusters: 0
+Not saving tags as they are not enabled.
+Time taken for save: 3.2725s.
+Reading (with alignment) bin file /home/t-avarhade/prec1M/prec1M_queries_normalized.bin ...Metadata: #pts = 13265, #dims = 384, aligned_dim = 384... allocating aligned memory of 20375040 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/prec1M/prec1M_normalized_gt200, size: 21224008, cache_size: 21224008
+Reading truthset file /home/t-avarhade/prec1M/prec1M_normalized_gt200 ...
+Metadata: #pts = 13265, #dims = 200... 
+Opened cluster file: /home/t-avarhade/prec1M/index/2pass_cluster_r64_l100_m100_s100_h1.5_f0.0
+Number of clusters (Search): 1
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0118093s
+From graph header, expected_file_size: 4043272, _max_observed_degree: 0, _start: 16456, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/prec1M/index/2pass_prec1M_normalized_hybrid_r64_l100_m100_s100_h1.5_f0.0...done. 
+Index has 0 nodes/clusters and 0 out-edges, _start is set to 16456
+In InMemQueryScratch, one of search_l = 500, indexing_l = 500, dim = 384 or r = 0 is zero.
+
+
+// Running 1 Pass for sanity check
+
+Starting index build with R: 64  Lbuild: 100  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1010812 from file.. 
+Starting index build with 1010812 points... 
+Clustering Parameters: max cluster size: 100, point multiplicity: 100, clustering threshold: 1.5, hybrid ratio: 0
+Standard DiskANN Points (#Points before we begin clustering): 0
+0% of index build completed.9.89304% of index build completed.29.6791% of index build completed.19.7861% of index build completed.39.5721% of index build completed.49.4652% of index build completed.59.3582% of index build completed.69.2513% of index build completed.79.1443% of index build completed.89.0373% of index build completed.98.9304% of index build completed.Starting final cleanup..Node: 16456 has no neighbours
+done. Link time: 4.58372s
+Total number of clusters: 1 0
+Average Cluster Size: 100
+Cluster to Node mapping saved in file: /home/t-avarhade/prec1M/index/2pass_cluster_r64_l100_m100_s100_h1.5_f0.0
+Points in graph/cluster centers: 1
+Index built with degree: max:0  avg:0  min:0  count(deg<2):1  count(deg=0):1
+Indexing time: 5.00639
+Saved. Number of clusters: 0
+Not saving tags as they are not enabled.
+Time taken for save: 2.76298s.
+Reading (with alignment) bin file /home/t-avarhade/prec1M/prec1M_queries_normalized.bin ...Metadata: #pts = 13265, #dims = 384, aligned_dim = 384... allocating aligned memory of 20375040 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/prec1M/prec1M_normalized_gt200, size: 21224008, cache_size: 21224008
+Reading truthset file /home/t-avarhade/prec1M/prec1M_normalized_gt200 ...
+Metadata: #pts = 13265, #dims = 200... 
+Opened cluster file: /home/t-avarhade/prec1M/index/2pass_cluster_r64_l100_m100_s100_h1.5_f0.0
+Number of clusters (Search): 1
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0143658s
+From graph header, expected_file_size: 4043272, _max_observed_degree: 0, _start: 16456, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/prec1M/index/2pass_prec1M_normalized_hybrid_r64_l100_m100_s100_h1.5_f0.0...done. 
+Index has 0 nodes/clusters and 0 out-edges, _start is set to 16456
+In InMemQueryScratch, one of search_l = 500, indexing_l = 500, dim = 384 or r = 0 is zero.
+
+Starting index build with R: 64  Lbuild: 100  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1010812 from file.. 
+Starting index build with 1010812 points... 
+Clustering Parameters: max cluster size: 100, point multiplicity: 100, clustering threshold: 1.5, hybrid ratio: 0.001
+Standard DiskANN Points (#Points before we begin clustering): 1010
+0% of index build completed.9.89304% of index build completed.29.6791% of index build completed.19.7861% of index build completed.39.5721% of index build completed.49.4652% of index build completed.59.3582% of index build completed.69.2513% of index build completed.79.1443% of index build completed.89.0373% of index build completed.98.9304% of index build completed.Starting final cleanup..Node: 16456 has no neighbours
+done. Link time: 5.04894s
+Total number of clusters: 1 0
+Average Cluster Size: 100
+Cluster to Node mapping saved in file: /home/t-avarhade/prec1M/index/2pass_cluster_r64_l100_m100_s100_h1.5_f0.001
+Points in graph/cluster centers: 1
+Index built with degree: max:0  avg:0  min:0  count(deg<2):1  count(deg=0):1
+Indexing time: 5.45397
+Saved. Number of clusters: 0
+Not saving tags as they are not enabled.
+Time taken for save: 2.80908s.
+Reading (with alignment) bin file /home/t-avarhade/prec1M/prec1M_queries_normalized.bin ...Metadata: #pts = 13265, #dims = 384, aligned_dim = 384... allocating aligned memory of 20375040 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/prec1M/prec1M_normalized_gt200, size: 21224008, cache_size: 21224008
+Reading truthset file /home/t-avarhade/prec1M/prec1M_normalized_gt200 ...
+Metadata: #pts = 13265, #dims = 200... 
+Opened cluster file: /home/t-avarhade/prec1M/index/2pass_cluster_r64_l100_m100_s100_h1.5_f0.001
+Number of clusters (Search): 1
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0126005s
+From graph header, expected_file_size: 4043272, _max_observed_degree: 0, _start: 16456, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/prec1M/index/2pass_prec1M_normalized_hybrid_r64_l100_m100_s100_h1.5_f0.001...done. 
+Index has 0 nodes/clusters and 0 out-edges, _start is set to 16456
+In InMemQueryScratch, one of search_l = 500, indexing_l = 500, dim = 384 or r = 0 is zero.
+
