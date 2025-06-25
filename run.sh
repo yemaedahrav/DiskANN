@@ -1,12 +1,12 @@
 cd build
-cmake -DCMAKE_BUILD_TYPE=Release .. && make -Bj
+# cmake -DCMAKE_BUILD_TYPE=Release .. && make -Bj
 
 R=64
 L=100
-M=100
-S=100
-H=1.5
-F=0.001
+M=10
+S=32
+H=1
+F=0.0
 T=96
 
 home="/home/t-avarhade"
@@ -21,6 +21,6 @@ cluster_path="${file_base}/index/2pass_cluster_r${R}_l${L}_m${M}_s${S}_h${H}_f${
 log_path="${home}/Amey/DiskANN/prec1M/2pass_prec1M_clustering_r${R}_l${L}.txt"
 
 ./apps/build_memory_index  --data_type float --dist_fn l2 --index_path_prefix $index_path --cluster_path $cluster_path --data_path $data_path -R ${R} -L ${L} -M ${M} -S ${S} -H ${H} -F ${F} -T ${T} >> $log_path
-./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix $index_path --cluster_path $cluster_path --gt_file $gt_file --query_file $query_file --result_path ${home}/Dump/tmp -K 200 -L 200 250 300 400 500 -T ${T} >> $log_path
+./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix $index_path --cluster_path $cluster_path --gt_file $gt_file --query_file $query_file --result_path ${home}/Dump/tmp -K 200 -L 200 300 400 500 -T ${T} >> $log_path
 
 rm $cluster_path $index_path
