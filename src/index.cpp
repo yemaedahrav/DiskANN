@@ -991,11 +991,11 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
         iterate_to_fixed_point(scratch, Lindex, init_ids, false, unused_filter_label, false);
         if (location == _start) {
             NeighborPriorityQueue &L_list = scratch->best_l_nodes();
-            diskann::cout<<"Printing L list of start node"<<std::endl;
-            for (size_t i = 0; i < L_list.size(); ++i) {
-            diskann::cout << L_list[i].id <<" "<< L_list[i].distance <<std::endl;
-            }
-            diskann::cout << std::endl;
+            // diskann::cout<<"Printing L list of start node"<<std::endl;
+            // for (size_t i = 0; i < L_list.size(); ++i) {
+            //     diskann::cout << L_list[i].id <<" "<< L_list[i].distance <<std::endl;
+            // }
+            // diskann::cout << std::endl;
         }
     }
     else
