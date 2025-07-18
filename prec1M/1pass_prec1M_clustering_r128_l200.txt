@@ -1,10 +1,23 @@
+---------------Experiments to verify that the 1 Pass is working well-------------------------
+
 Starting index build with R: 128  Lbuild: 200  alpha: 1.2  #threads: 96
 L2: Using AVX2 distance computation DistanceL2Float
 Using only first 1010812 from file.. 
 Starting index build with 1010812 points... 
 Clustering Parameters: max cluster size: 100, point multiplicity: 100, clustering threshold: 1.5, hybrid ratio: 0.01
 Standard DiskANN Points (#Points before we begin clustering): 10108
-0% of index build completed.9.89304% of index build completed.29.6791% of index build completed.19.7861% of index build completed.49.4652% of index build completed.39.5721% of index build completed.69.2513% of index build completed.59.3582% of index build completed.89.0373% of index build completed.79.1443% of index build completed.98.9304% of index build completed.Starting final cleanup..done. Link time: 185.672s
+
+0% of index build completed.
+9.89304% of index build completed.
+29.6791% of index build completed.
+19.7861% of index build completed.
+49.4652% of index build completed.
+39.5721% of index build completed.
+69.2513% of index build completed.
+59.3582% of index build completed.
+89.0373% of index build completed.
+79.1443% of index build completed.
+98.9304% of index build completed.Starting final cleanup..done. Link time: 185.672s
 Total number of clusters: 49879 49878
 Average Cluster Size: 94.8966
 Cluster to Node mapping saved in file: /home/t-avarhade/prec1M/index/1pass_cluster_r128_l200_m100_s100_h1.5_f0.01
@@ -71,7 +84,18 @@ Using only first 1010812 from file..
 Starting index build with 1010812 points... 
 Clustering Parameters: max cluster size: 100, point multiplicity: 100, clustering threshold: 1.5, hybrid ratio: 0
 Standard DiskANN Points (#Points before we begin clustering): 0
-0% of index build completed.9.89304% of index build completed.29.6791% of index build completed.19.7861% of index build completed.49.4652% of index build completed.39.5721% of index build completed.59.3582% of index build completed.69.2513% of index build completed.89.0373% of index build completed.79.1443% of index build completed.98.9304% of index build completed.Starting final cleanup..done. Link time: 166.905s
+
+0% of index build completed.
+9.89304% of index build completed.
+29.6791% of index build completed.
+19.7861% of index build completed.
+49.4652% of index build completed.
+39.5721% of index build completed.
+59.3582% of index build completed.
+69.2513% of index build completed.
+89.0373% of index build completed.
+79.1443% of index build completed.
+98.9304% of index build completed.Starting final cleanup..done. Link time: 166.905s
 Total number of clusters: 46392 46391
 Average Cluster Size: 94.0652
 Cluster to Node mapping saved in file: /home/t-avarhade/prec1M/index/1pass_cluster_r128_l200_m100_s100_h1.5_f0.00

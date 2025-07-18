@@ -1,3 +1,5 @@
+---------------------------Experiments (with buggy 2-pass code) -------------------------
+
 Starting index build with R: 128  Lbuild: 200  alpha: 1.2  #threads: 96
 L2: Using AVX2 distance computation DistanceL2Float
 Using only first 1010812 from file.. 
@@ -855,7 +857,18 @@ Using only first 1010812 from file..
 Starting index build with 1010812 points... 
 Clustering Parameters: max cluster size: 10000, point multiplicity: 1, clustering threshold: 0.5, hybrid ratio: 0.3
 Standard DiskANN Points: 303243
-0% of index build completed.9.89304% of index build completed.19.7861% of index build completed.29.6791% of index build completed.39.5721% of index build completed.49.4652% of index build completed.59.3582% of index build completed.69.2513% of index build completed.79.1443% of index build completed.89.0373% of index build completed.98.9304% of index build completed.Starting final cleanup..Second Pass Counts (Points not in graph): 96691
+
+0% of index build completed.
+9.89304% of index build completed.
+19.7861% of index build completed.
+29.6791% of index build completed.
+39.5721% of index build completed.
+49.4652% of index build completed.
+59.3582% of index build completed.
+69.2513% of index build completed.
+79.1443% of index build completed.
+89.0373% of index build completed.
+98.9304% of index build completed.Starting final cleanup..Second Pass Counts (Points not in graph): 96691
 done. Link time: 435.228s
 Total number of clusters: 914121
 Average Cluster Size: 1.10577
@@ -923,7 +936,18 @@ Using only first 1010812 from file..
 Starting index build with 1010812 points... 
 Clustering Parameters: max cluster size: 100, point multiplicity: 100, clustering threshold: 1.5, hybrid ratio: 0.01
 Standard DiskANN Points: 10108
-0% of index build completed.9.89304% of index build completed.29.6791% of index build completed.19.7861% of index build completed.49.4652% of index build completed.39.5721% of index build completed.69.2513% of index build completed.59.3582% of index build completed.89.0373% of index build completed.79.1443% of index build completed.98.9304% of index build completed.Starting final cleanup..Second Pass Counts (Points not in graph): 1042668
+
+0% of index build completed.
+9.89304% of index build completed.
+29.6791% of index build completed.
+19.7861% of index build completed.
+49.4652% of index build completed.
+39.5721% of index build completed.
+69.2513% of index build completed.
+59.3582% of index build completed.
+89.0373% of index build completed.
+79.1443% of index build completed.
+98.9304% of index build completed.Starting final cleanup..Second Pass Counts (Points not in graph): 1042668
 done. Link time: 227.489s
 Total number of clusters: 962762
 Average Cluster Size: 2.083
