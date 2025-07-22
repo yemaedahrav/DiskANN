@@ -1,0 +1,106 @@
+Starting index build with R: 8  Lbuild: 25  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+Clustering Parameters: max cluster size: 32, point multiplicity: 10, clustering threshold: 1, hybrid ratio: 0
+Standard DiskANN Points (#Points before we begin clustering): 0
+0% of index build completed.10% of index build completed.30% of index build completed.20% of index build completed.50% of index build completed.40% of index build completed.70% of index build completed.60% of index build completed.80% of index build completed.90% of index build completed.Starting final cleanup..done. Link time: 23.6601s
+Total number of clusters: 65 65
+Average Cluster Size: 5.76923
+Cluster to Node mapping saved in file: /home/t-avarhade/openai-embedding-1M/index/2pass_cluster_r8_l25_m10_s32_h1_f0.0
+Points in graph/cluster centers: 65
+Index built with degree: max:8  avg:8  min:8  count(deg<2):0  count(deg=0):0
+Indexing time: 25.3825
+Saved. Number of clusters: 65
+Not saving tags as they are not enabled.
+Time taken for save: 8.18746s.
+Reading (with alignment) bin file /home/t-avarhade/openai-embedding-1M/queries_100k_normalized.fbin ...Metadata: #pts = 100000, #dims = 1536, aligned_dim = 1536... allocating aligned memory of 614400000 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/openai-embedding-1M/base1m_gt200_100k_normalized.fbin, size: 160000008, cache_size: 67108864
+Reading truthset file /home/t-avarhade/openai-embedding-1M/base1m_gt200_100k_normalized.fbin ...
+Metadata: #pts = 100000, #dims = 200... 
+Opened cluster file: /home/t-avarhade/openai-embedding-1M/index/2pass_cluster_r8_l25_m10_s32_h1_f0.0
+Number of clusters (Search): 65
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0138294s
+From graph header, expected_file_size: 4002104, _max_observed_degree: 8, _start: 114564, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/openai-embedding-1M/index/2pass_index_r8_l25_m10_s32_h1_f0.0...done. 
+Index has 65 nodes/clusters and 520 out-edges, _start is set to 114564
+Index loaded
+Using 96 threads to search
+  Ls         QPS  Search dist cmps  Expand dist cmps   Total dist cmps        Exp Dist %    Avg hops  Mean Latency (mus)   99.9 Latency  Search Latency (mus)  Expand Latency (mus) Exp Latency %   Recall@25
+=======================================================================================================================================================================================================
+  25    15619.93              9.00             62.00             71.00       87.32       10.00             6128.84       31012.87               3070.53                 76.89          2.44        0.01
+  50    17969.32              9.00             62.00             71.00       87.32       10.00             5335.16       22475.14               3851.47                 61.55          1.57        0.01
+ 100    18086.20              9.00             62.00             71.00       87.32       10.00             5298.27       23861.54               3684.25                 65.86          1.76        0.01
+Done searching. Now saving results 
+Writing bin: /home/t-avarhade/Dump/tmp_25_idx_uint32.bin
+bin: #pts = 100000, #dims = 25, size = 10000008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_25_dists_float.bin
+bin: #pts = 100000, #dims = 25, size = 10000008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_50_idx_uint32.bin
+bin: #pts = 100000, #dims = 25, size = 10000008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_50_dists_float.bin
+bin: #pts = 100000, #dims = 25, size = 10000008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_100_idx_uint32.bin
+bin: #pts = 100000, #dims = 25, size = 10000008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_100_dists_float.bin
+bin: #pts = 100000, #dims = 25, size = 10000008B
+Finished writing bin.
+Starting index build with R: 8  Lbuild: 25  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+Clustering Parameters: max cluster size: 32, point multiplicity: 10, clustering threshold: 0, hybrid ratio: 0
+Standard DiskANN Points (#Points before we begin clustering): 0
+0% of index build completed.10% of index build completed.30% of index build completed.20% of index build completed.50% of index build completed.40% of index build completed.70% of index build completed.60% of index build completed.90% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 94.623s
+Total number of clusters: 1000000 1000001
+Average Cluster Size: 1
+Cluster to Node mapping saved in file: /home/t-avarhade/openai-embedding-1M/index/2pass_cluster_r8_l25_m10_s32_h0_f0.0
+Points in graph/cluster centers: 1000000
+Index built with degree: max:8  avg:7.89455  min:1  count(deg<2):215  count(deg=0):0
+Indexing time: 96.7112
+Saved. Number of clusters: 1000000
+Not saving tags as they are not enabled.
+Time taken for save: 7.24652s.
+Reading (with alignment) bin file /home/t-avarhade/openai-embedding-1M/queries_100k_normalized.fbin ...Metadata: #pts = 100000, #dims = 1536, aligned_dim = 1536... allocating aligned memory of 614400000 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/openai-embedding-1M/base1m_gt200_100k_normalized.fbin, size: 160000008, cache_size: 67108864
+Reading truthset file /home/t-avarhade/openai-embedding-1M/base1m_gt200_100k_normalized.fbin ...
+Metadata: #pts = 100000, #dims = 200... 
+Opened cluster file: /home/t-avarhade/openai-embedding-1M/index/2pass_cluster_r8_l25_m10_s32_h0_f0.0
+Number of clusters (Search): 1000000
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0136523s
+From graph header, expected_file_size: 35578232, _max_observed_degree: 8, _start: 114564, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/openai-embedding-1M/index/2pass_index_r8_l25_m10_s32_h0_f0.0...done. 
+Index has 1000000 nodes/clusters and 7894552 out-edges, _start is set to 114564
+Index loaded
+Using 96 threads to search
+  Ls         QPS  Search dist cmps  Expand dist cmps   Total dist cmps        Exp Dist %    Avg hops  Mean Latency (mus)   99.9 Latency  Search Latency (mus)  Expand Latency (mus) Exp Latency %   Recall@25
+=======================================================================================================================================================================================================
+  25    11311.75            288.06              0.00            288.06        0.00       46.44             8473.26       36031.49               2295.48                 44.73          1.91       48.78
+  50     9706.97            440.54              0.00            440.54        0.00       76.51             9884.86       27455.55               2820.73                 69.38          2.40       61.47
+ 100     7198.11            684.53              0.00            684.53        0.00      129.52            13330.74       28424.02               4398.11                140.91          3.10       70.24
+Done searching. Now saving results 
+Writing bin: /home/t-avarhade/Dump/tmp_25_idx_uint32.bin
+bin: #pts = 100000, #dims = 25, size = 10000008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_25_dists_float.bin
+bin: #pts = 100000, #dims = 25, size = 10000008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_50_idx_uint32.bin
+bin: #pts = 100000, #dims = 25, size = 10000008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_50_dists_float.bin
+bin: #pts = 100000, #dims = 25, size = 10000008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_100_idx_uint32.bin
+bin: #pts = 100000, #dims = 25, size = 10000008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_100_dists_float.bin
+bin: #pts = 100000, #dims = 25, size = 10000008B
+Finished writing bin.
