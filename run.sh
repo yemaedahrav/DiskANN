@@ -1,13 +1,13 @@
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release .. && make -Bj
 
-R=32
-L=50
-M=10      # Point Multiplicity
-S=32      # Maximum Cluster Size
-H=0       # Clustering Threshold
-F=0.0     # Hybrid Ratio: Ratio denotes amount of naive DiskANN before we begin clustering
-T=96      # Number of Threads
+R=8
+L=25
+M=1              # Point Multiplicity
+S=100000000      # Maximum Cluster Size
+H=0.75            # Clustering Threshold
+F=0.0            # Hybrid Ratio: Ratio denotes fraction of points which will use naive DiskANN algorithm before we begin clustering (during build). In the two pass algorithm, the hybrid ratio is not used. It is forced to be 0 always.
+T=96             # Number of Threads
 
 home="/home/t-avarhade"
 file_base="openai-embedding-1M"
@@ -25,6 +25,6 @@ cluster_path="${home}/${file_base}/index/2pass_cluster_r${R}_l${L}_m${M}_s${S}_h
 log_path="${home}/Amey/DiskANN/${file_base}/2pass_cluster_r${R}_l${L}.txt"
 
 ./apps/build_memory_index  --data_type float --dist_fn l2 --index_path_prefix $index_path --cluster_path $cluster_path --data_path $data_path -R ${R} -L ${L} -M ${M} -S ${S} -H ${H} -F ${F} -T ${T} >> $log_path
-./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix $index_path --cluster_path $cluster_path --gt_file $gt_file --query_file $query_file --result_path ${home}/Dump/tmp -K 25 -L 25 50 100 -T ${T} >> $log_path
+# ./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix $index_path --cluster_path $cluster_path --gt_file $gt_file --query_file $query_file --result_path ${home}/Dump/tmp -K 25 -L 25 50 100 -T ${T} >> $log_path
 
 rm $cluster_path $index_path
