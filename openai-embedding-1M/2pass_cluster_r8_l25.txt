@@ -356,3 +356,19 @@ Indexing time: 41.288
 Saved. Number of clusters: 65
 Not saving tags as they are not enabled.
 Time taken for save: 8.08747s.
+Starting index build with R: 8  Lbuild: 25  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+Clustering Parameters: max cluster size: 100000000, point multiplicity: 1, clustering threshold: 0.75, hybrid ratio: 0
+0% of index build completed.10% of index build completed.20% of index build completed.30% of index build completed.50% of index build completed.40% of index build completed.60% of index build completed.70% of index build completed.90% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 39.5828s
+Total number of clusters: 65
+Average Multiplicity: 1, Max Multiplicity: 1, Min Multiplicity: 1
+Average Cluster Size: 15384.6, Max Cluster Size: 999936, Min Cluster Size: 1
+Cluster to Node mapping saved in file: /home/t-avarhade/openai-embedding-1M/index/2pass_cluster_r8_l25_m1_s100000000_h0.75_f0.0
+Points in graph/cluster centers: 65
+Index built with degree: max:8  avg:8  min:8  count(deg<2):0  count(deg=0):0
+Indexing time: 41.6961
+Saved. Number of clusters: 65
+Not saving tags as they are not enabled.
+Time taken for save: 7.61022s.
