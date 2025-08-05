@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
         std::cout << "Error processing file " << input_file << ": " << e.what() << std::endl;
         std::cerr << "Exception: " << e.what() << std::endl;
     }
-
+    std::cout << "Squared L2 norms of vectors not within tolerance (|norm^2 - 1| >= 1e-6):" << std::endl;
     for (const auto& vec : data) {
         float l2_norm_squared = 0.0f;
         for (const auto& val : vec) {

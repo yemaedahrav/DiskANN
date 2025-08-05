@@ -10,4 +10,4 @@ cd build
 # ./apps/utils/compute_groundtruth --dist_fn l2 --data_type float --base_file /home/t-avarhade/prec1M/prec1M_normalized.bin --query_file /home/t-avarhade/prec1M/prec1M_queries_normalized.bin --gt_file /home/t-avarhade/prec1M/prec1M_normalized_gt200 --K 200
 
 
-./apps/utils/compute_groundtruth --dist_fn l2 --data_type float --base_file /home/t-avarhade/prec1M/index/prec1M_normalized_hybrid_r128_l200_m5_s100000_h1.5_f0.3_dataset --query_file /home/t-avarhade/prec1M/prec1M_queries_normalized.bin --gt_file /home/t-avarhade/prec1M/index/prec1M_normalized_hybrid_r128_l200_m5_s100000_h1.5_f0.3_gt200 --K 200
+./apps/utils/compute_groundtruth --dist_fn cosine --data_type float --base_file /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_1M_normalized_1000000.bin_fp32 --query_file /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_query_normalized_6809.bin_fp32 --gt_file /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_gt200 --K 200
