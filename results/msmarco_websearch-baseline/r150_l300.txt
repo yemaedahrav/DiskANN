@@ -1,0 +1,168 @@
+Starting index build with R: 150  Lbuild: 300  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+0% of index build completed.10% of index build completed.20% of index build completed.30% of index build completed.40% of index build completed.50% of index build completed.60% of index build completed.70% of index build completed.80% of index build completed.90% of index build completed.Starting final cleanup..done. Link time: 1302.27s
+Index built with degree: max:150  avg:101.676  min:1  count(deg<2):186
+Indexing time: 1303.14
+Not saving tags as they are not enabled.
+Time taken for save: 5.24873s.
+Reading (with alignment) bin file /home/t-avarhade/big-ann-benchmarks/data/msmarco_websearch/query.bin ...Metadata: #pts = 9376, #dims = 768, aligned_dim = 768... allocating aligned memory of 28803072 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/big-ann-benchmarks/data/msmarco_websearch/msmarco-1M-gt200, size: 15001608, cache_size: 15001608
+Reading truthset file /home/t-avarhade/big-ann-benchmarks/data/msmarco_websearch/msmarco-1M-gt200 ...
+Metadata: #pts = 9376, #dims = 200... 
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0111945s
+From graph header, expected_file_size: 410702272, _max_observed_degree: 150, _start: 880883, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/msmarco_websearch/r150_l300...done. Index has 1000000 nodes and 101675562 out-edges, _start is set to 880883
+Num frozen points:0 _nd: 1000000 _start: 880883 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 1000000
+Index loaded
+Using 96 threads to search
+  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency  Recall@200
+=============================================================================================
+ 200      606.16          20084.09      200.70           157935.55      923850.50       96.07
+ 300      582.27          28074.79      300.47           164434.30      386893.44       98.04
+ 400      465.46          35470.91      400.34           205736.62      495816.25       98.87
+ 500      362.08          42416.47      500.27           264399.00      616844.88       99.28
+Done searching. Now saving results 
+Writing bin: /home/t-avarhade/Dump/tmp_200_idx_uint32.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_200_dists_float.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_300_idx_uint32.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_300_dists_float.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_400_idx_uint32.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_400_dists_float.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_500_idx_uint32.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_500_dists_float.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Starting index build with R: 150  Lbuild: 300  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 5001097 from file.. 
+Starting index build with 5001097 points... 
+0% of index build completed.1.99956% of index build completed.3.99912% of index build completed.5.99868% of index build completed.7.99825% of index build completed.9.99781% of index build completed.11.9974% of index build completed.13.9969% of index build completed.17.9961% of index build completed.15.9965% of index build completed.19.9956% of index build completed.21.9952% of index build completed.23.9947% of index build completed.25.9943% of index build completed.27.9939% of index build completed.29.9934% of index build completed.31.993% of index build completed.33.9925% of index build completed.35.9921% of index build completed.37.9917% of index build completed.41.9908% of index build completed.43.9903% of index build completed.39.9912% of index build completed.45.9899% of index build completed.49.989% of index build completed.51.9886% of index build completed.53.9882% of index build completed.47.9895% of index build completed.55.9877% of index build completed.57.9873% of index build completed.61.9864% of index build completed.59.9868% of index build completed.63.986% of index build completed.65.9855% of index build completed.67.9851% of index build completed.69.9846% of index build completed.71.9842% of index build completed.75.9833% of index build completed.73.9838% of index build completed.77.9829% of index build completed.79.9825% of index build completed.81.982% of index build completed.83.9816% of index build completed.87.9807% of index build completed.85.9811% of index build completed.89.9803% of index build completed.91.9798% of index build completed.93.9794% of index build completed.97.9785% of index build completed.99.9781% of index build completed.95.9789% of index build completed.Starting final cleanup..done. Link time: 5665s
+Index built with degree: max:150  avg:104.439  min:1  count(deg<2):585
+Indexing time: 5670.06
+Not saving tags as they are not enabled.
+Time taken for save: 34.504s.
+Reading (with alignment) bin file /home/t-avarhade/big-ann-benchmarks/data/msmarco_websearch/query.bin ...Metadata: #pts = 9376, #dims = 768, aligned_dim = 768... allocating aligned memory of 28803072 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/big-ann-benchmarks/data/msmarco_websearch/msmarco-5M-gt200, size: 15001608, cache_size: 15001608
+Reading truthset file /home/t-avarhade/big-ann-benchmarks/data/msmarco_websearch/msmarco-5M-gt200 ...
+Metadata: #pts = 9376, #dims = 200... 
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.062266s
+From graph header, expected_file_size: 2109250688, _max_observed_degree: 150, _start: 3927634, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/msmarco_websearch/r150_l300...done. Index has 5001097 nodes and 522311569 out-edges, _start is set to 3927634
+Num frozen points:0 _nd: 5001097 _start: 3927634 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 5001097
+Index loaded
+Using 96 threads to search
+  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency  Recall@200
+=============================================================================================
+ 200      656.98          22565.07      202.34           145539.67      798398.50       92.61
+ 300      532.89          32038.67      301.81           179375.36      959655.69       95.57
+ 400      481.31          41015.16      401.46           198641.64     1072723.50       97.01
+ 500      440.58          49606.71      501.22           217153.14      904253.31       97.84
+Done searching. Now saving results 
+Writing bin: /home/t-avarhade/Dump/tmp_200_idx_uint32.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_200_dists_float.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_300_idx_uint32.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_300_dists_float.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_400_idx_uint32.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_400_dists_float.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_500_idx_uint32.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_500_dists_float.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Starting index build with R: 150  Lbuild: 300  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 10000000 from file.. 
+Starting index build with 10000000 points... 
+0% of index build completed.1% of index build completed.2% of index build completed.3% of index build completed.4% of index build completed.5% of index build completed.7% of index build completed.6% of index build completed.10% of index build completed.9% of index build completed.11% of index build completed.8% of index build completed.12% of index build completed.13% of index build completed.15% of index build completed.16% of index build completed.17% of index build completed.18% of index build completed.14% of index build completed.19% of index build completed.21% of index build completed.22% of index build completed.23% of index build completed.20% of index build completed.24% of index build completed.25% of index build completed.26% of index build completed.27% of index build completed.28% of index build completed.29% of index build completed.31% of index build completed.32% of index build completed.33% of index build completed.30% of index build completed.34% of index build completed.35% of index build completed.36% of index build completed.37% of index build completed.39% of index build completed.38% of index build completed.40% of index build completed.41% of index build completed.42% of index build completed.44% of index build completed.45% of index build completed.43% of index build completed.46% of index build completed.47% of index build completed.48% of index build completed.49% of index build completed.51% of index build completed.52% of index build completed.50% of index build completed.53% of index build completed.54% of index build completed.55% of index build completed.56% of index build completed.57% of index build completed.58% of index build completed.59% of index build completed.60% of index build completed.61% of index build completed.62% of index build completed.63% of index build completed.64% of index build completed.65% of index build completed.66% of index build completed.67% of index build completed.68% of index build completed.69% of index build completed.70% of index build completed.71% of index build completed.73% of index build completed.74% of index build completed.72% of index build completed.75% of index build completed.77% of index build completed.76% of index build completed.78% of index build completed.79% of index build completed.80% of index build completed.81% of index build completed.83% of index build completed.82% of index build completed.84% of index build completed.85% of index build completed.86% of index build completed.87% of index build completed.88% of index build completed.89% of index build completed.90% of index build completed.91% of index build completed.92% of index build completed.93% of index build completed.94% of index build completed.95% of index build completed.96% of index build completed.97% of index build completed.98% of index build completed.99% of index build completed.Starting final cleanup..done. Link time: 12390s
+Index built with degree: max:150  avg:105.036  min:1  count(deg<2):1097
+Indexing time: 12406.7
+basic_ios::clear: iostream error
+Reading (with alignment) bin file /home/t-avarhade/big-ann-benchmarks/data/msmarco_websearch/query.bin ...Metadata: #pts = 9376, #dims = 768, aligned_dim = 768... allocating aligned memory of 28803072 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/big-ann-benchmarks/data/msmarco_websearch/msmarco-10M-gt200, size: 15001608, cache_size: 15001608
+Reading truthset file /home/t-avarhade/big-ann-benchmarks/data/msmarco_websearch/msmarco-10M-gt200 ...
+Metadata: #pts = 9376, #dims = 200... 
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.059878s
+From graph header, expected_file_size: 24, _max_observed_degree: 195, _start: 7854684, file_frozen_pts: 0
+Loading Starting index build with R: 150  Lbuild: 300  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 10000000 from file.. 
+Starting index build with 10000000 points... 
+0% of index build completed.1% of index build completed.2% of index build completed.3% of index build completed.4% of index build completed.5% of index build completed.7% of index build completed.6% of index build completed.8% of index build completed.9% of index build completed.10% of index build completed.11% of index build completed.12% of index build completed.13% of index build completed.14% of index build completed.15% of index build completed.16% of index build completed.17% of index build completed.18% of index build completed.19% of index build completed.20% of index build completed.21% of index build completed.22% of index build completed.23% of index build completed.24% of index build completed.25% of index build completed.26% of index build completed.27% of index build completed.28% of index build completed.29% of index build completed.30% of index build completed.31% of index build completed.32% of index build completed.33% of index build completed.34% of index build completed.35% of index build completed.36% of index build completed.37% of index build completed.38% of index build completed.39% of index build completed.40% of index build completed.41% of index build completed.43% of index build completed.42% of index build completed.44% of index build completed.45% of index build completed.46% of index build completed.47% of index build completed.48% of index build completed.49% of index build completed.50% of index build completed.51% of index build completed.52% of index build completed.53% of index build completed.54% of index build completed.55% of index build completed.56% of index build completed.57% of index build completed.58% of index build completed.59% of index build completed.61% of index build completed.60% of index build completed.62% of index build completed.63% of index build completed.64% of index build completed.65% of index build completed.66% of index build completed.67% of index build completed.68% of index build completed.69% of index build completed.70% of index build completed.71% of index build completed.72% of index build completed.73% of index build completed.74% of index build completed.75% of index build completed.76% of index build completed.77% of index build completed.78% of index build completed.79% of index build completed.80% of index build completed.81% of index build completed.82% of index build completed.83% of index build completed.84% of index build completed.85% of index build completed.86% of index build completed.87% of index build completed.88% of index build completed.89% of index build completed.90% of index build completed.91% of index build completed.92% of index build completed.93% of index build completed.94% of index build completed.95% of index build completed.96% of index build completed.97% of index build completed.98% of index build completed.99% of index build completed.Starting final cleanup..done. Link time: 10427.2s
+Index built with degree: max:150  avg:105.038  min:1  count(deg<2):1106
+Indexing time: 10435.4
+Not saving tags as they are not enabled.
+Time taken for save: 90.4078s.
+Reading (with alignment) bin file /home/t-avarhade/big-ann-benchmarks/data/msmarco_websearch/query.bin ...Metadata: #pts = 9376, #dims = 768, aligned_dim = 768... allocating aligned memory of 28803072 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/big-ann-benchmarks/data/msmarco_websearch/msmarco-10M-gt200, size: 15001608, cache_size: 15001608
+Reading truthset file /home/t-avarhade/big-ann-benchmarks/data/msmarco_websearch/msmarco-10M-gt200 ...
+Metadata: #pts = 9376, #dims = 200... 
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.1223s
+From graph header, expected_file_size: 4241502876, _max_observed_degree: 150, _start: 7854684, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/msmarco_websearch/r150_l300....done. Index has 10000000 nodes and 1050375713 out-edges, _start is set to 7854684
+Num frozen points:0 _nd: 10000000 _start: 7854684 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 10000000
+Index loaded
+Using 96 threads to search
+  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency  Recall@200
+=============================================================================================
+ 200      992.47          23287.09      202.96            96193.27      486640.56       90.87
+ 300      808.39          33272.36      302.42           118239.66      535903.44       94.22
+ 400      643.15          42801.45      402.03           148720.61      589758.94       95.93
+ 500      485.43          51977.85      501.76           196952.31      917519.00       96.94
+Done searching. Now saving results 
+Writing bin: /home/t-avarhade/Dump/tmp_200_idx_uint32.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_200_dists_float.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_300_idx_uint32.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_300_dists_float.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_400_idx_uint32.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_400_dists_float.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_500_idx_uint32.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_500_dists_float.bin
+bin: #pts = 9376, #dims = 200, size = 7500808B
+Finished writing bin.
