@@ -1,52 +1,0 @@
-Starting index build with R: 64  Lbuild: 200  alpha: 1.2  #threads: 96
-L2: Using AVX2 distance computation DistanceL2Float
-Using only first 1000000 from file.. 
-Starting index build with 1000000 points... 
-0% of index build completed.20% of index build completed.10% of index build completed.30% of index build completed.40% of index build completed.50% of index build completed.60% of index build completed.70% of index build completed.80% of index build completed.90% of index build completed.Starting final cleanup..Start Node 114564 neighbors: 90606 167785 167789 172355 775477 782332 380987 683457 893076 533730 250819 990526 715679 407367 891973 131701 463535 982624 3208 101358 5844 793683 277971 37536 541795 306316 703780 376361 313404 432667 965440 483181 523186 318845 241122 517327 683461 641331 744975 779501 956284 446024 368430 290009 974380 819760 3107 8199 35101 518254 710466 170802 743643 356478 230692 382386 283145 399744 724906 905366 780697 488228 607793 912320 
-done. Link time: 594.254s
-Index built with degree: max:64  avg:62.1996  min:1  count(deg<2):64
-Indexing time: 596.188
-Not saving tags as they are not enabled.
-Time taken for save: 7.29604s.
-Reading (with alignment) bin file /home/t-avarhade/openai-embedding-1M/queries_100k_normalized.fbin ...Metadata: #pts = 100000, #dims = 1536, aligned_dim = 1536... allocating aligned memory of 614400000 bytes... done. Copying data to mem_aligned buffer... done.
-Opened: /home/t-avarhade/openai-embedding-1M/base1m_gt200_100k_normalized.fbin, size: 160000008, cache_size: 67108864
-Reading truthset file /home/t-avarhade/openai-embedding-1M/base1m_gt200_100k_normalized.fbin ...
-Metadata: #pts = 100000, #dims = 200... 
-L2: Using AVX2 distance computation DistanceL2Float
-Resizing took: 0.0127955s
-From graph header, expected_file_size: 252798384, _max_observed_degree: 64, _start: 114564, file_frozen_pts: 0
-Loading vamana graph /home/t-avarhade/openai-embedding-1M/r64_l200...done. Index has 1000000 nodes and 62199590 out-edges, _start is set to 114564
-Num frozen points:0 _nd: 1000000 _start: 114564 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 1000000
-Index loaded
-Using 96 threads to search
-  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency  Recall@200
-=============================================================================================
- 200     2016.39           5888.59      203.98            47566.45      380042.44       98.89
- 300     1638.77           8057.62      303.80            58545.97      211026.11       99.37
- 400     1174.51          10085.43      403.65            81692.84      275151.66       99.58
- 500      954.61          12014.34      503.54           100522.84      330242.81       99.70
-Done searching. Now saving results 
-Writing bin: /home/t-avarhade/Dump/tmp_200_idx_uint32.bin
-bin: #pts = 100000, #dims = 200, size = 80000008B
-Finished writing bin.
-Writing bin: /home/t-avarhade/Dump/tmp_200_dists_float.bin
-bin: #pts = 100000, #dims = 200, size = 80000008B
-Finished writing bin.
-Writing bin: /home/t-avarhade/Dump/tmp_300_idx_uint32.bin
-bin: #pts = 100000, #dims = 200, size = 80000008B
-Finished writing bin.
-Writing bin: /home/t-avarhade/Dump/tmp_300_dists_float.bin
-bin: #pts = 100000, #dims = 200, size = 80000008B
-Finished writing bin.
-Writing bin: /home/t-avarhade/Dump/tmp_400_idx_uint32.bin
-bin: #pts = 100000, #dims = 200, size = 80000008B
-Finished writing bin.
-Writing bin: /home/t-avarhade/Dump/tmp_400_dists_float.bin
-bin: #pts = 100000, #dims = 200, size = 80000008B
-Finished writing bin.
-Writing bin: /home/t-avarhade/Dump/tmp_500_idx_uint32.bin
-bin: #pts = 100000, #dims = 200, size = 80000008B
-Finished writing bin.
-Writing bin: /home/t-avarhade/Dump/tmp_500_dists_float.bin
-bin: #pts = 100000, #dims = 200, size = 80000008B
-Finished writing bin.
