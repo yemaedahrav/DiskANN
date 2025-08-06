@@ -1,0 +1,53 @@
+Starting index build with R: 8  Lbuild: 25  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+Clustering Parameters: max cluster size: 100000000, point multiplicity: 1, clustering threshold: 0.75, hybrid ratio: 0
+0% of index build completed.10% of index build completed.30% of index build completed.20% of index build completed.50% of index build completed.40% of index build completed.60% of index build completed.70% of index build completed.80% of index build completed.90% of index build completed.Starting final cleanup..done. Link time: 176.592s
+Total number of clusters: 600354
+Average Multiplicity: 1, Max Multiplicity: 1, Min Multiplicity: 1
+Average Cluster Size: 1.66568, Max Cluster Size: 4073, Min Cluster Size: 1
+Cluster to Node mapping saved in file: /home/t-avarhade/ann-datasets/index/2pass_cluster_r8_l25_m1_s100000000_h0.75_f0.0
+Points in graph/cluster centers: 600354
+Index built with degree: max:8  avg:7.91041  min:1  count(deg<2):494  count(deg=0):0
+Indexing time: 184.31
+Saved. Number of clusters: 600354
+Not saving tags as they are not enabled.
+Time taken for save: 16.3723s.
+Reading (with alignment) bin file /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_query_normalized_6809.bin_fp32 ...Metadata: #pts = 6809, #dims = 3072, aligned_dim = 3072... allocating aligned memory of 83668992 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_gt200_fp32, size: 10894408, cache_size: 10894408
+Reading truthset file /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_gt200_fp32 ...
+Metadata: #pts = 6809, #dims = 200... 
+Opened cluster file: /home/t-avarhade/ann-datasets/index/2pass_cluster_r8_l25_m1_s100000000_h0.75_f0.0
+Number of clusters (Search): 600354
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0210096s
+From graph header, expected_file_size: 22996208, _max_observed_degree: 8, _start: 712003, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/ann-datasets/index/2pass_index_r8_l25_m1_s100000000_h0.75_f0.0...done. 
+Index has 600354 nodes/clusters and 4749046 out-edges, _start is set to 712003
+Index loaded
+Using 96 threads to search
+  Ls         QPS  Search dist cmps  Expand dist cmps   Total dist cmps        Exp Dist %    Avg hops  Mean Latency (mus)   99.9 Latency  Search Latency (mus)  Expand Latency (mus) Exp Latency %   Recall@25
+=======================================================================================================================================================================================================
+  25     9296.31            278.38            175.73            454.12       38.70       43.84            10207.67       51687.23               1782.81                798.14         30.92       34.66
+  50     6879.29            427.59            221.30            648.89       34.11       71.62            13926.27       63188.57               2720.11               1115.26         29.08       45.27
+ 100     4476.80            682.15            361.10           1043.25       34.61      122.56            21268.54       79781.06               5239.19               2101.05         28.62       54.76
+Done searching. Now saving results 
+Writing bin: /home/t-avarhade/Dump/tmp_25_idx_uint32.bin
+bin: #pts = 6809, #dims = 25, size = 680908B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_25_dists_float.bin
+bin: #pts = 6809, #dims = 25, size = 680908B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_50_idx_uint32.bin
+bin: #pts = 6809, #dims = 25, size = 680908B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_50_dists_float.bin
+bin: #pts = 6809, #dims = 25, size = 680908B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_100_idx_uint32.bin
+bin: #pts = 6809, #dims = 25, size = 680908B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_100_dists_float.bin
+bin: #pts = 6809, #dims = 25, size = 680908B
+Finished writing bin.
