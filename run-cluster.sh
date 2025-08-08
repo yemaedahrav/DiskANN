@@ -1,16 +1,16 @@
 cd build
-cmake -DCMAKE_BUILD_TYPE=Release .. && make -Bj
-
-R=8
-L=25
-M=1              # Point Multiplicity
-S=100000000      # Maximum Cluster Size
-H=0.75           # Clustering Threshold
-F=0.0            # Hybrid Ratio: Ratio denotes fraction of points which will use naive DiskANN algorithm before we begin clustering (during build). In the two pass algorithm, the hybrid ratio is not used. It is forced to be 0 always.
-T=96             # Number of Threads
+# cmake -DCMAKE_BUILD_TYPE=Release .. && make -Bj
 
 home="/home/t-avarhade"
 file_base="ann-datasets"
+
+R=16
+L=25
+M=1              # Point Multiplicity
+S=100000000      # Maximum Cluster Size
+H=0              # Clustering Threshold
+F=0              # Hybrid Ratio: Ratio denotes fraction of points which will use naive DiskANN algorithm before we begin clustering (during build). In the two pass algorithm, the hybrid ratio is not used. It is forced to be 0 always.
+T=96             # Number of Threads
 
 # data_path="${file_base}/prec1M_normalized.bin"
 # gt_file="${file_base}/prec1M_normalized_gt200"
@@ -22,10 +22,13 @@ query_file="${home}/${file_base}/SentenceChunk_OAILarge_query_normalized_6809.bi
 
 index_path="${home}/${file_base}/index/2pass_index_r${R}_l${L}_m${M}_s${S}_h${H}_f${F}"
 cluster_path="${home}/${file_base}/index/2pass_cluster_r${R}_l${L}_m${M}_s${S}_h${H}_f${F}"
-log_path="${home}/Amey/DiskANN/openai/2pass_cluster_r${R}_l${L}.txt"
+log_path="${home}/Amey/DiskANN/clustering-results/openai-sentencechunk/2pass_cluster_r${R}_l${L}.txt"
+
+# Create the log directory if it doesn't exist
+mkdir -p "${home}/Amey/DiskANN/clustering-results/openai-sentencechunk"
 
 ./apps/build_memory_index  --data_type float --dist_fn l2 --index_path_prefix $index_path --cluster_path $cluster_path --data_path $data_path -R ${R} -L ${L} -M ${M} -S ${S} -H ${H} -F ${F} -T ${T} >> $log_path
-./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix $index_path --cluster_path $cluster_path --gt_file $gt_file --query_file $query_file --result_path ${home}/Dump/tmp -K 25 -L 25 50 100 -T ${T} >> $log_path
+./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix $index_path --cluster_path $cluster_path --gt_file $gt_file --query_file $query_file --result_path ${home}/Dump/tmp -K 100 -L 100 200 300 400 500 -T ${T} >> $log_path
 
 rm $cluster_path $index_path
 

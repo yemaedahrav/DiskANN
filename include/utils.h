@@ -732,7 +732,7 @@ inline size_t save_bin(const std::string &filename, T *data, size_t npts, size_t
 
     writer.write((char *)data, npts * ndims * sizeof(T));
     writer.close();
-    diskann::cout << "Finished writing bin." << std::endl;
+    diskann::cout << "Finished writing bin.\n" << std::endl;
     return bytes_written;
 }
 

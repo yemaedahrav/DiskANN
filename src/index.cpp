@@ -1682,14 +1682,14 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
     for (const auto &pair : node_to_cluster)
     {
         int cur_multiplicity = pair.second.size();
+        if(cur_multiplicity != 1){
+            diskann::cout<<"ERROR: Multiplicity sanity check, a cluster centre cannot have more any other multiplicity than 1"<<std::endl;
+        }
+        multiplicity_sum += cur_multiplicity;
+        max_multiplicity = std::max(max_multiplicity, cur_multiplicity);
+        min_multiplicity = std::min(min_multiplicity, cur_multiplicity);
         if (!cluster_centre_status[pair.first]) {
-            if(cur_multiplicity != 1){
-                diskann::cout<<"ERROR: Multiplicity sanity check, a cluster centre cannot have more any other multiplicity than 1"<<std::endl;
-            }
             non_cluster_points++;
-            multiplicity_sum += cur_multiplicity;
-            max_multiplicity = std::max(max_multiplicity, cur_multiplicity);
-            min_multiplicity = std::min(min_multiplicity, cur_multiplicity);
         }
     }
 
@@ -1701,7 +1701,7 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
     }
     
 
-    diskann::cout << "Average Multiplicity: " << (float)multiplicity_sum / non_cluster_points
+    diskann::cout << "Average Multiplicity: " << (float)multiplicity_sum / _nd
                   << ", Max Multiplicity: " << max_multiplicity
                   << ", Min Multiplicity: " << min_multiplicity << std::endl;
     diskann::cout << "Average Cluster Size: " << (float)cluster_size_sum / (float)cluster_to_node.size()
