@@ -1,0 +1,462 @@
+Starting index build with R: 64  Lbuild: 100  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+Clustering Parameters: max cluster size: 100000000, point multiplicity: 10, clustering threshold: 0.25, hybrid ratio: 0
+0% of index build completed.10% of index build completed.30% of index build completed.20% of index build completed.50% of index build completed.40% of index build completed.70% of index build completed.60% of index build completed.80% of index build completed.90% of index build completed.Starting final cleanup..done. Link time: 681.775s
+Total number of clusters: 890139
+Average Multiplicity: 1.0958, Max Multiplicity: 10, Min Multiplicity: 1
+Average Cluster Size: 1.23104, Max Cluster Size: 2659, Min Cluster Size: 1
+Cluster to Node mapping saved in file: /home/t-avarhade/ann-datasets/index/2pass_cluster_r64_l100_m10_s100000000_h0.25_f0
+Points in graph/cluster centers: 890139
+Index built with degree: max:64  avg:55.9292  min:1  count(deg<2):6  count(deg=0):0
+Indexing time: 685.647
+Saved. Number of clusters: 890139
+Not saving tags as they are not enabled.
+Time taken for save: 28.1558s.
+Reading (with alignment) bin file /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_query_normalized_6809.bin_fp32 ...Metadata: #pts = 6809, #dims = 3072, aligned_dim = 3072... allocating aligned memory of 83668992 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_gt200_fp32, size: 10894408, cache_size: 10894408
+Reading truthset file /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_gt200_fp32 ...
+Metadata: #pts = 6809, #dims = 200... 
+Opened cluster file: /home/t-avarhade/ann-datasets/index/2pass_cluster_r64_l100_m10_s100000000_h0.25_f0
+Number of clusters (Search): 890139
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0152371s
+From graph header, expected_file_size: 203138996, _max_observed_degree: 64, _start: 712003, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/ann-datasets/index/2pass_index_r64_l100_m10_s100000000_h0.25_f0...done. 
+Index has 890139 nodes/clusters and 49784743 out-edges, _start is set to 712003
+Index loaded
+Using 96 threads to search
+  Ls         QPS  Search dist cmps  Expand dist cmps   Total dist cmps        Exp Dist %    Avg hops  Mean Latency (mus)   99.9 Latency  Search Latency (mus)  Expand Latency (mus) Exp Latency %  Recall@100
+=======================================================================================================================================================================================================
+ 100     1494.74           3635.09             21.19           3656.28        0.58      104.55            63779.04      373407.22              54232.99                788.78          1.43       94.93
+ 200     1041.11           6420.69             36.42           6457.11        0.56      203.87            91734.38      502539.84              78390.77               1333.46          1.67       97.86
+ 300      894.06           9021.24             51.70           9072.94        0.57      303.47           106776.00      492034.06              94270.45               1731.51          1.80       98.67
+ 400      737.24          11490.39             66.93          11557.32        0.58      403.23           129669.43      413379.66             118489.39               1956.29          1.62       99.03
+ 500      615.41          13860.03             81.53          13941.55        0.58      503.04           155388.91      449942.03             145120.97               2401.01          1.63       99.22
+Done searching. Now saving results 
+Writing bin: /home/t-avarhade/Dump/tmp_100_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_100_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_200_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_200_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_300_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_300_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_400_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_400_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_500_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_500_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Starting index build with R: 64  Lbuild: 100  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+Clustering Parameters: max cluster size: 100000000, point multiplicity: 10, clustering threshold: 0.5, hybrid ratio: 0
+0% of index build completed.10% of index build completed.20% of index build completed.30% of index build completed.50% of index build completed.40% of index build completed.70% of index build completed.60% of index build completed.90% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 745.006s
+Total number of clusters: 762672
+Average Multiplicity: 1.36582, Max Multiplicity: 10, Min Multiplicity: 1
+Average Cluster Size: 1.79083, Max Cluster Size: 11105, Min Cluster Size: 1
+Cluster to Node mapping saved in file: /home/t-avarhade/ann-datasets/index/2pass_cluster_r64_l100_m10_s100000000_h0.5_f0
+Points in graph/cluster centers: 762672
+Index built with degree: max:64  avg:59.3704  min:4  count(deg<2):0  count(deg=0):0
+Indexing time: 749.018
+Saved. Number of clusters: 762672
+Not saving tags as they are not enabled.
+Time taken for save: 40.6991s.
+Reading (with alignment) bin file /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_query_normalized_6809.bin_fp32 ...Metadata: #pts = 6809, #dims = 3072, aligned_dim = 3072... allocating aligned memory of 83668992 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_gt200_fp32, size: 10894408, cache_size: 10894408
+Reading truthset file /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_gt200_fp32 ...
+Metadata: #pts = 6809, #dims = 200... 
+Opened cluster file: /home/t-avarhade/ann-datasets/index/2pass_cluster_r64_l100_m10_s100000000_h0.5_f0
+Number of clusters (Search): 762672
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0156581s
+From graph header, expected_file_size: 185120624, _max_observed_degree: 64, _start: 712003, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/ann-datasets/index/2pass_index_r64_l100_m10_s100000000_h0.5_f0...done. 
+Index has 762672 nodes/clusters and 45280150 out-edges, _start is set to 712003
+Index loaded
+Using 96 threads to search
+  Ls         QPS  Search dist cmps  Expand dist cmps   Total dist cmps        Exp Dist %    Avg hops  Mean Latency (mus)   99.9 Latency  Search Latency (mus)  Expand Latency (mus) Exp Latency %  Recall@100
+=======================================================================================================================================================================================================
+ 100     1890.50           3864.79             96.04           3960.84        2.42      104.34            50418.51      272808.25              39444.06               1546.71          3.77       90.46
+ 200     1095.58           6818.85            177.36           6996.22        2.54      203.72            87193.74      494973.66              77880.98               3217.91          3.97       94.73
+ 300      801.88           9559.02            254.53           9813.55        2.59      303.43           119066.77      600498.88             108336.95               3956.44          3.52       96.24
+ 400      638.67          12155.06            325.60          12480.65        2.61      403.25           149409.34      760475.94             134500.10               5115.56          3.66       97.04
+ 500      544.77          14638.64            400.38          15039.02        2.66      503.13           175347.09      790200.75             159301.63               6211.76          3.75       97.51
+Done searching. Now saving results 
+Writing bin: /home/t-avarhade/Dump/tmp_100_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_100_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_200_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_200_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_300_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_300_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_400_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_400_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_500_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_500_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Starting index build with R: 64  Lbuild: 100  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+Clustering Parameters: max cluster size: 100000000, point multiplicity: 10, clustering threshold: 0.5, hybrid ratio: 0
+0% of index build completed.10% of index build completed.20% of index build completed.30% of index build completed.40% of index build completed.50% of index build completed.60% of index build completed.70% of index build completed.80% of index build completed.90% of index build completed.Starting final cleanup..done. Link time: 789.006s
+Total number of clusters: 762696
+Average Multiplicity: 1.36235, Max Multiplicity: 10, Min Multiplicity: 1
+Average Cluster Size: 1.78623, Max Cluster Size: 10400, Min Cluster Size: 1
+Cluster to Node mapping saved in file: /home/t-avarhade/ann-datasets/index/2pass_cluster_r64_l100_m10_s100000000_h0.5_f0
+Points in graph/cluster centers: 762696
+Index built with degree: max:64  avg:59.3673  min:3  count(deg<2):0  count(deg=0):0
+Indexing time: 796.532
+Saved. Number of clusters: 762696
+Not saving tags as they are not enabled.
+Time taken for save: 39.0569s.
+Reading (with alignment) bin file /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_query_normalized_6809.bin_fp32 ...Metadata: #pts = 6809, #dims = 3072, aligned_dim = 3072... allocating aligned memory of 83668992 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_gt200_fp32, size: 10894408, cache_size: 10894408
+Reading truthset file /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_gt200_fp32 ...
+Metadata: #pts = 6809, #dims = 200... 
+Opened cluster file: /home/t-avarhade/ann-datasets/index/2pass_cluster_r64_l100_m10_s100000000_h0.5_f0
+Number of clusters (Search): 762696
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0166505s
+From graph header, expected_file_size: 185116868, _max_observed_degree: 64, _start: 712003, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/ann-datasets/index/2pass_index_r64_l100_m10_s100000000_h0.5_f0...done. 
+Index has 762696 nodes/clusters and 45279211 out-edges, _start is set to 712003
+Index loaded
+Using 96 threads to search
+  Ls         QPS  Search dist cmps  Expand dist cmps   Total dist cmps        Exp Dist %    Avg hops  Mean Latency (mus)   99.9 Latency  Search Latency (mus)  Expand Latency (mus) Exp Latency %  Recall@100
+=======================================================================================================================================================================================================
+ 100     1943.99           3859.99             94.96           3954.95        2.40      104.29            49077.25      266853.97              39196.42               1602.54          3.93       90.43
+ 200     1089.79           6813.97            174.79           6988.76        2.50      203.66            87711.64      509424.16              80111.34               3403.08          4.07       94.76
+ 300      802.85           9552.59            254.24           9806.83        2.59      303.33           118964.09      581143.12             107727.00               4163.67          3.72       96.29
+ 400      649.33          12148.34            325.38          12473.72        2.61      403.14           147241.95      661296.06             136073.45               5096.14          3.61       97.10
+ 500      551.38          14633.12            399.37          15032.49        2.66      503.02           173225.41      711093.38             159074.86               6092.28          3.69       97.57
+Done searching. Now saving results 
+Writing bin: /home/t-avarhade/Dump/tmp_100_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_100_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_200_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_200_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_300_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_300_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_400_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_400_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_500_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_500_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Starting index build with R: 64  Lbuild: 100  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+Clustering Parameters: max cluster size: 100000000, point multiplicity: 10, clustering threshold: 0.75, hybrid ratio: 0
+0% of index build completed.10% of index build completed.20% of index build completed.30% of index build completed.40% of index build completed.50% of index build completed.70% of index build completed.60% of index build completed.80% of index build completed.90% of index build completed.Starting final cleanup..done. Link time: 1080.79s
+Total number of clusters: 574358
+Average Multiplicity: 2.59503, Max Multiplicity: 10, Min Multiplicity: 1
+Average Cluster Size: 4.51814, Max Cluster Size: 16985, Min Cluster Size: 1
+Cluster to Node mapping saved in file: /home/t-avarhade/ann-datasets/index/2pass_cluster_r64_l100_m10_s100000000_h0.75_f0
+Points in graph/cluster centers: 574358
+Index built with degree: max:64  avg:62.9661  min:12  count(deg<2):0  count(deg=0):0
+Indexing time: 1096.75
+Saved. Number of clusters: 574358
+Not saving tags as they are not enabled.
+Time taken for save: 36.5419s.
+Reading (with alignment) bin file /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_query_normalized_6809.bin_fp32 ...Metadata: #pts = 6809, #dims = 3072, aligned_dim = 3072... allocating aligned memory of 83668992 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_gt200_fp32, size: 10894408, cache_size: 10894408
+Reading truthset file /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_gt200_fp32 ...
+Metadata: #pts = 6809, #dims = 200... 
+Opened cluster file: /home/t-avarhade/ann-datasets/index/2pass_cluster_r64_l100_m10_s100000000_h0.75_f0
+Number of clusters (Search): 574358
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0160902s
+From graph header, expected_file_size: 148660428, _max_observed_degree: 64, _start: 712003, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/ann-datasets/index/2pass_index_r64_l100_m10_s100000000_h0.75_f0...done. 
+Index has 574358 nodes/clusters and 36165101 out-edges, _start is set to 712003
+Index loaded
+Using 96 threads to search
+  Ls         QPS  Search dist cmps  Expand dist cmps   Total dist cmps        Exp Dist %    Avg hops  Mean Latency (mus)   99.9 Latency  Search Latency (mus)  Expand Latency (mus) Exp Latency %  Recall@100
+=======================================================================================================================================================================================================
+ 100      834.78           3847.06           1961.03           5808.09       33.76      103.08           114241.45      999793.19              62421.62              30200.04         32.61       64.94
+ 200      651.96           6663.68           3578.73          10242.41       34.94      202.62           146895.22      726827.69              65773.05              28423.55         30.17       67.69
+ 300      476.71           9156.69           5110.64          14267.33       35.82      302.39           200525.81      869823.88              86145.05              39598.28         31.49       68.78
+ 400      375.83          11429.83           6551.96          17981.79       36.44      402.21           254281.42      947042.56             101012.97              48828.69         32.59       69.40
+ 500      327.09          13537.20           7925.01          21462.21       36.93      502.08           292709.22      817384.25             125601.64              61583.44         32.90       69.81
+Done searching. Now saving results 
+Writing bin: /home/t-avarhade/Dump/tmp_100_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_100_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_200_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_200_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_300_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_300_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_400_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_400_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_500_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_500_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Starting index build with R: 64  Lbuild: 100  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+Clustering Parameters: max cluster size: 100000000, point multiplicity: 10, clustering threshold: 1, hybrid ratio: 0
+0% of index build completed.10% of index build completed.30% of index build completed.20% of index build completed.40% of index build completed.50% of index build completed.70% of index build completed.60% of index build completed.80% of index build completed.90% of index build completed.Starting final cleanup..done. Link time: 1716.87s
+Total number of clusters: 230332
+Average Multiplicity: 4.06835, Max Multiplicity: 10, Min Multiplicity: 1
+Average Cluster Size: 17.663, Max Cluster Size: 46967, Min Cluster Size: 1
+Cluster to Node mapping saved in file: /home/t-avarhade/ann-datasets/index/2pass_cluster_r64_l100_m10_s100000000_h1_f0
+Points in graph/cluster centers: 230332
+Index built with degree: max:64  avg:63.9571  min:24  count(deg<2):0  count(deg=0):0
+Indexing time: 1725.32
+Saved. Number of clusters: 230332
+Not saving tags as they are not enabled.
+Time taken for save: 28.9361s.
+Reading (with alignment) bin file /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_query_normalized_6809.bin_fp32 ...Metadata: #pts = 6809, #dims = 3072, aligned_dim = 3072... allocating aligned memory of 83668992 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_gt200_fp32, size: 10894408, cache_size: 10894408
+Reading truthset file /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_gt200_fp32 ...
+Metadata: #pts = 6809, #dims = 200... 
+Opened cluster file: /home/t-avarhade/ann-datasets/index/2pass_cluster_r64_l100_m10_s100000000_h1_f0
+Number of clusters (Search): 230332
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0158225s
+From graph header, expected_file_size: 62925504, _max_observed_degree: 64, _start: 712003, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/ann-datasets/index/2pass_index_r64_l100_m10_s100000000_h1_f0...done. 
+Index has 230332 nodes/clusters and 14731370 out-edges, _start is set to 712003
+Index loaded
+Using 96 threads to search
+  Ls         QPS  Search dist cmps  Expand dist cmps   Total dist cmps        Exp Dist %    Avg hops  Mean Latency (mus)   99.9 Latency  Search Latency (mus)  Expand Latency (mus) Exp Latency %  Recall@100
+=======================================================================================================================================================================================================
+ 100      332.82           3937.42          14405.14          18342.56       78.53      102.06           286472.94     1007160.50              14897.16              94143.92         86.34       87.06
+ 200      194.14           6755.33          23531.66          30287.00       77.70      201.65           491886.34     1243529.38              20884.54             154034.93         88.06       89.58
+ 300      137.93           9176.86          31307.80          40484.67       77.33      301.44           692926.12     1723266.75              26836.29             218042.84         89.04       90.58
+ 400      109.52          11339.16          38582.57          49921.74       77.29      401.30           874439.00     2167304.25              31228.35             281898.17         90.03       91.17
+ 500       92.64          13308.34          45143.95          58452.29       77.23      501.19          1032534.62     2588115.00              35367.69             343694.82         90.67       91.58
+Done searching. Now saving results 
+Writing bin: /home/t-avarhade/Dump/tmp_100_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_100_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_200_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_200_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_300_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_300_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_400_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_400_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_500_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_500_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Starting index build with R: 64  Lbuild: 100  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+Clustering Parameters: max cluster size: 100000000, point multiplicity: 10, clustering threshold: 1.5, hybrid ratio: 0
+0% of index build completed.10% of index build completed.30% of index build completed.20% of index build completed.50% of index build completed.40% of index build completed.70% of index build completed.60% of index build completed.90% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 211.599s
+Total number of clusters: 1906
+Average Multiplicity: 8.28889, Max Multiplicity: 10, Min Multiplicity: 1
+Average Cluster Size: 4348.84, Max Cluster Size: 461364, Min Cluster Size: 1
+Cluster to Node mapping saved in file: /home/t-avarhade/ann-datasets/index/2pass_cluster_r64_l100_m10_s100000000_h1.5_f0
+Points in graph/cluster centers: 1906
+Index built with degree: max:64  avg:63.9963  min:57  count(deg<2):0  count(deg=0):0
+Indexing time: 219.569
+Saved. Number of clusters: 1906
+Not saving tags as they are not enabled.
+Time taken for save: 24.3702s.
+Reading (with alignment) bin file /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_query_normalized_6809.bin_fp32 ...Metadata: #pts = 6809, #dims = 3072, aligned_dim = 3072... allocating aligned memory of 83668992 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_gt200_fp32, size: 10894408, cache_size: 10894408
+Reading truthset file /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_gt200_fp32 ...
+Metadata: #pts = 6809, #dims = 200... 
+Opened cluster file: /home/t-avarhade/ann-datasets/index/2pass_cluster_r64_l100_m10_s100000000_h1.5_f0
+Number of clusters (Search): 1906
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0157596s
+From graph header, expected_file_size: 4487932, _max_observed_degree: 64, _start: 712003, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/ann-datasets/index/2pass_index_r64_l100_m10_s100000000_h1.5_f0...done. 
+Index has 1906 nodes/clusters and 121977 out-edges, _start is set to 712003
+Index loaded
+Using 96 threads to search
+  Ls         QPS  Search dist cmps  Expand dist cmps   Total dist cmps        Exp Dist %    Avg hops  Mean Latency (mus)   99.9 Latency  Search Latency (mus)  Expand Latency (mus) Exp Latency %  Recall@100
+=======================================================================================================================================================================================================
+ 100        5.76            794.75         174569.08         175363.83       99.55      100.05         16623414.00    33365052.00               1507.42            8211810.80         99.98       99.90
+ 200        5.09            822.45         286589.75         287412.22       99.71      200.02         18780384.00    36450008.00               1521.55            9715744.65         99.98       99.94
+ 300        4.91            824.82        -298670.78        -297845.97      100.28      300.01         19499930.00    36412764.00               1578.90            9927136.74         99.98       99.95
+ 400        4.73            824.99        -278899.66        -278074.66      100.30      400.00         20234566.00    38462996.00               1665.34           10396863.59         99.98       99.95
+ 500        4.63            825.00        -270033.12        -269208.12      100.31      500.00         20730054.00    38583056.00               1715.23           10811269.02         99.98       99.96
+Done searching. Now saving results 
+Writing bin: /home/t-avarhade/Dump/tmp_100_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_100_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_200_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_200_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_300_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_300_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_400_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_400_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_500_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_500_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+

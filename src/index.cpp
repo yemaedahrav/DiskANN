@@ -1682,15 +1682,16 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
     for (const auto &pair : node_to_cluster)
     {
         int cur_multiplicity = pair.second.size();
-        if(cur_multiplicity != 1){
-            diskann::cout<<"ERROR: Multiplicity sanity check, a cluster centre cannot have more any other multiplicity than 1"<<std::endl;
+        if (!cluster_centre_status[pair.first]) {
+            non_cluster_points++;
+        }else{
+            if(cur_multiplicity != 1){
+                diskann::cout<<"ERROR: Multiplicity sanity check, a cluster centre cannot have more any other multiplicity than 1"<<std::endl;
+            }
         }
         multiplicity_sum += cur_multiplicity;
         max_multiplicity = std::max(max_multiplicity, cur_multiplicity);
         min_multiplicity = std::min(min_multiplicity, cur_multiplicity);
-        if (!cluster_centre_status[pair.first]) {
-            non_cluster_points++;
-        }
     }
 
     // Check if non_cluster_points equals _nd - cluster_to_node.size()
