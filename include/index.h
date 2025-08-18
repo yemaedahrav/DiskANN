@@ -46,6 +46,7 @@ namespace diskann
     extern std::atomic<float> hybrid_ratio;
 
     extern std::string cluster_filename;
+    extern std::string cluster_distribution_filename;
     extern thread_local int query_id;
     
 inline double estimate_ram_usage(size_t size, uint32_t dim, uint32_t datasize, uint32_t degree)

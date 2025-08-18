@@ -29,11 +29,6 @@
 #define MAX_POINTS_FOR_USING_BITSET 10000000
 
 
-// #define POINT_MULTIPLICITY 200
-// #define MAX_CLUSTER_SIZE 16
-// #define THRESHOLD 0.8
-// #define HYBRID_RATIO 0.3
-
 std::atomic<int> unit_cluster_counts{0};
 
 namespace diskann
@@ -48,6 +43,7 @@ namespace diskann
     std::atomic<float> hybrid_ratio;
 
     std::string cluster_filename;
+    std::string cluster_distribution_filename;
     thread_local int query_id = 0;
     
 // Initialize an index with metric m, load the data of type T with filename
@@ -1049,7 +1045,10 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
     // std::cout << std::endl;
     
     float threshold=clustering_threshold;
-    // int standard_diskann_points = hybrid_ratio*(_nd + _num_frozen_pts);
+    int standard_diskann_points = hybrid_ratio*(_nd + _num_frozen_pts);
+    if(location < standard_diskann_points){
+        threshold = 0;
+    }
     if (!use_filter)
     {   
         _data_store->get_vector(location, scratch->aligned_query());
@@ -1484,8 +1483,8 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
     //diskann:: cout<<"Start (within link): "<<_start<<std::endl;
     
     
-    // int standard_diskann_points = hybrid_ratio*(_nd + _num_frozen_pts);
-    // diskann::cout<<"Standard DiskANN Points (#Points before we begin clustering): "<<standard_diskann_points<<std::endl;
+    int standard_diskann_points = hybrid_ratio*(_nd + _num_frozen_pts);
+    diskann::cout<<"Standard DiskANN Points (Points before we begin clustering): "<<standard_diskann_points<<std::endl;
     cluster_centre_status.resize(visit_order.size(), false);
     // std::vector<uint32_t> node_to_cluster = visit_order;
     // Set the start point to be a cluster center
@@ -1658,22 +1657,43 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
     float cluster_size_sum = 0;
     int max_observed_cluster_size = 0;
     int min_cluster_size = max_cluster_size;
+    // // Open file to write cluster size distribution
+    // std::string cluster_dist_filename = "cluster_distribution_r" + std::to_string(_indexingRange) +
+    //                                    "_l" + std::to_string(_indexingQueueSize) +
+    //                                    "_mcs" + std::to_string(max_cluster_size) +
+    //                                    "_pm" + std::to_string(point_multiplicity) +
+    //                                    "_it" + std::to_string(clustering_threshold) +
+    //                                    "_hr" + std::to_string(hybrid_ratio) +
+    //                                    ".txt";
+ 
+
+    std::map<int, int> cluster_size_count;
     for (const auto &pair : cluster_to_node)
     {   
         int cur_cluster_size = pair.second.size();
         cluster_size_sum += cur_cluster_size;
         max_observed_cluster_size = std::max(max_observed_cluster_size, cur_cluster_size);
         min_cluster_size = std::min(min_cluster_size, cur_cluster_size);
-        //diskann::cout << "Cluster ID: " << pair.first << ", Size: " << pair.second.size() << std::endl;
+
+        cluster_size_count[cur_cluster_size]++;
         if (cur_cluster_size == 1){
             unit_cluster_counts ++;
         }
-        // diskann::cout << "Cluster ID: " << pair.first << ", Size: " << pair.second.size() << ", Nodes: ";
-        // for (const auto &node : pair.second)
-        // {
-        //     std::cout << node << " ";
-        // }
-        // std::cout << std::endl;
+    }
+    
+    std::ofstream out_dist;
+    out_dist.open(cluster_distribution_filename, std::ios::out);
+    if (!out_dist) {
+        diskann::cout << "ERROR: Unable to open file " << cluster_distribution_filename << " for writing cluster distribution." << std::endl;
+    }
+    else{
+        out_dist << "Cluster Size, Frequency" << std::endl;
+        for (const auto& kv : cluster_size_count) {
+            out_dist << kv.first << ", " << kv.second << std::endl;
+        }
+        diskann::cout << "Cluster size distribution saved in file: " << cluster_distribution_filename << std::endl;
+        out_dist << "\n\n" << std::endl;
+        out_dist.close();
     }
     float multiplicity_sum = 0;
     int max_multiplicity = 0;

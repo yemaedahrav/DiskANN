@@ -24,7 +24,7 @@ namespace po = boost::program_options;
 
 int main(int argc, char **argv)
 {
-    std::string data_type, dist_fn, data_path, index_path_prefix, label_file, universal_label, label_type, cluster_path;
+    std::string data_type, dist_fn, data_path, index_path_prefix, label_file, universal_label, label_type, cluster_path, cluster_distribution_path;
     uint32_t num_threads, R, L, Lf, build_PQ_bytes;
     int PM, MCS;
     float TR, HR, alpha;
@@ -46,6 +46,8 @@ int main(int argc, char **argv)
                                        program_options_utils::INDEX_PATH_PREFIX_DESCRIPTION);
         required_configs.add_options()("cluster_path", po::value<std::string>(&cluster_path)->required(),
                                        program_options_utils::CLUSTER_PATH_DESCRIPTION);
+        required_configs.add_options()("cluster_distribution_path", po::value<std::string>(&cluster_distribution_path)->required(),
+                                       program_options_utils::CLUSTER_DISTRIBUTION_PATH_DESCRIPTION);
         required_configs.add_options()("data_path", po::value<std::string>(&data_path)->required(),
                                        program_options_utils::INPUT_DATA_PATH);
                         
@@ -163,6 +165,7 @@ int main(int argc, char **argv)
         auto index_factory = diskann::IndexFactory(config);
         auto index = index_factory.create_instance();
         diskann::cluster_filename = cluster_path;
+        diskann::cluster_distribution_filename = cluster_distribution_path;
         diskann::point_multiplicity = PM;
         diskann::max_cluster_size = MCS;
         diskann::clustering_threshold = TR;
