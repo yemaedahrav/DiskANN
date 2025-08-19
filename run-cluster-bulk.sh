@@ -1,5 +1,5 @@
 cd build
-# cmake -DCMAKE_BUILD_TYPE=Release .. && make -Bj
+cmake -DCMAKE_BUILD_TYPE=Release .. && make -Bj
 
 home="/home/t-avarhade"
 file_base="ann-datasets"
