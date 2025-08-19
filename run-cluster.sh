@@ -6,10 +6,10 @@ file_base="ann-datasets"
 
 R=64
 L=100
-M=1              # Point Multiplicity
-S=100000000      # Maximum Cluster Size
-H=0.5              # Clustering Threshold
-F=0              # Hybrid Ratio: Ratio denotes fraction of points which will use naive DiskANN algorithm before we begin clustering (during build). In the two pass algorithm, the hybrid ratio is not used. It is forced to be 0 always.
+M=10              # Point Multiplicity
+S=100            # Maximum Cluster Size
+H=2              # Clustering Threshold
+F=0.25           # Hybrid Ratio: Ratio denotes fraction of points which will use naive DiskANN algorithm before we begin clustering (during build). In the two pass algorithm, the hybrid ratio is not used. It is forced to be 0 always.
 T=96             # Number of Threads
 
 # data_path="${file_base}/prec1M_normalized.bin"
@@ -25,8 +25,8 @@ mkdir -p "${home}/Amey/DiskANN/clustering-results/openai-sentencechunk"
 
 index_path="${home}/${file_base}/index/2pass_index_r${R}_l${L}_m${M}_s${S}_h${H}_f${F}"
 cluster_path="${home}/${file_base}/index/2pass_cluster_r${R}_l${L}_m${M}_s${S}_h${H}_f${F}"
-log_path="${home}/Amey/DiskANN/clustering-results/openai-sentencechunk/2pass_cluster_r${R}_l${L}.txt"
-cluster_distribution_path="${home}/Amey/DiskANN/clustering-results/openai-sentencechunk/2pass_cluster_distribution_r${R}_l${L}_m${M}_s${S}_h${H}_f${F}.txt"
+log_path="${home}/Amey/DiskANN/clustering-results/openai-sentencechunk/sorted_2pass_cluster_r${R}_l${L}.txt"
+cluster_distribution_path="${home}/Amey/DiskANN/clustering-results/openai-sentencechunk/sorted_2pass_cluster_distribution_r${R}_l${L}_m${M}_s${S}_h${H}_f${F}.txt"
 
 ./apps/build_memory_index  --data_type float --dist_fn l2 --index_path_prefix $index_path --cluster_path $cluster_path --cluster_distribution_path $cluster_distribution_path --data_path $data_path -R ${R} -L ${L} -M ${M} -S ${S} -H ${H} -F ${F} -T ${T} >> $log_path
 ./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix $index_path --cluster_path $cluster_path --gt_file $gt_file --query_file $query_file --result_path ${home}/Dump/tmp -K 100 -L 100 200 300 400 500 -T ${T} >> $log_path
