@@ -1031,7 +1031,7 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
 template <typename T, typename TagT, typename LabelT>
 void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t Lindex,
                                                         std::vector<uint32_t> &pruned_list,
-                                                        InMemQueryScratch<T> *scratch, std::unordered_map<uint32_t, std::set<uint32_t>> &node_to_cluster, std::unordered_map<uint32_t, std::set<uint32_t>> &cluster_to_node, std::vector<bool> &cluster_centre_status, bool second_pass, bool use_filter,
+                                                        InMemQueryScratch<T> *scratch, std::unordered_map<uint32_t, std::set<uint32_t>> &node_to_cluster, std::unordered_map<uint32_t, std::set<uint32_t>> &cluster_to_node, std::vector<bool> &cluster_centre_status, bool use_filter,
                                                         uint32_t filteredLindex)
 {
     const std::vector<uint32_t> init_ids = get_init_ids();
@@ -1044,74 +1044,68 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
     // }
     // std::cout << std::endl;
     
+    bool create_new_cluster = true;
     float threshold=clustering_threshold;
     int standard_diskann_points = hybrid_ratio*(_nd + _num_frozen_pts);
-    if(location < standard_diskann_points){
-        threshold = 0;
+    if (location < standard_diskann_points){
+        threshold=0.0;
     }
     if (!use_filter)
     {   
         _data_store->get_vector(location, scratch->aligned_query());
-        if(second_pass){
-            iterate_to_fixed_point(scratch, Lindex, init_ids, false, cluster_centre_status, unused_filter_label, true);
-        }else{
-            iterate_to_fixed_point(scratch, Lindex, init_ids, false, cluster_centre_status, unused_filter_label, false);
-        }
-        //diskann::cout<<"Completed greedy search"<<std::endl;
+        iterate_to_fixed_point(scratch, Lindex, init_ids, false, cluster_centre_status, unused_filter_label, false);
         NeighborPriorityQueue &L_list = scratch->best_l_nodes();
-        size_t cluster_candidate_threshold_count = 0;
-        size_t cluster_candidate_count = 0;
-        std::vector<std::pair<uint32_t, float>> cluster_candidates_threshold;
-        std::vector<std::pair<uint32_t, float>> cluster_candidates;
-        {
+        // Code to compare all the nodes in the L list with the node location and checking clustering condition/thresholding here
+        //diskann::cout<<"Distance: "<<std::endl;
+        
+        if(location != _start){   
+            // diskann::cout<<"L list: ";
             std::unique_lock<std::shared_timed_mutex> cluster_lock(_cluster_lock);
-            for (size_t i = 0; i < L_list.size(); ++i){
+            std::vector<std::pair<uint32_t, float>> cluster_candidates;
+            for (size_t i = 0; i < L_list.size(); ++i)
+            {   
+                
                 uint32_t id = L_list[i].id;
                 auto dist = L_list[i].distance;
+                // diskann::cout << id << " "<<dist<<std::endl;
                 //diskann::cout<<"Distance: "<<dist<<std::endl;
-                auto cur_cluster_size = cluster_to_node[id].size();
-                if (cur_cluster_size < max_cluster_size) {
-                    if (cluster_candidate_count < point_multiplicity){
+                if (dist < threshold) 
+                {
+                    auto cur_cluster_size = cluster_to_node[id].size();
+                    if (cur_cluster_size < max_cluster_size)
+                    {
                         cluster_candidates.emplace_back(id, max_cluster_size - cur_cluster_size);
-                        cluster_candidate_count++;
-                    }
-                    if (dist < threshold){
-                        cluster_candidates_threshold.emplace_back(id, max_cluster_size - cur_cluster_size);
-                        cluster_candidate_threshold_count++;
                     }
                 }
             }
-            //diskann::cout<<"Successfully completed search in search_for_point_and_prune"<<std::endl;
-            size_t clusters_to_add = std::min(cluster_candidates_threshold.size(), static_cast<size_t>(point_multiplicity));
-            if(second_pass){
-                if(cluster_candidate_threshold_count == 0){
-                    // No clusters found within threshold, assign to nearest *multiplicity* number of clusters
-                    for (size_t i = 0; i < cluster_candidate_count; ++i){
-                        uint32_t cluster_id = cluster_candidates[i].first;
-                        //diskann::cout<<"Remaining Cluster Capacity: "<<cluster_candidates[i].second<<std::endl;
-                        node_to_cluster[location].insert(cluster_id);
-                        cluster_to_node[cluster_id].insert(location);
-                    }
-                }else{
-                    // Assign points to the clusters with below code
-                    for (size_t i = 0; i < clusters_to_add; ++i){
-                        uint32_t cluster_id = cluster_candidates_threshold[i].first;
-                        //diskann::cout<<"Remaining Cluster Capacity: "<<cluster_candidates_threshold[i].second<<std::endl;
-                        node_to_cluster[location].insert(cluster_id);
-                        cluster_to_node[cluster_id].insert(location);
-                    }
-                }
-                return;
-            }else{
-                if(cluster_candidate_threshold_count == 0){
-                    // Create new cluster, do pruning
-                    node_to_cluster[location].insert(location);
-                    cluster_to_node[location].insert(location);
-                    cluster_centre_status[location] = true;
-                }else{
-                    // Don't create new cluster, don't even assign (as that will happen in the second pass), mark status of the point and don't prune, return from here
-                    return;
-                }
+
+            // // Sort clusters by emptiness (descending order)
+            // std::sort(cluster_candidates.begin(), cluster_candidates.end(), [](const std::pair<uint32_t, float> &a, const std::pair<uint32_t, float> &b) {
+            //     return a.second > b.second;
+            // });
+
+            // Add point to atmost top point_multiplicity empty clusters
+            size_t clusters_to_add = std::min(cluster_candidates.size(), static_cast<size_t>(point_multiplicity));
+            if (clusters_to_add != 0) {
+                // diskann::cout<< "ID: "<<location <<", Multiplicity: "<<clusters_to_add<<std::endl;
+                // diskann::cout << "Clusters (ID):";
+            }
+            for (size_t i = 0; i < clusters_to_add; ++i)
+            {
+                uint32_t cluster_id = cluster_candidates[i].first;
+                // diskann::cout << cluster_id << " ";
+                //diskann::cout<<"Remaining Cluster Capacity: "<<cluster_candidates[i].second<<std::endl;
+                node_to_cluster[location].insert(cluster_id);
+                cluster_to_node[cluster_id].insert(location);
+                create_new_cluster = false;
+            }
+            // diskann::cout<<std::endl;
+            if(create_new_cluster)
+            {   
+                // diskann::cout<<"New Cluster (ID): "<<location<<std::endl;
+                node_to_cluster[location].insert(location);
+                cluster_to_node[location].insert(location);
+                cluster_centre_status[location] = true;
             }
         }
     }
@@ -1496,10 +1490,13 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
 
 #pragma omp parallel for schedule(dynamic, 2048)
     for (int64_t node_ctr = 0; node_ctr < (int64_t)(visit_order.size()); node_ctr++)
-    {
+    //for (int64_t node_ctr = 0; node_ctr < 200; node_ctr++)
+    {   
+
         auto node = visit_order[node_ctr];
         // diskann::cout<<"Node: "<<node<<std::endl;
 
+        // diskann::cout<<"\n\n\nNode: "<<node<<std::endl;
         if (node_ctr % 100000 == 0)
         {
             diskann::cout << "\r" << (100.0 * node_ctr) / (visit_order.size()) << "% of index build completed."
@@ -1512,11 +1509,11 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
         std::vector<uint32_t> pruned_list;
         if (_filtered_index)
         {
-            search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, node_to_cluster, cluster_to_node, cluster_centre_status, false, true, _filterIndexingQueueSize);
+            search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, node_to_cluster, cluster_to_node, cluster_centre_status, true, _filterIndexingQueueSize);
         }
         else
         {
-            search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, node_to_cluster, cluster_to_node, cluster_centre_status, false);
+            search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, node_to_cluster, cluster_to_node, cluster_centre_status);
         }
         {   
             std::shared_lock<std::shared_timed_mutex> status_lock(_cluster_lock);
@@ -1564,6 +1561,7 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
     }
 #pragma omp parallel for schedule(dynamic, 2048)
     for (int64_t node_ctr = 0; node_ctr < (int64_t)visit_order.size(); node_ctr++)
+    // for (int64_t node_ctr = 0; node_ctr < 200; node_ctr++)
     {   
         auto node = visit_order[node_ctr];
         std::shared_lock<std::shared_timed_mutex> status_lock(_cluster_lock);
@@ -1632,21 +1630,6 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
             _graph_store->set_neighbours((location_t)node, new_out_neighbors);
         }
     }
-// The second pass is to assign the points which are not part of the graph to the cluster centres
-#pragma omp parallel for schedule(dynamic, 2048)
-    for (int64_t node_ctr = 0; node_ctr < (int64_t)(visit_order.size()); node_ctr++)
-    {
-        auto node = visit_order[node_ctr];
-        // diskann::cout<<"Node: "<<node<<std::endl;
-
-        if(cluster_centre_status[node]){
-            continue;
-        }
-        ScratchStoreManager<InMemQueryScratch<T>> manager(_query_scratch);
-        auto scratch = manager.scratch_space();
-        std::vector<uint32_t> pruned_list;
-        search_for_point_and_prune(node, _indexingQueueSize, pruned_list, scratch, node_to_cluster, cluster_to_node, cluster_centre_status, true);
-    }
     if (_nd > 0)
     {   
         diskann::cout << "done. Link time: " << ((double)link_timer.elapsed() / (double)1000000) << "s" << std::endl;
@@ -1657,15 +1640,6 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
     float cluster_size_sum = 0;
     int max_observed_cluster_size = 0;
     int min_cluster_size = max_cluster_size;
-    // // Open file to write cluster size distribution
-    // std::string cluster_dist_filename = "cluster_distribution_r" + std::to_string(_indexingRange) +
-    //                                    "_l" + std::to_string(_indexingQueueSize) +
-    //                                    "_mcs" + std::to_string(max_cluster_size) +
-    //                                    "_pm" + std::to_string(point_multiplicity) +
-    //                                    "_it" + std::to_string(clustering_threshold) +
-    //                                    "_hr" + std::to_string(hybrid_ratio) +
-    //                                    ".txt";
- 
 
     std::map<int, int> cluster_size_count;
     for (const auto &pair : cluster_to_node)
@@ -1678,6 +1652,8 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
         cluster_size_count[cur_cluster_size]++;
         if (cur_cluster_size == 1){
             unit_cluster_counts ++;
+        }else if (cur_cluster_size == 0){
+            diskann::cout<< "ERROR: A cluster cannot be empty, it should have atleast size 1"<< std::endl;
         }
     }
     
@@ -1692,7 +1668,6 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
             out_dist << kv.first << ", " << kv.second << std::endl;
         }
         diskann::cout << "Cluster size distribution saved in file: " << cluster_distribution_filename << std::endl;
-        out_dist << "\n\n" << std::endl;
         out_dist.close();
     }
     float multiplicity_sum = 0;
@@ -1706,7 +1681,12 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
             non_cluster_points++;
         }else{
             if(cur_multiplicity != 1){
-                diskann::cout<<"ERROR: Multiplicity sanity check, a cluster centre cannot have more any other multiplicity than 1"<<std::endl;
+                diskann::cout<<"ERROR: Multiplicity sanity check, a cluster centre cannot have multiplicity more than 1\nCluster Centre: "<<pair.first<<" Clusters: "<<pair.second.size()<<std::endl;
+                std::cout << "Other clusters this cluster centre belongs to: ";
+                for (const auto &elem : pair.second) {
+                    std::cout << elem << " ";
+                }
+                std::cout << std::endl;
             }
         }
         multiplicity_sum += cur_multiplicity;
@@ -1720,7 +1700,7 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
                       << ") does not equal _nd - cluster_to_node.size() ("
                       << (_nd - cluster_to_node.size()) << ")" << std::endl;
     }
-    
+    diskann::cout << "_nd: " << _nd << ", node_to_cluster.size(): " << node_to_cluster.size() << std::endl;
 
     diskann::cout << "Average Multiplicity: " << (float)multiplicity_sum / _nd
                   << ", Max Multiplicity: " << max_multiplicity
@@ -1729,8 +1709,7 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
                   << ", Max Cluster Size: " << max_observed_cluster_size
                   << ", Min Cluster Size: " << min_cluster_size << std::endl;
 
-    //diskann::cout<<"Points with 0 Multiplicity Counts(Cluster Centres): "<<multipicity_counts<<std::endl;
-    //diskann::cout<<"Total number of unit clusters: "<<unit_cluster_counts<<std::endl;
+    diskann::cout<<"Total number of unit clusters: "<<unit_cluster_counts<<std::endl;
 
     // Save cluster_to_node mapping in file to be loaded during search. The saved file will be used in running search only search, that is not the search during build.
     std::ofstream out;

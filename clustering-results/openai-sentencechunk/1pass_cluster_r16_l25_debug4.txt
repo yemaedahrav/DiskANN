@@ -1,0 +1,1221 @@
+Starting index build with R: 16  Lbuild: 25  alpha: 1.2  #threads: 1
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+Clustering Parameters: max cluster size: 100000000, point multiplicity: 5, clustering threshold: 2, hybrid ratio: 0
+Standard DiskANN Points (Points before we begin clustering): 0
+
+
+
+Node: 0
+0% of index build completed.L list: 712003 1.5071  ID: 0, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 1
+L list: 712003 1.60913  ID: 1, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 2
+L list: 712003 1.54029  ID: 2, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 3
+L list: 712003 1.83098  ID: 3, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 4
+L list: 712003 1.4934  ID: 4, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 5
+L list: 712003 1.17775  ID: 5, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 6
+L list: 712003 1.30075  ID: 6, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 7
+L list: 712003 1.65427  ID: 7, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 8
+L list: 712003 1.62736  ID: 8, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 9
+L list: 712003 1.34222  ID: 9, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 10
+L list: 712003 1.64234  ID: 10, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 11
+L list: 712003 1.52448  ID: 11, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 12
+L list: 712003 1.4003  ID: 12, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 13
+L list: 712003 1.45829  ID: 13, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 14
+L list: 712003 1.46062  ID: 14, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 15
+L list: 712003 1.09615  ID: 15, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 16
+L list: 712003 1.19701  ID: 16, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 17
+L list: 712003 1.76918  ID: 17, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 18
+L list: 712003 1.67358  ID: 18, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 19
+L list: 712003 1.49122  ID: 19, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 20
+L list: 712003 1.37713  ID: 20, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 21
+L list: 712003 1.43569  ID: 21, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 22
+L list: 712003 1.39531  ID: 22, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 23
+L list: 712003 1.67156  ID: 23, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 24
+L list: 712003 1.52851  ID: 24, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 25
+L list: 712003 1.48797  ID: 25, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 26
+L list: 712003 0.916325  ID: 26, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 27
+L list: 712003 1.30008  ID: 27, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 28
+L list: 712003 1.5084  ID: 28, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 29
+L list: 712003 1.57448  ID: 29, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 30
+L list: 712003 1.37237  ID: 30, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 31
+L list: 712003 1.54933  ID: 31, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 32
+L list: 712003 1.36958  ID: 32, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 33
+L list: 712003 1.36545  ID: 33, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 34
+L list: 712003 1.62756  ID: 34, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 35
+L list: 712003 1.72919  ID: 35, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 36
+L list: 712003 1.28895  ID: 36, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 37
+L list: 712003 1.53625  ID: 37, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 38
+L list: 712003 0.793534  ID: 38, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 39
+L list: 712003 1.16926  ID: 39, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 40
+L list: 712003 1.53111  ID: 40, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 41
+L list: 712003 1.62085  ID: 41, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 42
+L list: 712003 1.17815  ID: 42, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 43
+L list: 712003 1.39497  ID: 43, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 44
+L list: 712003 1.40991  ID: 44, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 45
+L list: 712003 1.47347  ID: 45, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 46
+L list: 712003 1.39121  ID: 46, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 47
+L list: 712003 0.943249  ID: 47, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 48
+L list: 712003 1.609  ID: 48, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 49
+L list: 712003 1.16175  ID: 49, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 50
+L list: 712003 1.72383  ID: 50, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 51
+L list: 712003 1.50605  ID: 51, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 52
+L list: 712003 1.21729  ID: 52, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 53
+L list: 712003 1.61232  ID: 53, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 54
+L list: 712003 1.44477  ID: 54, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 55
+L list: 712003 1.57517  ID: 55, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 56
+L list: 712003 1.19342  ID: 56, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 57
+L list: 712003 1.51817  ID: 57, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 58
+L list: 712003 1.40364  ID: 58, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 59
+L list: 712003 1.53081  ID: 59, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 60
+L list: 712003 0.54129  ID: 60, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 61
+L list: 712003 1.3532  ID: 61, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 62
+L list: 712003 1.75415  ID: 62, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 63
+L list: 712003 1.69278  ID: 63, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 64
+L list: 712003 1.33527  ID: 64, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 65
+L list: 712003 1.53947  ID: 65, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 66
+L list: 712003 1.53121  ID: 66, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 67
+L list: 712003 1.50582  ID: 67, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 68
+L list: 712003 1.47132  ID: 68, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 69
+L list: 712003 1.75284  ID: 69, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 70
+L list: 712003 1.53318  ID: 70, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 71
+L list: 712003 1.54488  ID: 71, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 72
+L list: 712003 1.6604  ID: 72, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 73
+L list: 712003 1.68082  ID: 73, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 74
+L list: 712003 1.73291  ID: 74, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 75
+L list: 712003 1.6693  ID: 75, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 76
+L list: 712003 1.74797  ID: 76, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 77
+L list: 712003 1.24463  ID: 77, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 78
+L list: 712003 1.45006  ID: 78, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 79
+L list: 712003 1.54583  ID: 79, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 80
+L list: 712003 1.21678  ID: 80, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 81
+L list: 712003 1.76096  ID: 81, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 82
+L list: 712003 1.82997  ID: 82, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 83
+L list: 712003 1.63228  ID: 83, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 84
+L list: 712003 1.77896  ID: 84, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 85
+L list: 712003 1.07832  ID: 85, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 86
+L list: 712003 1.55348  ID: 86, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 87
+L list: 712003 1.53715  ID: 87, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 88
+L list: 712003 1.68681  ID: 88, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 89
+L list: 712003 1.44831  ID: 89, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 90
+L list: 712003 1.04725  ID: 90, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 91
+L list: 712003 1.1097  ID: 91, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 92
+L list: 712003 1.26391  ID: 92, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 93
+L list: 712003 1.24211  ID: 93, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 94
+L list: 712003 1.79387  ID: 94, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 95
+L list: 712003 1.64028  ID: 95, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 96
+L list: 712003 1.76931  ID: 96, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 97
+L list: 712003 1.37403  ID: 97, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 98
+L list: 712003 1.69343  ID: 98, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 99
+L list: 712003 1.48258  ID: 99, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 100
+L list: 712003 1.75401  ID: 100, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 101
+L list: 712003 1.03499  ID: 101, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 102
+L list: 712003 1.43627  ID: 102, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 103
+L list: 712003 1.51488  ID: 103, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 104
+L list: 712003 1.57665  ID: 104, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 105
+L list: 712003 1.59201  ID: 105, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 106
+L list: 712003 1.27908  ID: 106, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 107
+L list: 712003 1.29642  ID: 107, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 108
+L list: 712003 1.60541  ID: 108, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 109
+L list: 712003 0.710243  ID: 109, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 110
+L list: 712003 0.914112  ID: 110, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 111
+L list: 712003 1.49822  ID: 111, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 112
+L list: 712003 0.657159  ID: 112, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 113
+L list: 712003 1.52915  ID: 113, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 114
+L list: 712003 1.47906  ID: 114, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 115
+L list: 712003 1.6686  ID: 115, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 116
+L list: 712003 1.54121  ID: 116, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 117
+L list: 712003 1.59068  ID: 117, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 118
+L list: 712003 1.53263  ID: 118, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 119
+L list: 712003 1.42059  ID: 119, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 120
+L list: 712003 1.62923  ID: 120, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 121
+L list: 712003 1.77166  ID: 121, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 122
+L list: 712003 1.58522  ID: 122, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 123
+L list: 712003 1.51314  ID: 123, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 124
+L list: 712003 1.53835  ID: 124, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 125
+L list: 712003 1.1543  ID: 125, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 126
+L list: 712003 1.75235  ID: 126, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 127
+L list: 712003 1.58149  ID: 127, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 128
+L list: 712003 1.54869  ID: 128, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 129
+L list: 712003 0.938018  ID: 129, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 130
+L list: 712003 1.65905  ID: 130, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 131
+L list: 712003 1.82234  ID: 131, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 132
+L list: 712003 1.60825  ID: 132, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 133
+L list: 712003 1.47492  ID: 133, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 134
+L list: 712003 0.904744  ID: 134, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 135
+L list: 712003 1.58639  ID: 135, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 136
+L list: 712003 0.72354  ID: 136, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 137
+L list: 712003 1.71321  ID: 137, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 138
+L list: 712003 1.38522  ID: 138, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 139
+L list: 712003 1.67511  ID: 139, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 140
+L list: 712003 1.38823  ID: 140, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 141
+L list: 712003 1.5987  ID: 141, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 142
+L list: 712003 1.4465  ID: 142, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 143
+L list: 712003 1.36424  ID: 143, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 144
+L list: 712003 1.17201  ID: 144, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 145
+L list: 712003 1.48236  ID: 145, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 146
+L list: 712003 1.65519  ID: 146, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 147
+L list: 712003 1.47703  ID: 147, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 148
+L list: 712003 1.44965  ID: 148, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 149
+L list: 712003 1.22108  ID: 149, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 150
+L list: 712003 1.60432  ID: 150, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 151
+L list: 712003 1.11952  ID: 151, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 152
+L list: 712003 1.28851  ID: 152, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 153
+L list: 712003 1.54391  ID: 153, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 154
+L list: 712003 1.43672  ID: 154, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 155
+L list: 712003 1.27425  ID: 155, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 156
+L list: 712003 1.51478  ID: 156, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 157
+L list: 712003 0.908124  ID: 157, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 158
+L list: 712003 0.936121  ID: 158, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 159
+L list: 712003 1.50086  ID: 159, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 160
+L list: 712003 1.47501  ID: 160, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 161
+L list: 712003 1.48871  ID: 161, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 162
+L list: 712003 0.754362  ID: 162, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 163
+L list: 712003 1.51944  ID: 163, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 164
+L list: 712003 1.51125  ID: 164, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 165
+L list: 712003 0.647676  ID: 165, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 166
+L list: 712003 1.70245  ID: 166, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 167
+L list: 712003 1.63396  ID: 167, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 168
+L list: 712003 1.35157  ID: 168, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 169
+L list: 712003 1.55815  ID: 169, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 170
+L list: 712003 1.64198  ID: 170, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 171
+L list: 712003 0.628722  ID: 171, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 172
+L list: 712003 1.47773  ID: 172, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 173
+L list: 712003 1.40588  ID: 173, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 174
+L list: 712003 1.52199  ID: 174, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 175
+L list: 712003 1.09372  ID: 175, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 176
+L list: 712003 1.67263  ID: 176, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 177
+L list: 712003 0.98885  ID: 177, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 178
+L list: 712003 1.66013  ID: 178, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 179
+L list: 712003 1.22914  ID: 179, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 180
+L list: 712003 1.41063  ID: 180, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 181
+L list: 712003 1.10778  ID: 181, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 182
+L list: 712003 1.50175  ID: 182, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 183
+L list: 712003 1.61655  ID: 183, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 184
+L list: 712003 1.3216  ID: 184, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 185
+L list: 712003 1.21396  ID: 185, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 186
+L list: 712003 1.57339  ID: 186, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 187
+L list: 712003 1.73807  ID: 187, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 188
+L list: 712003 1.66549  ID: 188, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 189
+L list: 712003 1.53126  ID: 189, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 190
+L list: 712003 1.4665  ID: 190, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 191
+L list: 712003 1.57287  ID: 191, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 192
+L list: 712003 1.35481  ID: 192, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 193
+L list: 712003 1.53742  ID: 193, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 194
+L list: 712003 1.32533  ID: 194, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 195
+L list: 712003 1.46732  ID: 195, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 196
+L list: 712003 1.84712  ID: 196, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 197
+L list: 712003 1.29552  ID: 197, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 198
+L list: 712003 1.65489  ID: 198, Multiplicity: 1
+Clusters (ID):712003 
+
+
+
+Node: 199
+L list: 712003 1.4731  ID: 199, Multiplicity: 1
+Clusters (ID):712003 
+Starting final cleanup..done. Link time: 0.003054s
+Total number of clusters: 1
+Cluster size distribution saved in file: /home/t-avarhade/Amey/DiskANN/clustering-results/openai-sentencechunk/1pass_cluster_distribution_r16_l25_m5_s100000000_h2_f0_debug.txt
+ERROR: non_cluster_points (200) does not equal _nd - cluster_to_node.size() (999999)
+_nd: 1000000, node_to_cluster.size(): 201
+Average Multiplicity: 0.000201, Max Multiplicity: 1, Min Multiplicity: 1
+Average Cluster Size: 201, Max Cluster Size: 201, Min Cluster Size: 201
+Total number of unit clusters: 0
+Cluster to Node mapping saved in file: /home/t-avarhade/ann-datasets/index/1pass_cluster_r16_l25_m5_s100000000_h2_f0
+Points in graph/cluster centers: 1
+Index built with degree: max:0  avg:0  min:0  count(deg<2):1  count(deg=0):1
+Indexing time: 2.36077
+Saved. Number of clusters: 0
+Not saving tags as they are not enabled.
+Time taken for save: 14.5933s.

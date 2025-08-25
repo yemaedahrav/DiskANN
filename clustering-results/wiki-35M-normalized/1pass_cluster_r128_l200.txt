@@ -1,0 +1,89 @@
+Starting index build with R: 128  Lbuild: 200  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 35000000 from file.. 
+Starting index build with 35000000 points... 
+Clustering Parameters: max cluster size: 100000000, point multiplicity: 5, clustering threshold: 0.1, hybrid ratio: 0.25
+Standard DiskANN Points (Points before we begin clustering): 8750000
+0% of index build completed.0.285714% of index build completed.0.571429% of index build completed.0.857143% of index build completed.1.14286% of index build completed.1.42857% of index build completed.1.71429% of index build completed.2% of index build completed.2.28571% of index build completed.2.57143% of index build completed.2.85714% of index build completed.3.14286% of index build completed.3.42857% of index build completed.3.71429% of index build completed.4% of index build completed.4.28571% of index build completed.4.57143% of index build completed.4.85714% of index build completed.5.14286% of index build completed.5.42857% of index build completed.5.71429% of index build completed.6% of index build completed.6.28571% of index build completed.6.57143% of index build completed.6.85714% of index build completed.7.14286% of index build completed.7.42857% of index build completed.7.71429% of index build completed.8% of index build completed.8.28571% of index build completed.8.57143% of index build completed.8.85714% of index build completed.9.14286% of index build completed.9.42857% of index build completed.9.71429% of index build completed.10% of index build completed.10.2857% of index build completed.10.5714% of index build completed.10.8571% of index build completed.11.1429% of index build completed.11.4286% of index build completed.11.7143% of index build completed.12% of index build completed.12.2857% of index build completed.12.5714% of index build completed.12.8571% of index build completed.13.1429% of index build completed.13.4286% of index build completed.13.7143% of index build completed.14% of index build completed.14.2857% of index build completed.14.5714% of index build completed.14.8571% of index build completed.15.1429% of index build completed.15.4286% of index build completed.15.7143% of index build completed.16% of index build completed.16.2857% of index build completed.16.5714% of index build completed.16.8571% of index build completed.17.1429% of index build completed.17.4286% of index build completed.17.7143% of index build completed.18% of index build completed.18.2857% of index build completed.18.5714% of index build completed.18.8571% of index build completed.19.1429% of index build completed.19.4286% of index build completed.19.7143% of index build completed.20% of index build completed.20.2857% of index build completed.20.5714% of index build completed.20.8571% of index build completed.21.1429% of index build completed.21.4286% of index build completed.21.7143% of index build completed.22% of index build completed.22.2857% of index build completed.22.5714% of index build completed.22.8571% of index build completed.23.1429% of index build completed.23.4286% of index build completed.23.7143% of index build completed.24% of index build completed.24.2857% of index build completed.24.5714% of index build completed.24.8571% of index build completed.25.1429% of index build completed.25.4286% of index build completed.25.7143% of index build completed.26% of index build completed.26.2857% of index build completed.26.5714% of index build completed.26.8571% of index build completed.27.1429% of index build completed.27.4286% of index build completed.27.7143% of index build completed.28% of index build completed.28.2857% of index build completed.28.5714% of index build completed.28.8571% of index build completed.29.1429% of index build completed.29.4286% of index build completed.29.7143% of index build completed.30% of index build completed.30.2857% of index build completed.30.5714% of index build completed.30.8571% of index build completed.31.1429% of index build completed.31.4286% of index build completed.31.7143% of index build completed.32% of index build completed.32.2857% of index build completed.32.5714% of index build completed.32.8571% of index build completed.33.1429% of index build completed.33.4286% of index build completed.33.7143% of index build completed.34% of index build completed.34.2857% of index build completed.34.5714% of index build completed.34.8571% of index build completed.35.1429% of index build completed.35.4286% of index build completed.35.7143% of index build completed.36% of index build completed.36.2857% of index build completed.36.5714% of index build completed.36.8571% of index build completed.37.1429% of index build completed.37.4286% of index build completed.37.7143% of index build completed.38% of index build completed.38.2857% of index build completed.38.5714% of index build completed.38.8571% of index build completed.39.1429% of index build completed.39.4286% of index build completed.39.7143% of index build completed.40% of index build completed.40.2857% of index build completed.40.5714% of index build completed.40.8571% of index build completed.41.1429% of index build completed.41.4286% of index build completed.41.7143% of index build completed.42% of index build completed.42.2857% of index build completed.42.5714% of index build completed.42.8571% of index build completed.43.1429% of index build completed.43.4286% of index build completed.43.7143% of index build completed.44% of index build completed.44.2857% of index build completed.44.5714% of index build completed.44.8571% of index build completed.45.1429% of index build completed.45.4286% of index build completed.45.7143% of index build completed.46% of index build completed.46.2857% of index build completed.46.5714% of index build completed.46.8571% of index build completed.47.1429% of index build completed.47.4286% of index build completed.47.7143% of index build completed.48% of index build completed.48.2857% of index build completed.48.5714% of index build completed.48.8571% of index build completed.49.1429% of index build completed.49.4286% of index build completed.49.7143% of index build completed.50% of index build completed.50.2857% of index build completed.50.5714% of index build completed.50.8571% of index build completed.51.1429% of index build completed.51.4286% of index build completed.51.7143% of index build completed.52% of index build completed.52.2857% of index build completed.52.5714% of index build completed.52.8571% of index build completed.53.1429% of index build completed.53.4286% of index build completed.53.7143% of index build completed.54% of index build completed.54.2857% of index build completed.54.5714% of index build completed.54.8571% of index build completed.55.1429% of index build completed.55.4286% of index build completed.55.7143% of index build completed.56% of index build completed.56.2857% of index build completed.56.5714% of index build completed.56.8571% of index build completed.57.1429% of index build completed.57.4286% of index build completed.57.7143% of index build completed.58% of index build completed.58.2857% of index build completed.58.5714% of index build completed.58.8571% of index build completed.59.1429% of index build completed.59.4286% of index build completed.59.7143% of index build completed.60% of index build completed.60.2857% of index build completed.60.5714% of index build completed.60.8571% of index build completed.61.1429% of index build completed.61.4286% of index build completed.62% of index build completed.61.7143% of index build completed.62.2857% of index build completed.62.5714% of index build completed.62.8571% of index build completed.63.1429% of index build completed.63.4286% of index build completed.63.7143% of index build completed.64% of index build completed.64.2857% of index build completed.64.5714% of index build completed.64.8571% of index build completed.65.1429% of index build completed.65.4286% of index build completed.65.7143% of index build completed.66% of index build completed.66.2857% of index build completed.66.5714% of index build completed.66.8571% of index build completed.67.1429% of index build completed.67.4286% of index build completed.67.7143% of index build completed.68% of index build completed.68.2857% of index build completed.68.5714% of index build completed.68.8571% of index build completed.69.1429% of index build completed.69.4286% of index build completed.69.7143% of index build completed.70% of index build completed.70.2857% of index build completed.70.5714% of index build completed.70.8571% of index build completed.71.1429% of index build completed.71.4286% of index build completed.71.7143% of index build completed.72% of index build completed.72.2857% of index build completed.72.5714% of index build completed.72.8571% of index build completed.73.1429% of index build completed.73.4286% of index build completed.73.7143% of index build completed.74% of index build completed.74.2857% of index build completed.74.5714% of index build completed.75.1429% of index build completed.74.8571% of index build completed.75.4286% of index build completed.75.7143% of index build completed.76% of index build completed.76.2857% of index build completed.76.8571% of index build completed.76.5714% of index build completed.77.1429% of index build completed.77.4286% of index build completed.77.7143% of index build completed.78% of index build completed.78.5714% of index build completed.78.2857% of index build completed.78.8571% of index build completed.79.1429% of index build completed.79.4286% of index build completed.79.7143% of index build completed.80% of index build completed.80.2857% of index build completed.80.5714% of index build completed.80.8571% of index build completed.81.1429% of index build completed.81.4286% of index build completed.81.7143% of index build completed.82% of index build completed.82.2857% of index build completed.82.5714% of index build completed.82.8571% of index build completed.83.4286% of index build completed.83.7143% of index build completed.84% of index build completed.83.1429% of index build completed.84.2857% of index build completed.84.5714% of index build completed.84.8571% of index build completed.85.1429% of index build completed.85.4286% of index build completed.85.7143% of index build completed.86% of index build completed.86.2857% of index build completed.86.5714% of index build completed.86.8571% of index build completed.87.1429% of index build completed.87.4286% of index build completed.87.7143% of index build completed.88% of index build completed.88.2857% of index build completed.88.5714% of index build completed.88.8571% of index build completed.89.1429% of index build completed.89.4286% of index build completed.89.7143% of index build completed.90% of index build completed.90.2857% of index build completed.90.5714% of index build completed.90.8571% of index build completed.91.1429% of index build completed.91.4286% of index build completed.91.7143% of index build completed.92% of index build completed.92.2857% of index build completed.92.5714% of index build completed.92.8571% of index build completed.93.1429% of index build completed.93.4286% of index build completed.93.7143% of index build completed.94% of index build completed.94.5714% of index build completed.94.2857% of index build completed.95.1429% of index build completed.94.8571% of index build completed.95.4286% of index build completed.95.7143% of index build completed.96% of index build completed.96.2857% of index build completed.96.8571% of index build completed.96.5714% of index build completed.97.1429% of index build completed.97.4286% of index build completed.97.7143% of index build completed.98% of index build completed.98.2857% of index build completed.98.5714% of index build completed.98.8571% of index build completed.99.1429% of index build completed.99.4286% of index build completed.99.7143% of index build completed.Starting final cleanup..done. Link time: 17557.2s
+Total number of clusters: 32647003
+Cluster size distribution saved in file: /home/t-avarhade/Amey/DiskANN/clustering-results/openai-sentencechunk/1pass_cluster_distribution_r128_l200_m5_s100000000_h0.1_f0.25.txt
+Average Multiplicity: 0.498375, Max Multiplicity: 5, Min Multiplicity: 1
+Average Cluster Size: 0.621909, Max Cluster Size: 1655, Min Cluster Size: 1
+Total number of unit clusters: 31050818
+Cluster to Node mapping saved in file: /home/t-avarhade/wiki_normalized/index/1pass_cluster_r128_l200_m5_s100000000_h0.1_f0.25
+Points in graph/cluster centers: 32647003
+Index built with degree: max:128  avg:63.3627  min:1  count(deg<2):1598  count(deg=0):0
+Indexing time: 17743.1
+Saved. Number of clusters: 32647003
+Not saving tags as they are not enabled.
+Time taken for save: 1119.07s.
+Reading (with alignment) bin file /home/t-avarhade/wiki_normalized/wiki_normalized_query.bin ...Metadata: #pts = 5000, #dims = 768, aligned_dim = 768... allocating aligned memory of 15360000 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/wiki_normalized/wiki35M_gt200.bin, size: 8000008, cache_size: 8000008
+Reading truthset file /home/t-avarhade/wiki_normalized/wiki35M_gt200.bin ...
+Metadata: #pts = 5000, #dims = 200... 
+Opened cluster file: /home/t-avarhade/wiki_normalized/index/1pass_cluster_r128_l200_m5_s100000000_h0.1_f0.25
+Number of clusters (Search): 32647003
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.431936s
+From graph header, expected_file_size: 8414402944, _max_observed_degree: 128, _start: 6681339, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/wiki_normalized/index/1pass_index_r128_l200_m5_s100000000_h0.1_f0.25......done. 
+Index has 32647003 nodes/clusters and 2068600730 out-edges, _start is set to 6681339
+Index loaded
+Using 96 threads to search
+  Ls         QPS  Search dist cmps  Expand dist cmps   Total dist cmps        Exp Dist %    Avg hops  Mean Latency (mus)   99.9 Latency  Search Latency (mus)  Expand Latency (mus) Exp Latency %  Recall@200
+=======================================================================================================================================================================================================
+ 200     1963.69          14512.47             56.58          14569.05        0.39      204.22            48211.21      172766.08              33467.07                748.47          2.19       91.52
+ 300     1456.19          20598.03             85.06          20683.08        0.41      303.92            65389.04      232971.98              48179.70               1062.83          2.16       93.64
+ 400     1157.18          26417.81            113.89          26531.70        0.43      403.72            82365.72      319599.09              64214.45               1434.39          2.18       94.79
+ 500      996.74          32027.15            142.82          32169.97        0.44      503.57            95532.64      344980.47              76609.29               1790.33          2.28       95.53
+ 750      718.50          45385.16            216.14          45601.31        0.47      753.29           131937.05      513896.72             116124.62               2814.89          2.37       96.64
+1000      535.65          58057.32            286.58          58343.90        0.49     1003.11           177143.56      800850.81             154031.95               3998.68          2.53       97.27
+Done searching. Now saving results 
+Writing bin: /home/t-avarhade/Dump/tmp_200_idx_uint32.bin
+bin: #pts = 5000, #dims = 200, size = 4000008B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_200_dists_float.bin
+bin: #pts = 5000, #dims = 200, size = 4000008B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_300_idx_uint32.bin
+bin: #pts = 5000, #dims = 200, size = 4000008B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_300_dists_float.bin
+bin: #pts = 5000, #dims = 200, size = 4000008B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_400_idx_uint32.bin
+bin: #pts = 5000, #dims = 200, size = 4000008B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_400_dists_float.bin
+bin: #pts = 5000, #dims = 200, size = 4000008B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_500_idx_uint32.bin
+bin: #pts = 5000, #dims = 200, size = 4000008B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_500_dists_float.bin
+bin: #pts = 5000, #dims = 200, size = 4000008B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_750_idx_uint32.bin
+bin: #pts = 5000, #dims = 200, size = 4000008B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_750_dists_float.bin
+bin: #pts = 5000, #dims = 200, size = 4000008B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_1000_idx_uint32.bin
+bin: #pts = 5000, #dims = 200, size = 4000008B
+Finished writing bin.
+
+Writing bin: /home/t-avarhade/Dump/tmp_1000_dists_float.bin
+bin: #pts = 5000, #dims = 200, size = 4000008B
+Finished writing bin.
+
