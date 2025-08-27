@@ -1,0 +1,2 @@
+Cluster Size, Frequency
+1, 35000000

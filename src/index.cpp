@@ -1638,14 +1638,19 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
     std::cout << "Total number of clusters: " << cluster_to_node.size() << std::endl;
     //std::cout << "Cluster Sizes:" << std::endl;
     float cluster_size_sum = 0;
+    float cluster_size_avg = 0;
+    long long cluster_size_sum_lli = 0;
+    int cluster_count = 0;
     int max_observed_cluster_size = 0;
     int min_cluster_size = max_cluster_size;
-
     std::map<int, int> cluster_size_count;
+    int print_interval = 100000;
+    int iter = 0;
     for (const auto &pair : cluster_to_node)
     {   
         int cur_cluster_size = pair.second.size();
         cluster_size_sum += cur_cluster_size;
+        cluster_size_sum_lli += cur_cluster_size;
         max_observed_cluster_size = std::max(max_observed_cluster_size, cur_cluster_size);
         min_cluster_size = std::min(min_cluster_size, cur_cluster_size);
 
@@ -1655,6 +1660,16 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
         }else if (cur_cluster_size == 0){
             diskann::cout<< "ERROR: A cluster cannot be empty, it should have atleast size 1"<< std::endl;
         }
+        // Online average update
+        cluster_count++;
+        cluster_size_avg += (cur_cluster_size - cluster_size_avg) / cluster_count;
+
+        iter++;
+        // if (iter % print_interval == 0) {
+        //     std::cout << "Iteration: " << iter
+        //               << ", cluster_size_sum: " << cluster_size_sum
+        //               << ", cluster_size_sum_lli: " << cluster_size_sum_lli << std::endl;
+        // }
     }
     
     std::ofstream out_dist;
@@ -1671,17 +1686,22 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
         out_dist.close();
     }
     float multiplicity_sum = 0;
+    float multiplicity_avg = 0;
+    long long multiplicity_sum_lli = 0;
     int max_multiplicity = 0;
     int min_multiplicity = point_multiplicity;
     int non_cluster_points = 0;
+    int multiplicity_count = 0;
+    // int print_interval = 100000;
+    iter = 0;
     for (const auto &pair : node_to_cluster)
     {
         int cur_multiplicity = pair.second.size();
         if (!cluster_centre_status[pair.first]) {
             non_cluster_points++;
-        }else{
-            if(cur_multiplicity != 1){
-                diskann::cout<<"ERROR: Multiplicity sanity check, a cluster centre cannot have multiplicity more than 1\nCluster Centre: "<<pair.first<<" Clusters: "<<pair.second.size()<<std::endl;
+        } else {
+            if (cur_multiplicity != 1) {
+                diskann::cout << "ERROR: Multiplicity sanity check, a cluster centre cannot have multiplicity more than 1\nCluster Centre: " << pair.first << " Clusters: " << pair.second.size() << std::endl;
                 std::cout << "Other clusters this cluster centre belongs to: ";
                 for (const auto &elem : pair.second) {
                     std::cout << elem << " ";
@@ -1690,8 +1710,20 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
             }
         }
         multiplicity_sum += cur_multiplicity;
+        multiplicity_sum_lli += cur_multiplicity;
         max_multiplicity = std::max(max_multiplicity, cur_multiplicity);
         min_multiplicity = std::min(min_multiplicity, cur_multiplicity);
+
+        // Online average update
+        multiplicity_count++;
+        multiplicity_avg += (cur_multiplicity - multiplicity_avg) / multiplicity_count;
+
+        iter++;
+        // if (iter % print_interval == 0) {
+        //     std::cout << "Iteration: " << iter
+        //               << ", multiplicity_sum: " << multiplicity_sum
+        //               << ", multiplicity_sum_lli: " << multiplicity_sum_lli << std::endl;
+        // }
     }
 
     // Check if non_cluster_points equals _nd - cluster_to_node.size()
@@ -1701,15 +1733,16 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
                       << (_nd - cluster_to_node.size()) << ")" << std::endl;
     }
     diskann::cout << "_nd: " << _nd << ", node_to_cluster.size(): " << node_to_cluster.size() << std::endl;
-
-    diskann::cout << "Average Multiplicity: " << (float)multiplicity_sum / _nd
+    diskann::cout << "Total Multiplicity Sum: " << multiplicity_sum << std::endl;
+    diskann::cout << "Total Cluster Size Sum: " << cluster_size_sum << std::endl;
+    diskann::cout << "Average Multiplicity: " << multiplicity_avg
                   << ", Max Multiplicity: " << max_multiplicity
                   << ", Min Multiplicity: " << min_multiplicity << std::endl;
-    diskann::cout << "Average Cluster Size: " << (float)cluster_size_sum / (float)cluster_to_node.size()
+    diskann::cout << "Average Cluster Size: " << cluster_size_avg
                   << ", Max Cluster Size: " << max_observed_cluster_size
                   << ", Min Cluster Size: " << min_cluster_size << std::endl;
 
-    diskann::cout<<"Total number of unit clusters: "<<unit_cluster_counts<<std::endl;
+    diskann::cout<<"Total number of unit clusters: " << unit_cluster_counts<<std::endl;
 
     // Save cluster_to_node mapping in file to be loaded during search. The saved file will be used in running search only search, that is not the search during build.
     std::ofstream out;
