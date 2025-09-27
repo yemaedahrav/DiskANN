@@ -2,7 +2,8 @@ Starting index build with R: 16  Lbuild: 50  alpha: 1.2  #threads: 96
 L2: Using AVX2 distance computation DistanceL2Float
 Using only first 49985 from file.. 
 Starting index build with 49985 points... 
-0% of index build completed.Starting final cleanup..done. Link time: 5.20621s
+
+0% of index build completed.Starting final cleanup..done. Link time: 5.20621s
 Index built with degree: max:16  avg:15.8583  min:1  count(deg<2):1
 Indexing time: 5.34292
 Not saving tags as they are not enabled.
@@ -58,6 +59,51 @@ Using 96 threads to search
   50     8196.58            416.40       59.64            11556.17       77808.77       94.86
  100     6557.58            679.07      109.48            14579.58       93053.31       96.19
  200     5961.82           1161.56      208.55            16011.97       66332.04       97.30
+Done searching. Now saving results 
+Writing bin: /home/t-avarhade/Dump/tmp_50_idx_uint32.bin
+bin: #pts = 9997, #dims = 50, size = 1999408B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_50_dists_float.bin
+bin: #pts = 9997, #dims = 50, size = 1999408B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_100_idx_uint32.bin
+bin: #pts = 9997, #dims = 50, size = 1999408B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_100_dists_float.bin
+bin: #pts = 9997, #dims = 50, size = 1999408B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_200_idx_uint32.bin
+bin: #pts = 9997, #dims = 50, size = 1999408B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_200_dists_float.bin
+bin: #pts = 9997, #dims = 50, size = 1999408B
+Finished writing bin.
+Starting index build with R: 16  Lbuild: 50  alpha: 1.2  #threads: 1
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 49985 from file.. 
+Starting index build with 49985 points... 
+
+0% of index build completed.Starting final cleanup..done. Link time: 35.7761s
+Index built with degree: max:16  avg:15.853  min:2  count(deg<2):0
+Indexing time: 35.9136
+Not saving tags as they are not enabled.
+Time taken for save: 0.782266s.
+Reading (with alignment) bin file /home/t-avarhade/test_generated_data/embeddings_10k_query_normalized.bin ...Metadata: #pts = 9997, #dims = 3072, aligned_dim = 3072... allocating aligned memory of 122843136 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/test_generated_data/embeddings_10k_normalized_gt200.bin, size: 15995208, cache_size: 15995208
+Reading truthset file /home/t-avarhade/test_generated_data/embeddings_10k_normalized_gt200.bin ...
+Metadata: #pts = 9997, #dims = 200... 
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.000495606s
+From graph header, expected_file_size: 3369620, _max_observed_degree: 16, _start: 40979, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/test_generated_data/index/r16_l50...done. Index has 49985 nodes and 792414 out-edges, _start is set to 40979
+Num frozen points:0 _nd: 49985 _start: 40979 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 49985
+Index loaded
+Using 1 threads to search
+  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency   Recall@50
+=============================================================================================
+  50     3825.00            419.77       60.09              261.39         581.75       94.57
+ 100     2304.66            684.21      110.26              433.86         889.30       96.37
+ 200     1293.43           1166.96      209.47              773.10        1435.57       97.70
 Done searching. Now saving results 
 Writing bin: /home/t-avarhade/Dump/tmp_50_idx_uint32.bin
 bin: #pts = 9997, #dims = 50, size = 1999408B

@@ -1,5 +1,5 @@
 cd build
-cmake -DCMAKE_BUILD_TYPE=Release .. && make -Bj
+# cmake -DCMAKE_BUILD_TYPE=Release .. && make -Bj
 
 result_path="/home/t-avarhade/Dump/tmp"
 index_base="/home/t-avarhade"
@@ -91,9 +91,8 @@ for i in "${!rvalues[@]}"; do
     rvalue=${rvalues[$i]}
     lvalue=${lvalues[$i]}
     kvalue=${kvalues[$i]}
-    log_file="/home/t-avarhade/Amey/DiskANN/${test_base}/normalized_r${rvalue}_l${lvalue}.txt"
+    log_file="/home/t-avarhade/Amey/DiskANN/results/${test_base}/normalized_r${rvalue}_l${lvalue}.txt"
     index_file="${index_base}/${test_base}/index/r${rvalue}_l${lvalue}"
-    ./apps/build_memory_index --data_type float --dist_fn l2 --index_path_prefix $index_file --data_path $data_path -R $rvalue -L $lvalue -T 96 >> $log_file
-    ./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix $index_file --gt_file $gt_file --query_file $query_file --result_path $result_path -K $kvalue -L 50 100 200 -T 96 >> $log_file
-    ./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix $index_file --gt_file $gt_file --query_file $query_file --result_path $result_path -K $kvalue -L 50 100 200 -T 96 >> $log_file
+    ./apps/build_memory_index --data_type float --dist_fn l2 --index_path_prefix $index_file --data_path $data_path -R $rvalue -L $lvalue -T 1 >> $log_file
+    ./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix $index_file --gt_file $gt_file --query_file $query_file --result_path $result_path -K $kvalue -L 50 100 200 -T 1 >> $log_file
 done
