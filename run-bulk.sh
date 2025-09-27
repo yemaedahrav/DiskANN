@@ -67,25 +67,33 @@ openai_base_path="/home/t-avarhade/${openai}"
 # done
 
 
-data_path="${openai_base_path}/base1m_normalized.fbin"
-gt_file="${openai_base_path}/base1m_gt200_100k_normalized.fbin"
-query_file="${openai_base_path}/queries_100k_normalized.fbin"
+# data_path="${openai_base_path}/base1m_normalized.fbin"
+# gt_file="${openai_base_path}/base1m_gt200_100k_normalized.fbin"
+# query_file="${openai_base_path}/queries_100k_normalized.fbin"
+
+test_base="test_generated_data"
+data_path="/home/t-avarhade/$test_base/embeddings_10k_data_pert_eps1.62e-05_normalized.bin"
+gt_file="/home/t-avarhade/$test_base/embeddings_10k_normalized_gt200.bin"
+query_file="/home/t-avarhade/$test_base/embeddings_10k_query_normalized.bin"
+
 
 # rvalues=(16 32 64 128 150 150 200 256 256 350)
 # lvalues=(200 200 200 200 200 300 300 300 500 500)
 
-rvalues=(8 8)
-lvalues=(25 50)
+rvalues=(16 32)
+lvalues=(50 50)
+kvalues=(50 50)
 
 # Create the log directory if it doesn't exist
-mkdir -p "/home/t-avarhade/Amey/DiskANN/${openai}"
+mkdir -p "/home/t-avarhade/Amey/DiskANN/${test_base}"
 
 for i in "${!rvalues[@]}"; do
     rvalue=${rvalues[$i]}
     lvalue=${lvalues[$i]}
-    log_file="/home/t-avarhade/Amey/DiskANN/${openai}/normalized_r${rvalue}_l${lvalue}.txt"
-    index_file="${index_base}/${openai}/index/r${rvalue}_l${lvalue}"
+    kvalue=${kvalues[$i]}
+    log_file="/home/t-avarhade/Amey/DiskANN/${test_base}/normalized_r${rvalue}_l${lvalue}.txt"
+    index_file="${index_base}/${test_base}/index/r${rvalue}_l${lvalue}"
     ./apps/build_memory_index --data_type float --dist_fn l2 --index_path_prefix $index_file --data_path $data_path -R $rvalue -L $lvalue -T 96 >> $log_file
-    ./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix $index_file --gt_file $gt_file --query_file $query_file --result_path $result_path -K 25 -L 25 50 100 -T 96 >> $log_file
-    ./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix $index_file --gt_file $gt_file --query_file $query_file --result_path $result_path -K 50 -L 50 100 -T 96 >> $log_file
+    ./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix $index_file --gt_file $gt_file --query_file $query_file --result_path $result_path -K $kvalue -L 50 100 200 -T 96 >> $log_file
+    ./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix $index_file --gt_file $gt_file --query_file $query_file --result_path $result_path -K $kvalue -L 50 100 200 -T 96 >> $log_file
 done

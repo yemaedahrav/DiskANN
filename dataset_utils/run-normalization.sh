@@ -1,15 +1,20 @@
 #!/bin/bash
 
-input_base_path="/home/t-avarhade/openai-embedding-1M"
-output_base_path="/home/t-avarhade/openai-embedding-1M"
+## Change these paths as per your setup 
 
-data_file="${input_base_path}/base1m.fbin"
-normalized_data_file="${output_base_path}/base1m_normalized.fbin"
+input_base_path="/home/t-avarhade/test_generated_data"
+output_base_path="/home/t-avarhade/test_generated_data"
 
-query_file="${input_base_path}/queries_100k.fbin"
-normalized_query_file="${output_base_path}/queries_100k_normalized.fbin"
+data_file="${input_base_path}/embeddings_10k_data_pert_eps1.62e-05.bin"
+normalized_data_file="${output_base_path}/embeddings_10k_data_pert_eps1.62e-05_normalized.bin"
 
-gt_file="${output_base_path}/base1m_gt200_100k_normalized.fbin"
+query_file="${input_base_path}/embeddings_10k_query.bin"
+normalized_query_file="${output_base_path}/embeddings_10k_query_normalized.bin"
+
+gt_file="${output_base_path}/embeddings_10k_normalized_gt200.bin"
+
+
+## Do not touch the below code unless making some changes to the code itself.
 
 g++ -o normalize_vectors normalize_vectors.cpp
 ./normalize_vectors $data_file $normalized_data_file $query_file $normalized_query_file > normalize_logs.txt
