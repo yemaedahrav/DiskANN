@@ -26,13 +26,13 @@ query_file="/home/t-avarhade/$file_base/embeddings_10k_query_normalized.bin"
 # H_values=(0.25 0.3 0.35 0.4 0.5 0.75 1)                                           # Example: Clustering Threshold values
 # F_values=(0.1 0.1 0.1 0.1 0.1 0.1 0.1)                                            # Example: Hybrid Ratio values
 
-R_values=(16 32)
-L_values=(50 50)
-K_values=(50 50)
-M_values=(1 1)                                                   # Example: Point Multiplicity values
-S_values=(1 1)  # Example: Maximum Cluster Size values
-H_values=(0 0)                                                        # Example: Clustering Threshold values
-F_values=(1 1)                                            # Example: Hybrid Ratio values
+R_values=(16 16 32 32)
+L_values=(50 50 50 50)
+K_values=(50 50 50 50)
+M_values=(5 5 5 5)                                            # Example: Point Multiplicity values
+S_values=(10000000 10000000 10000000 10000000)                              # Example: Maximum Cluster Size values
+H_values=(1 1.5 1 1.5)                                        # Example: Clustering Threshold values
+F_values=(0.25 0.25 0.25 0.25)                                            # Example: Hybrid Ratio values (The ratio of points being entered in standard DiskANN before we begin clustering)
 T=1
 
 # Create the log directory if it doesn't exist
@@ -46,11 +46,18 @@ for i in "${!R_values[@]}"; do
     H=${H_values[$i]}
     F=${F_values[$i]}
     K=${K_values[$i]}
+
+    L2=$((2 * L))
+    L4=$((4 * L))
+    L10=$((10 * L))
+
     index_path="${home}/${file_base}/index/2pass_index_r${R}_l${L}_m${M}_s${S}_h${H}_f${F}"
     cluster_path="${home}/${file_base}/index/2pass_cluster_r${R}_l${L}_m${M}_s${S}_h${H}_f${F}"
     log_path="${home}/Amey/DiskANN/clustering-results/test-generated-data/2pass_cluster_r${R}_l${L}.txt"
     cluster_distribution_path="${home}/Amey/DiskANN/clustering-results/test-generated-data/2pass_cluster_distribution_r${R}_l${L}_m${M}_s${S}_h${H}_f${F}.txt"
 
+    echo "Running with R=${R}, L=${L}, M=${M}, S=${S}, H=${H}, F=${F}"
+
     ./apps/build_memory_index  --data_type float --dist_fn l2 --index_path_prefix $index_path --cluster_path $cluster_path --cluster_distribution_path $cluster_distribution_path --data_path $data_path -R ${R} -L ${L} -M ${M} -S ${S} -H ${H} -F ${F} -T ${T} >> $log_path
-    ./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix $index_path --cluster_path $cluster_path --gt_file $gt_file --query_file $query_file --result_path ${home}/Dump/tmp -K $K -L 50 100 200 -T ${T} >> $log_path
+    ./apps/search_memory_index --data_type float --dist_fn l2 --index_path_prefix $index_path --cluster_path $cluster_path --gt_file $gt_file --query_file $query_file --result_path ${home}/Dump/tmp -K $K -L $L $L2 $L4 -T ${T} >> $log_path
 done
