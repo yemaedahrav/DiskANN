@@ -1,0 +1,9 @@
+Ground Truth: 9997, #GT: 200
+
+Bucket percentages: 0-0.3: 2.51%, 0.3-0.5: 0.11%, 0.5-1: 6.36%, 1-1.5: 85.07%
+Data points: 49985, Dimension: 3072
+
+Bucket percentages: 0-0.3: 0.00%, 0.3-0.5: 0.01%, 0.5-1: 0.03%, 1-1.5: 99.96%
+Data file: /home/t-avarhade/test_generated_data/embeddings_10k_data_pert_eps1.62e-05_normalized.bin
+Min distance: 0.2899057619642844
+Max distance: 1.5207420056211411
