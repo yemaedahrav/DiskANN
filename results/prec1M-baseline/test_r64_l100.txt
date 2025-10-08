@@ -1,0 +1,175 @@
+----------------TEST: Looking at the behaviour of the start node----------------------
+
+
+Starting index build with R: 64  Lbuild: 100  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1010812 from file.. 
+Starting index build with 1010812 points... 
+
+0% of index build completed.Printing L list of start node
+16456 0
+84045 0.0261068
+100354 0.0332446
+75799 0.0345676
+141370 0.0362018
+61497 0.0363125
+36921 0.0368973
+122892 0.0374926
+8201 0.0381279
+26647 0.0385326
+63544 0.0399076
+149511 0.0404722
+38954 0.0410932
+67610 0.0422778
+180231 0.0437351
+38988 0.0439895
+22531 0.044251
+163859 0.044257
+73734 0.0449291
+43067 0.0449801
+149529 0.0453232
+53252 0.0458255
+38936 0.0462468
+108595 0.0465446
+108600 0.0472713
+32847 0.047646
+139285 0.0480994
+98328 0.0482775
+69725 0.0499391
+86025 0.0499391
+86058 0.0499391
+126980 0.0499391
+131086 0.0499391
+178190 0.0499391
+149531 0.050242
+69715 0.0504275
+4173 0.0513951
+96314 0.0517085
+143433 0.0520722
+10300 0.0523672
+18434 0.0524331
+161794 0.0525048
+147469 0.0529836
+182311 0.0535085
+63519 0.0537463
+139276 0.0537802
+2074 0.0550132
+10254 0.0550256
+24593 0.0553096
+151554 0.0559302
+18495 0.0564401
+161818 0.0579959
+79975 0.0581551
+96345 0.0588359
+126994 0.0602875
+192525 0.0612625
+26666 0.0615716
+186458 0.0622924
+94209 0.0625973
+69677 0.0633448
+69640 0.0637753
+192528 0.0640315
+10283 0.0664631
+63542 0.0665645
+174099 0.0667213
+55315 0.0672123
+126978 0.069745
+186416 0.0700337
+20506 0.0700612
+2053 0.0721521
+4159 0.0730783
+184347 0.0730913
+81924 0.0733362
+116759 0.0743082
+169997 0.0761008
+24579 0.0772205
+59 0.0778541
+161834 0.0790727
+55301 0.0795844
+190496 0.0799931
+184340 0.0816036
+55317 0.0821874
+135182 0.0821874
+167975 0.0840678
+32841 0.0850007
+141380 0.0852418
+92175 0.0859387
+2083 0.0869386
+59393 0.0873825
+79919 0.0879395
+67619 0.0881086
+141319 0.0891208
+143408 0.089265
+6150 0.0895288
+180227 0.0896455
+165943 0.0896535
+32791 0.0907812
+75826 0.0930673
+71703 0.0937676
+2145 0.0957383
+
+
+9.89304% of index build completed.
+29.6791% of index build completed.
+19.7861% of index build completed.
+49.4652% of index build completed.
+39.5721% of index build completed.
+59.3582% of index build completed.
+69.2513% of index build completed.
+79.1443% of index build completed.
+89.0373% of index build completed.
+98.9304% of index build completed.Starting final cleanup..Start Node 16456 neighbors: 312949 866864 311716 528029 936956 861128 960475 696320 615995 450282 310697 7572 9195 98462 875881 643156 359493 355458 719309 830791 492248 26455 937474 212529 125861 301386 234339 348202 68026 93329 231816 29520 139599 127360 208472 561242 60065 146688 45639 57201 354553 104383 866459 990112 405313 345319 585801 157410 480666 219850 1003529 590372 789381 577321 30166 939626 129837 995184 129137 102628 1009271 970084 205406 694253 
+done. Link time: 133.942s
+Index built with degree: max:64  avg:46.3079  min:1  count(deg<2):29472
+Indexing time: 134.366
+Not saving tags as they are not enabled.
+Time taken for save: 2.84718s.
+Reading (with alignment) bin file /home/t-avarhade/prec1M/prec1M_queries_normalized.bin ...Metadata: #pts = 13265, #dims = 384, aligned_dim = 384... allocating aligned memory of 20375040 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/prec1M/prec1M_gt100.bin, size: 10612008, cache_size: 10612008
+Reading truthset file /home/t-avarhade/prec1M/prec1M_gt100.bin ...
+Metadata: #pts = 13265, #dims = 100... 
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0144868s
+From graph header, expected_file_size: 191277560, _max_observed_degree: 64, _start: 16456, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/prec1M/index/test_prec1M_normalized_r64_l100...done. Index has 1010812 nodes and 46808572 out-edges, _start is set to 16456
+Num frozen points:0 _nd: 1010812 _start: 16456 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 1010812
+Index loaded
+Using 96 threads to search
+  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency  Recall@100
+=============================================================================================
+ 100     3302.60           5618.51      108.92            28971.66      206371.91       70.53
+ 200     2894.87          10081.28      207.51            33088.72      101296.45       80.88
+ 300     1948.23          14346.61      306.88            49182.05      146992.86       85.78
+ 400     1474.93          18463.95      406.44            64952.86      165146.09       88.65
+ 500     1194.14          22468.65      506.10            80228.16      196847.08       90.58
+Done searching. Now saving results 
+Writing bin: /home/t-avarhade/Dump/tmp_100_idx_uint32.bin
+bin: #pts = 13265, #dims = 100, size = 5306008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_100_dists_float.bin
+bin: #pts = 13265, #dims = 100, size = 5306008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_200_idx_uint32.bin
+bin: #pts = 13265, #dims = 100, size = 5306008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_200_dists_float.bin
+bin: #pts = 13265, #dims = 100, size = 5306008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_300_idx_uint32.bin
+bin: #pts = 13265, #dims = 100, size = 5306008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_300_dists_float.bin
+bin: #pts = 13265, #dims = 100, size = 5306008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_400_idx_uint32.bin
+bin: #pts = 13265, #dims = 100, size = 5306008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_400_dists_float.bin
+bin: #pts = 13265, #dims = 100, size = 5306008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_500_idx_uint32.bin
+bin: #pts = 13265, #dims = 100, size = 5306008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_500_dists_float.bin
+bin: #pts = 13265, #dims = 100, size = 5306008B
+Finished writing bin.

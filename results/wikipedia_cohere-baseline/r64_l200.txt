@@ -1,0 +1,51 @@
+Starting index build with R: 64  Lbuild: 200  alpha: 1.2  #threads: 96
+L2: Using AVX2 distance computation DistanceL2Float
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+0% of index build completed.20% of index build completed.10% of index build completed.30% of index build completed.40% of index build completed.50% of index build completed.70% of index build completed.60% of index build completed.90% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 396.99s
+Index built with degree: max:64  avg:33.6952  min:1  count(deg<2):1491
+Indexing time: 397.825
+Not saving tags as they are not enabled.
+Time taken for save: 4.47996s.
+Reading (with alignment) bin file /home/t-avarhade/big-ann-benchmarks/data/wikipedia_cohere/wikipedia_query.bin ...Metadata: #pts = 5000, #dims = 768, aligned_dim = 768... allocating aligned memory of 15360000 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/big-ann-benchmarks/data/wikipedia_cohere/wikipedia-1M-gt200, size: 8000008, cache_size: 8000008
+Reading truthset file /home/t-avarhade/big-ann-benchmarks/data/wikipedia_cohere/wikipedia-1M-gt200 ...
+Metadata: #pts = 5000, #dims = 200... 
+L2: Using AVX2 distance computation DistanceL2Float
+Resizing took: 0.0137434s
+From graph header, expected_file_size: 138780788, _max_observed_degree: 64, _start: 5490, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/wikipedia_cohere/r64_l200...done. Index has 1000000 nodes and 33695191 out-edges, _start is set to 5490
+Num frozen points:0 _nd: 1000000 _start: 5490 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 1000000
+Index loaded
+Using 96 threads to search
+  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency  Recall@200
+=============================================================================================
+ 200     3175.13           9806.01      200.10            29895.98      208739.73       97.20
+ 300     2000.57          13880.24      300.05            47678.05      234276.81       99.10
+ 400     1777.58          17646.16      400.05            53688.66      243556.16       99.46
+ 500     2090.98          21204.55      500.04            45684.66      165672.48       99.57
+Done searching. Now saving results 
+Writing bin: /home/t-avarhade/Dump/tmp_200_idx_uint32.bin
+bin: #pts = 5000, #dims = 200, size = 4000008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_200_dists_float.bin
+bin: #pts = 5000, #dims = 200, size = 4000008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_300_idx_uint32.bin
+bin: #pts = 5000, #dims = 200, size = 4000008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_300_dists_float.bin
+bin: #pts = 5000, #dims = 200, size = 4000008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_400_idx_uint32.bin
+bin: #pts = 5000, #dims = 200, size = 4000008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_400_dists_float.bin
+bin: #pts = 5000, #dims = 200, size = 4000008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_500_idx_uint32.bin
+bin: #pts = 5000, #dims = 200, size = 4000008B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_500_dists_float.bin
+bin: #pts = 5000, #dims = 200, size = 4000008B
+Finished writing bin.

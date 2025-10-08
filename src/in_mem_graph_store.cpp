@@ -191,7 +191,6 @@ std::tuple<uint32_t, uint32_t, size_t> InMemGraphStore::load_impl(const std::str
             _max_range_of_graph = k;
         }
     }
-
     diskann::cout << "done. Index has " << nodes_read << " nodes and " << cc << " out-edges, _start is set to " << start
                   << std::endl;
     return std::make_tuple(nodes_read, start, file_frozen_pts);

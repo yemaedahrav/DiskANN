@@ -899,6 +899,7 @@ std::pair<uint32_t, uint32_t> Index<T, TagT, LabelT>::iterate_to_fixed_point(
     {
         auto nbr = best_L_nodes.closest_unexpanded();
         auto n = nbr.id;
+        hops++;
 
         // Add node to expanded nodes to create pool for prune later
         if (!search_invocation)
@@ -1003,6 +1004,14 @@ void Index<T, TagT, LabelT>::search_for_point_and_prune(int location, uint32_t L
     {
         _data_store->get_vector(location, scratch->aligned_query());
         iterate_to_fixed_point(scratch, Lindex, init_ids, false, unused_filter_label, false);
+        if (location == _start) {
+            NeighborPriorityQueue &L_list = scratch->best_l_nodes();
+            // diskann::cout<<"Printing L list of start node"<<std::endl;
+            // for (size_t i = 0; i < L_list.size(); ++i) {
+            //     diskann::cout << L_list[i].id <<" "<< L_list[i].distance <<std::endl;
+            // }
+            // diskann::cout << std::endl;
+        }
     }
     else
     {
@@ -1310,7 +1319,6 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
         _start = (uint32_t)_max_points;
     else
         _start = calculate_entry_point();
-
     diskann::Timer link_timer;
 
 #pragma omp parallel for schedule(dynamic, 2048)
@@ -1378,6 +1386,13 @@ template <typename T, typename TagT, typename LabelT> void Index<T, TagT, LabelT
 
             _graph_store->clear_neighbours((location_t)node);
             _graph_store->set_neighbours((location_t)node, new_out_neighbors);
+            if (node == _start){
+                diskann::cout << "Start Node " << node << " neighbors: ";
+                for (const auto& nbr_id : new_out_neighbors) {
+                    diskann::cout << nbr_id << " ";
+                }
+                diskann::cout << std::endl;
+            }
         }
     }
     if (_nd > 0)

@@ -1,0 +1,56 @@
+Starting index build with R: 32  Lbuild: 50  alpha: 1.2  #threads: 96
+Using only first 1000000 from file.. 
+Starting index build with 1000000 points... 
+0% of index build completed.10% of index build completed.20% of index build completed.30% of index build completed.40% of index build completed.50% of index build completed.60% of index build completed.70% of index build completed.80% of index build completed.90% of index build completed.Starting final cleanup..done. Link time: 155.484s
+Index built with degree: max:32  avg:28.1337  min:1  count(deg<2):293
+Indexing time: 163.652
+Not saving tags as they are not enabled.
+Time taken for save: 18.0202s.
+Reading (with alignment) bin file /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_query_normalized_6809.bin_fp32 ...Metadata: #pts = 6809, #dims = 3072, aligned_dim = 3072... allocating aligned memory of 83668992 bytes... done. Copying data to mem_aligned buffer... done.
+Opened: /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_gt200, size: 10894408, cache_size: 10894408
+Reading truthset file /home/t-avarhade/ann-datasets/SentenceChunk_OAILarge_gt200 ...
+Metadata: #pts = 6809, #dims = 200... 
+Resizing took: 0.015419s
+From graph header, expected_file_size: 116534844, _max_observed_degree: 32, _start: 712003, file_frozen_pts: 0
+Loading vamana graph /home/t-avarhade/ann-datasets/index/OAI_sentencechunk_r32_l50...done. Index has 1000000 nodes and 28133705 out-edges, _start is set to 712003
+Num frozen points:0 _nd: 1000000 _start: 712003 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 1000000
+Index loaded
+Using 96 threads to search
+  Ls         QPS     Avg dist cmps    Avg hops  Mean Latency (mus)   99.9 Latency  Recall@100
+=============================================================================================
+ 100     2680.04           1967.47      107.68            35547.05      231390.61       89.65
+ 200     1835.53           3464.53      206.72            51951.42      313978.12       93.98
+ 300     1446.83           4887.83      306.15            65999.86      395792.66       95.49
+ 400     1115.16           6256.13      405.64            85540.68      499597.62       96.27
+ 500      935.36           7586.43      505.27           101988.04      625488.44       96.79
+Done searching. Now saving results 
+Writing bin: /home/t-avarhade/Dump/tmp_100_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_100_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_200_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_200_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_300_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_300_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_400_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_400_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_500_idx_uint32.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.
+Writing bin: /home/t-avarhade/Dump/tmp_500_dists_float.bin
+bin: #pts = 6809, #dims = 100, size = 2723608B
+Finished writing bin.

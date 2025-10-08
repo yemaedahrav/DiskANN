@@ -131,7 +131,7 @@ double calculate_recall(uint32_t num_queries, uint32_t *gold_std, float *gs_dist
 {
     double total_recall = 0;
     std::set<uint32_t> gt, res;
-
+    std::ofstream recall_file("recall" + std::to_string(recall_at) + ".txt", std::ios::app);
     for (size_t i = 0; i < num_queries; i++)
     {
         gt.clear();
@@ -159,8 +159,10 @@ double calculate_recall(uint32_t num_queries, uint32_t *gold_std, float *gs_dist
                 cur_recall++;
             }
         }
+        recall_file << (int)(100*cur_recall/recall_at) << std::endl;
         total_recall += cur_recall;
     }
+    recall_file.close();
     return total_recall / (num_queries) * (100.0 / recall_at);
 }
 
