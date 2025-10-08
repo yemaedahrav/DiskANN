@@ -12,7 +12,7 @@ def compute_min_max_distances_gt(filename):
         min_dist = np.min(distances)
         max_dist = np.max(distances)
         # Bucket edges
-        buckets = [0, 0.3, 0.5, 1, 1.5]
+        buckets = [0, 0.3, 0.5, 1, 1.5, 100000]
         counts = [0] * (len(buckets) - 1)
         for dist in distances:
             for i in range(len(buckets) - 1):
@@ -20,8 +20,8 @@ def compute_min_max_distances_gt(filename):
                     counts[i] += 1
                     break
         total = len(distances)
-        print(f"Ground Truth: {n}, #GT: {d}\n")
-        print(f"Bucket percentages: 0-0.3: {counts[0]/total:.2%}, 0.3-0.5: {counts[1]/total:.2%}, 0.5-1: {counts[2]/total:.2%}, 1-1.5: {counts[3]/total:.2%}")
+        print(f"Ground Truth: {n}, #GT: {d}")
+        print(f"Bucket percentages: 0-0.3: {counts[0]/total:.2%}, 0.3-0.5: {counts[1]/total:.2%}, 0.5-1: {counts[2]/total:.2%}, >1: {counts[3]/total:.2%}\n")
     return min_dist, max_dist
 
 
@@ -36,7 +36,7 @@ def compute_min_max_distances_data(filename):
         distances = pdist(data, metric='euclidean')
         min_dist = np.min(distances)
         max_dist = np.max(distances)
-        buckets = [0, 0.3, 0.5, 1, 1.5]
+        buckets = [0, 0.3, 0.5, 1, 1.5, 100000]
         counts = [0] * (len(buckets) - 1)
         for dist in distances:
             for i in range(len(buckets) - 1):
@@ -44,8 +44,8 @@ def compute_min_max_distances_data(filename):
                     counts[i] += 1
                     break
         total = len(distances)
-        print(f"Data points: {n}, Dimension: {d}\n")
-        print(f"Bucket percentages: 0-0.3: {counts[0]/total:.2%}, 0.3-0.5: {counts[1]/total:.2%}, 0.5-1: {counts[2]/total:.2%}, 1-1.5: {counts[3]/total:.2%}")
+        print(f"Data points: {n}, Dimension: {d}")
+        print(f"Bucket percentages: 0-0.3: {counts[0]/total:.2%}, 0.3-0.5: {counts[1]/total:.2%}, 0.5-1: {counts[2]/total:.2%}, >1: {counts[3]/total:.2%}")
     return min_dist, max_dist
 
 
@@ -53,7 +53,7 @@ if __name__ == "__main__":
     data_file = "/home/t-avarhade/test_generated_data/embeddings_10k_data_pert_eps1.62e-05_normalized.bin"
     gt_file = "/home/t-avarhade/test_generated_data/embeddings_10k_normalized_gt200.bin"
     compute_min_max_distances_gt(gt_file)
-    min_dist, max_dist = compute_min_max_distances_data(data_file)
     print(f"Data file: {data_file}")
+    min_dist, max_dist = compute_min_max_distances_data(data_file)
     print(f"Min distance: {min_dist}")
     print(f"Max distance: {max_dist}")
